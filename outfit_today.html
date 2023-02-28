@@ -78,25 +78,42 @@
 
     <script>
 
-let jsonStr = JSON.stringify({'now': new Date()}) ;   
-console.log(jsonStr);
 
 
-const x = document.getElementById("demo");
-function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition);
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
-  }
-}
+      let jsonStr = JSON.stringify({'now': new Date()}) ;   
+      console.log(jsonStr);
 
-function showPosition(position) {
-  console.log("Latitude: " + position.coords.latitude +
-  "<br>Longitude: " + position.coords.longitude);
-}
- 
-getLocation()
+
+      const x = document.getElementById("demo");
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+
+      function showPosition(position) {
+        console.log("Latitude: " + position.coords.latitude +
+        "<br>Longitude: " + position.coords.longitude);
+      }
+      
+      getLocation()
+
+/*
+
+      function getGeo() {
+        navigator.geolocation.getCurrentPosition(getCurrentLoc)
+    }
+
+    function getCurrentLoc(data) {
+        var lat,lon;
+        lat=data.coords.latitude;
+        lon=data.coords.longitude;
+        getLocalWeather(lat,lon)
+        initMap(lat,lon)
+    }
+    */
 
  // fetch the data:
 
@@ -107,6 +124,19 @@ getLocation()
 
 
  // process the data:::
+
+
+ // WE have to think about:
+ // rain::
+ // wind:
+ //temperature::
+
+ // how about switch cases for each?? 
+ // might need to think about two options together : like what will happen if it is rainning and windy
+
+ // check enum for possible status::
+ 
+
 
  
 
