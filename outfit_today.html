@@ -78,8 +78,26 @@
 
     <script>
 
+      let api_url="https://api.openweathermap.org/data/2.5/weather?lat=65.010211&lon=25.483722&appid=2d4079dbf470ffdeb5080fbc16e098fc"; 
+        //let api_url = "http://dataservice.accuweather.com/forecasts/v1/minute";65.010211, 25.483722
+        async function getISS() {
+            const renponse= await fetch (api_url);
+            const data= await renponse.json();
+            console.log(data.main);
+            console.log(data.main.temp_max);
+            const {main}=data.main;
+            document.getElementById("temp").textContent = Math.ceil(data.main.temp-273.15);
+            document.getElementById("FL").textContent = Math.ceil(data.main.feels_like-273.15);
+            document.getElementById("max").textContent = Math.ceil(data.main.temp_max-273.15);
+            document.getElementById("WS").textContent = data.wind.speed;
+
+        }
+
+            getISS();
 
 
+
+/*
       let jsonStr = JSON.stringify({'now': new Date()}) ;   
       console.log(jsonStr);
 
