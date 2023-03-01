@@ -46,8 +46,8 @@
      </style >
 
      
-<header>
-    <h1>Outfit Today</h1>
+    <header>
+    <h1 id="head_main">Outfit Today</h1>
     </header>
 
 
@@ -55,36 +55,68 @@
         
         <div class="row">
 
-          <div class="col-sm-3 p-3 bg-primary text-white">
-            <ul>
-                <li>Location_</li>
-                <li>Date and time now :::: </li>
-                <li>Today Weather and today forcast : then we can suggest based on that</li>
-                <li>Weather forcast for next few days</li>
-
-                <p> 
-                  Temparature: <span id = "temp"></span> <br />
-                  Feels Like: <span id = "FL"></span> <br />
-                  Maximum Temp: <span id = "max"></span> <br />
-                  Wind Speed: <span id = "WS"></span> <br />
-              </p>
-                </ul>
+            <div class="col-sm-3 p-3 bg-primary text-white">
+         
+                <p id="location"> location goes here </p>
+                <p id="date1"> date goes here </p>
+                <p id="time1"> Time goes here</p>
+                <p id="weather1"> weather goes here</p>
+                <p id="feels_like_w"> feels like weather goes here</p>
+                <p id="wind_condition"> wind consition goes here</p>
+                <p id="prediction"> link for Prediction for today and for week goes here</p>
+                <p id="change_loca">If user prefer to change the location manually and check the condition: it goes here. We might bned this option to support travellers</p>
+        
+          </div>
         </div>
 
           <div class="col-sm-9 p-3 bg-dark text-white">
              <p id="p_display"> You can include all display here (only the cloths you need to wear including sun glasses , sun cream, may be mosquito repelant, rain cloths etc..</p>
              <img src="ex_outfit.png" alt="cloths" width="500" height="500">
-        </div>
+          </div>
 
-        </div>
-
-    </div>
+      </div>
 
     
 
 
     <script>
 
+
+
+
+
+// link html to javascript::::::::::::::::::::::::: All links goes here
+        const head_main= document.getElementById("head_main");
+        const location= document.getElementById("location");
+        const date1 = document.getElementById("date1");
+        const time1 = document.getElementById("time1");
+        const weather1= document.getElementById("weather1");
+        const feels_like_w =document.getElementById("feels_like_w");
+        const wind_condition = document.getElementById("wind_condition");
+        const prediction=document.getElementById("prediction") ;
+        const change_loca=document.getElementById("change_loca");
+
+
+
+// Global variable: All global variables goes here
+      let today_temperature;
+      let current_location;
+      let date_today;
+      let time_today;
+      let today_wind_rate;
+      let today_rainy_presentage;
+      let today_forcast;
+      // May be this two we can go as map or something......
+      let noOfDates_to_forecast_future;//
+      let future_forecast;
+      //#####################################################################
+
+
+// Fetching data goes here: 
+// we assign them  belows:
+
+
+/*
       let api_url="https://api.openweathermap.org/data/2.5/weather?lat=65.010211&lon=25.483722&appid=2d4079dbf470ffdeb5080fbc16e098fc"; 
         //let api_url = "http://dataservice.accuweather.com/forecasts/v1/minute";65.010211, 25.483722
         async function getISS() {
@@ -101,6 +133,29 @@
         }
 
             getISS();
+            var SERVER_URL = "http://opendata.fmi.fi/wfs";
+var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
+//var connection = new fi.fmi.metoclient.metolib.WfsConnection();
+
+
+            var parser = new Metolib.WfsRequestParser();
+        parser.getData({
+            url : SERVER_URL,
+            storedQueryId : STORED_QUERY_OBSERVATION,
+            requestParameter : "td",
+            // Integer values are used to init dates for older browsers.
+            // (new Date("2013-05-10T08:00:00Z")).getTime()
+            // (new Date("2013-05-12T10:00:00Z")).getTime()
+            begin : new Date(1368172800000),
+            end : new Date(1368352800000),
+            timestep : 60 * 60 * 1000,
+            sites : "Helsinki",
+            callback : function(data, errors) {
+                // Handle the data and errors object in a way you choose.
+                // Here, we delegate the content for a separate handler function.
+                handleCallback(data, errors);
+            }
+        });
 
 
 
@@ -142,13 +197,24 @@
 
  // fetch the data:
 
- // how to store data:::
+ // how to store data::: It can be array, map or anything: lets assume we assigned them here 
 
-
- // read the data::
-
+ 
+        today_temperature=10;
+        current_location;
+        date_today;
+        time_today;
+        today_wind_rate;
+        today_rainy_presentage;
+        today_forcast;
+      // May be this two we can go as map or something......
+        noOfDates_to_forecast_future;//
+        future_forecast;
 
  // process the data:::
+    switch(today_temperature)
+
+    case
 
 
  // WE have to think about:
@@ -170,6 +236,6 @@
  // where to return :::::
 
 
-    </script>
+ </script>
 </body>
 </html>
