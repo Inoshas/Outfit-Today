@@ -220,7 +220,7 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
  // how to store data::: It can be array, map or anything: lets assume we assigned them here 
 
  
-        today_temperature=-16;
+        today_temperature=-30;
         current_location;
         date_today;
         time_today;
@@ -233,20 +233,43 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
 
 
 
+        // lets make an object with different cloths:
+       const array_cloths ={ too_cold: ["Winter_jacket"  ,"Winter_pants"  ,"winter_boots"  ,"wollen_socks",  "thermal_underwear",  "Pants" , "long_sleeve"  ,"winter_cap" , "scarf" ] ,
+                             pretty_cold: [ "Winter_jacket" , "Winter_pants" , "winter_boots" , "wollen_socks"  , "Pants" ,"long_sleeves" , "winter_cap" , "scarf"  ],
+                             around_zero : [ "Winter_jacket" , "Winter_pants" , "winter_boots" , "Pants" , "long_sleeves" , "winter_cap"  ]  ,
+                             offseason_feel :  ["offseason_jacket" , "offseasonal_pants" , "offseasonal_shoes" , "Pants" , "long_sleeves" , "small_hat"], 
+                             summary_mood : [ "pants sandles" , "sleeve_less" , "water_bottle" , "sun_glass" ],
+                             too_hot : ["offseason_jacket" , "offseasonal_pants" , "offseasonal_shoes" , "Pants" , "long_sleeves" , "small_hat"]
+                            }  ;
+                           
+
+
+        
 
         // Define enum for rain_presentage:
 
         // Define enum for wind_rate:
 
  // process the data:::
+ function check_temperature(){
     switch(true){
 
 // below than -15
+
+      case today_temperature <-25:
+        // We need warning message for this
+      console.log("Warning message")
+      console.log(array_cloths.too_cold)
+      break;
+
       case today_temperature <-15:
+        dress_today=array_dress()
+        /*
       console.log("Today temperature is  " +today_temperature)
       image1.src ="winter_jacket.jpg";
       image1.style.height = '150px';
       image1.style.width = '150px';
+      */
       break;
 
 // between -5 and -15
@@ -272,13 +295,14 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
       default:
       console.log("stupi..............d")
       break;
-
+}
 
 
 
 }
     
    
+check_temperature();
 
    
 
