@@ -43,6 +43,8 @@
         background-image: linear-gradient(to right, rgb(241, 236, 236), rgb(178, 175, 168), rgb(245, 245, 198), rgb(209, 235, 209), rgb(243, 243, 249));
         }
 
+
+        
      </style >
 
      
@@ -70,29 +72,18 @@
        
 
           <div class="col-sm-9 p-3 bg-dark text-white">
-            
-            <div class="row">
-              <div class="col-sm-3 bg-primary text-white">cloths 1</div>
-              <img id="image1">
-              <div class="col-sm-3 bg-dark text-white">cloths 2</div>
-              <div class="col-sm-3 bg-primary text-white">cloths 3</div>
-            </div>
-            <div class="row">
-              <div class="col-sm-3 bg-primary text-white">5</div>
-              <div class="col-sm-3 bg-dark text-white">6</div>
-              <div class="col-sm-3 bg-primary text-white">7</div>
-            </div>
-            <div class="row">
-              <div class="col-sm-3 bg-primary text-white">8</div>
-              <div class="col-sm-3 bg-dark text-white">9</div>
-              <div class="col-sm-3 bg-primary text-white">10</div>
-            </div>
-
           
           </div>
+           <div>
+          
+          
+            <button  id="checklist" onclick="create_checklist()">Check List</button>
+            <div id="myDIV" style="padding:16px;background-color:lightgray" style="display: inline-block" ></div>
+          </div>
 
-      
         </div>
+
+
       </div>
 
     
@@ -134,6 +125,7 @@
 
 // Fetching data goes here: 
 // we assign them  belows:
+
 
 
 /*
@@ -220,7 +212,7 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
  // how to store data::: It can be array, map or anything: lets assume we assigned them here 
 
  
-        today_temperature=-30;
+        today_temperature=0;
         current_location;
         date_today;
         time_today;
@@ -234,13 +226,14 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
 
 
         // lets make an object with different cloths:
-       const array_cloths ={ too_cold: ["Winter_jacket"  ,"Winter_pants"  ,"winter_boots"  ,"wollen_socks",  "thermal_underwear",  "Pants" , "long_sleeve"  ,"winter_cap" , "scarf" ] ,
-                             pretty_cold: [ "Winter_jacket" , "Winter_pants" , "winter_boots" , "wollen_socks"  , "Pants" ,"long_sleeves" , "winter_cap" , "scarf"  ],
-                             around_zero : [ "Winter_jacket" , "Winter_pants" , "winter_boots" , "Pants" , "long_sleeves" , "winter_cap"  ]  ,
-                             offseason_feel :  ["offseason_jacket" , "offseasonal_pants" , "offseasonal_shoes" , "Pants" , "long_sleeves" , "small_hat"], 
-                             summary_mood : [ "pants sandles" , "sleeve_less" , "water_bottle" , "sun_glass" ],
-                             too_hot : ["offseason_jacket" , "offseasonal_pants" , "offseasonal_shoes" , "Pants" , "long_sleeves" , "small_hat"]
-                            }  ;
+       const array_cloths =
+          { too_cold: ["Winter jacket"  ,"Winter pants"  ,"winter boots"  ,"wollen socks",  "thermal underwear",  "Pants" , "long sleeve"  ,"winter cap" , "scarf" ] ,
+            pretty_cold: [ "Winter jacket" , "Winter pants" , "winter boots" , "wollen socks"  , "Pants" ,"long sleeves" , "winter cap" , "scarf"  ],
+            around_zero : [ "Winter jacket" , "Winter pants" , "winter boots" , "Pants" , "long sleeves" , "winter cap"  ]  ,
+            offseason_feel :  ["offseason jacket" , "offseasonal pants" , "offseasonal_shoes" , "Pants" , "long sleeves" , "small hat"], 
+            summary_mood : [ "pants sandles" , "sleeve less" , "water bottle" , "sun glass" ],
+            too_hot : ["offseason jacket" , "offseasonal pants" , "offseasonal shoes" , "Pants" , "long sleeves" , "small hat"]
+           }  ;
                            
 
 
@@ -251,61 +244,100 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
         // Define enum for wind_rate:
 
  // process the data:::
- function check_temperature(){
-    switch(true){
+ // This function return cloths need to wear depend on the weather:
+      function check_temperature(){  
 
-// below than -15
+          switch(true){
 
-      case today_temperature <-25:
-        // We need warning message for this
-      console.log("Warning message")
-      console.log(array_cloths.too_cold)
-      break;
+      // below -25 :: I add this to put some warning message
+            case today_temperature <-25:
+              return array_cloths.too_cold;
+              console.log("we need another warning message or something for this.")
+              break;
+      //below -15
+            case today_temperature <-15:
+              return array_cloths.too_cold;
+              break;
 
-      case today_temperature <-15:
-        dress_today=array_dress()
-        /*
+      // between -5 and -15
+            case today_temperature<-5:
+            return array_cloths.pretty_cold;
+            break;
+
+      // +5 to -5 :::
+            case today_temperature<5:
+            return array_cloths.around_zero;
+            break;
+
+      //5 to +15//
+            case today_temperature<15:
+            return array_cloths.offseason_feel;
+            break;
+
+            //5 to +15//
+            case today_temperature<30:
+            return array_cloths.summary_mood;
+            break;
+
+      // above +15
+            case today_temperature<60:
+            return array_cloths.too_hot
+            break;
+
+            default:
+            console.log("Something is hapening:::")
+            break;
+
+          }
+      }
+          
+
+    console.log(check_temperature());
+
+    
+
+    var div1 = document.createElement("div");
+    //div1.style.width = "100px";
+    //div1.style.height = "100px";
+    //div1.style.background = "red";
+    div1.style.color = "white";
+    div1.style.display= "inline-block"
+    //div1.innerHTML = "Hello";
+
+   
+
+      function create_checklist(){
+      
+        // document.body.appendChild(div1);
+        cloths_need = check_temperature();
+        cloths_need.forEach(element => {
+         
+          // create check boxes and set names using array names
+        var chk_box = document.createElement("INPUT");
+        chk_box.setAttribute("type", "checkbox");
+        chk_box.innerText ="test"
+
+        //style="display: inline-block"
+        var chk_para = document.createElement("p");
+        chk_para.innerText =element + '\u00a0' + '\u00a0';
+        chk_para.style.display= "inline-block";
+
+        document.getElementById("myDIV").appendChild(chk_box);
+        document.getElementById("myDIV").appendChild(chk_para); 
+        //document.body.appendChild(chk_para); 
+
+        });
+        
+
+      }
+
+   
+  /*
       console.log("Today temperature is  " +today_temperature)
       image1.src ="winter_jacket.jpg";
       image1.style.height = '150px';
       image1.style.width = '150px';
       */
-      break;
-
-// between -5 and -15
-      case today_temperature<-5:
-      console.log("Today temperature is  " +today_temperature)
-      break;
-
-// +5 to -5 :::
-      case today_temperature<5:
-      console.log("Today temperature is  " +today_temperature)
-      break;
-
-//5 to +15//
-      case today_temperature<15:
-      console.log("Today temperature is  " +today_temperature)
-      break;
-
-// above +15
-      case today_temperature<40:
-      console.log("Today temperature is  " +today_temperature)
-      break;
-
-      default:
-      console.log("stupi..............d")
-      break;
-}
-
-
-
-}
-    
-   
-check_temperature();
-
-   
-
 
  // WE have to think about:
  // rain::
