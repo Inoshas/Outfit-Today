@@ -42,7 +42,7 @@
         background-color: red; /* For browsers that do not support gradients */
         background-image: linear-gradient(to right, rgb(241, 236, 236), rgb(178, 175, 168), rgb(245, 245, 198), rgb(209, 235, 209), rgb(243, 243, 249));
         }
-
+/*
       #myContainer {
       width: 1070px;
       height: 400px;
@@ -55,8 +55,15 @@
         position: absolute;
         background: red;
       }
+      */
 
-        
+      #firstsetup {
+        position: relative;
+        font-size: 30px;
+        display: inline-block
+      }
+     
+
      </style >
 
      
@@ -70,16 +77,24 @@
         <div class="row">
 
             <div class="col-sm-3 p-3 bg-primary text-white">
-         
-                <p id="location1"> </p>
+              <div id="firstsetup" >
+                <p id="location1"  style="display: inline-block"> </p>  
+                <p id="location1"  style="display: inline-block">    </p>  
+                <p id="temperature"  style="display: inline-block"  ></p>
+              </div>
+              
+              <div> 
+
                 <p id="date1"> date goes here </p>
                 <p id="time1"> Time goes here</p>
-                <p id="temperature"> weather goes here</p>
+                <p id="temperature" style="display: inline-block" > weather goes here</p>
                 <p id="feels_like_w"> feels like weather goes here</p>
                 <p id="wind_condition"> wind consition goes here</p>
                 <p id="prediction"> link for Prediction for today and for week goes here</p>
                 <p id="change_loca">If user prefer to change the location manually and check the condition: it goes here. We might bned this option to support travellers</p>
         
+              </div>
+             
 
                 
                <h6>Predicted weather after 6 hrs </h6>
@@ -99,19 +114,12 @@
        
 
           <div class="col-sm-9 p-3 bg-dark text-white">
-            <div id="myContainer">
-              <div id="myAnimation"></div>
-              </div>
-              <p>
-                <button onclick="myMove()">Click Me</button> 
-                </p>
-          
-          </div>
+            <div id="header"></div>
            <div>
           
           
             <button  id="checklist" onclick="create_checklist()">Check List</button>
-            <div id="myDIV" style="padding:16px;background-color:lightgray" style="display: inline-block" ></div>
+            <div id="myDIV" style="padding:16px;background-color:rgb(162, 21, 21)" style="display: inline-block" ></div>
           </div>
 
         </div>
@@ -129,12 +137,14 @@
     <script>
 
 // link html to javascript::::::::::::::::::::::::: All links goes here
+
+        let temperature= document.getElementById("temperature")
 /*
         const head_main= document.getElementById("head_main");
         const location1= document.getElementById("location1");
         const date1 = document.getElementById("date1");
         const time1 = document.getElementById("time1");
-        const temperature= document.getElementById("weather1");
+        ;
         const feels_like_w =document.getElementById("feels_like_w");
         const wind_condition = document.getElementById("wind_condition");
         const prediction=document.getElementById("prediction") ;
@@ -175,7 +185,9 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
         const date = new Date();
         console.log(date);
 
-        today_temperature= data.list[0].main.temp;
+        today_temperature= data.list[0].main.temp -273.15;
+
+
         current_location= data.city.name;
         today_wind_rate= data.list[0].wind;
         today_weather_condn = data.list[0].weather[0].description;
@@ -190,8 +202,8 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
         document.getElementById("date1").textContent = date;
 
         //document.getElementById("DT").textContent = date_today;
-        today_temperature-=273.15
-        document.getElementById("temperature").textContent = Math.floor(today_temperature-273.15).toFixed(); // done
+     
+        temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
 
         document.getElementById("feels_like_w").textContent = Math.ceil(data.list[0].main.feels_like-273.15);
         //document.getElementById("max").textContent = Math.ceil(data.list[0].main.temp_max-273.15);
@@ -317,7 +329,7 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
  // how to store data::: It can be array, map or anything: lets assume we assigned them here 
 
  
-        today_temperature=0;
+        
         current_location;
         date_today;
         time_today;
@@ -337,8 +349,8 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
             around_zero : ["Short sleeve", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Wollen socks"  , "Winter boots" , "Off seasonal cap" ,  "Off seasonal gloves" ] ,
             offseason_feel :  ["Short sleeve", "Socks",  "Inner overall", "Offseasonal jacket"  , "Cap"  , "Shoes" ], 
             summary_mood : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles" ],
-            too_hot : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles", "Water bottle", "Sun cream"]
-            
+            too_hot : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles", "Water bottle", "Sun cream"],
+            test: ["Winter jacket", "Winter pant", "Thermal pant" ]
            }  ;
                            
 
@@ -368,6 +380,7 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
       // between -5 and -15
             case today_temperature<-5:
             return array_cloths.pretty_cold;
+            return array_cloths.test
             break;
 
       // +5 to -5 :::
@@ -391,6 +404,7 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
             break;
 
             default:
+            return array_cloths.test
             console.log("Something is hapening:::")
             break;
 
@@ -428,6 +442,16 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
         chk_para.innerText =element + '\u00a0' + '\u00a0';
         chk_para.style.display= "inline-block";
 
+        // Create pictures under same name::
+        
+
+        image = document.createElement("img");
+        image.src=element+".jpg"
+        var src = document.getElementById("header");
+        src.appendChild(image);
+
+
+
         document.getElementById("myDIV").appendChild(chk_box);
         document.getElementById("myDIV").appendChild(chk_para); 
         //document.body.appendChild(chk_para); 
@@ -441,7 +465,7 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
 
 
       //*******************Animation*****************
-
+/*
       var id = null;
 function myMove() {
   var elem = document.getElementById("myAnimation");   
@@ -458,7 +482,7 @@ function myMove() {
     }
   }
 }
-   
+  */ 
   /*
       console.log("Today temperature is  " +today_temperature)
       image1.src ="winter_jacket.jpg";
