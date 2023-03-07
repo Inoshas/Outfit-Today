@@ -71,30 +71,15 @@
 
             <div class="col-sm-3 p-3 bg-primary text-white">
          
-                <p id="location1"> </p>
+                <p id="location1"> location goes here </p>
                 <p id="date1"> date goes here </p>
                 <p id="time1"> Time goes here</p>
-                <p id="temperature"> weather goes here</p>
+                <p id="weather1"> weather goes here</p>
                 <p id="feels_like_w"> feels like weather goes here</p>
                 <p id="wind_condition"> wind consition goes here</p>
                 <p id="prediction"> link for Prediction for today and for week goes here</p>
                 <p id="change_loca">If user prefer to change the location manually and check the condition: it goes here. We might bned this option to support travellers</p>
         
-
-                
-               <h6>Predicted weather after 6 hrs </h6>
-               <p>Date and Time: <span id = "date2"></span> <br /></p>
-    
-
-              <p> 
-                  Temparature: <span id = "temp1"></span> <br />
-                  Feels Like: <span id = "FL1"></span> <br />
-                  Maximum Temp: <span id = "max1"></span> <br />
-                  Wind Speed: <span id = "WS1"></span> <br />
-                  Weather Condition: <span id = "cond1"></span> <br />
-                  
-              </p>
-    
           </div>
        
 
@@ -129,18 +114,17 @@
     <script>
 
 // link html to javascript::::::::::::::::::::::::: All links goes here
-/*
         const head_main= document.getElementById("head_main");
         const location1= document.getElementById("location1");
         const date1 = document.getElementById("date1");
         const time1 = document.getElementById("time1");
-        const temperature= document.getElementById("weather1");
+        const weather1= document.getElementById("weather1");
         const feels_like_w =document.getElementById("feels_like_w");
         const wind_condition = document.getElementById("wind_condition");
         const prediction=document.getElementById("prediction") ;
         const change_loca=document.getElementById("change_loca");
         const image1 =document.getElementById("image1")
-*/
+
 
 
 // Global variable: All global variables goes here
@@ -187,22 +171,16 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
         console.log("Weather Condition: " + today_weather_condn );
         console.log("Date and Time: "+ date_today);
 
-        document.getElementById("date1").textContent = date;
+        document.getElementById("date").textContent = date;
 
         //document.getElementById("DT").textContent = date_today;
-        today_temperature-=273.15
-        document.getElementById("temperature").textContent = Math.floor(today_temperature-273.15).toFixed(); // done
+        document.getElementById("temp").textContent = Math.floor(today_temperature-273.15).toFixed();
+        document.getElementById("FL").textContent = Math.ceil(data.list[0].main.feels_like-273.15);
+        document.getElementById("max").textContent = Math.ceil(data.list[0].main.temp_max-273.15);
+        document.getElementById("WS").textContent = today_wind_rate.speed;
+        document.getElementById("location1").textContent = current_location;
+        document.getElementById("cond").textContent = data.list[0].weather[0].description;
 
-        document.getElementById("feels_like_w").textContent = Math.ceil(data.list[0].main.feels_like-273.15);
-        //document.getElementById("max").textContent = Math.ceil(data.list[0].main.temp_max-273.15);
-
-        document.getElementById("wind_condition").textContent = today_wind_rate.speed; // done
-        document.getElementById("location1").textContent = current_location; // done
-
-        //document.getElementById("cond").textContent = data.list[0].weather[0].description;
-
-
-       
         if (today_temperature<263){
             weather_remarks="Pretty Cold";
         } else if (today_temperature >= 263 && today_temperature <= 273.15){
@@ -211,10 +189,10 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
             weather_remarks="It is Summer!";
         } 
 
-        //document.getElementById("WR").textContent = weather_remarks;
-        // Prediction in 6 hours::
+        document.getElementById("WR").textContent = weather_remarks;
 
-        document.getElementById("date2").textContent = data.list[2].dt_txt; 
+
+        document.getElementById("date1").textContent = data.list[2].dt_txt; 
 
 
         document.getElementById("temp1").textContent = Math.ceil(data.list[2].main.temp-273.15).toFixed();
@@ -226,8 +204,7 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
 
         
 
-    
-      }
+    }
 
         getISS();
 
