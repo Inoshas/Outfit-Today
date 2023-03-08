@@ -35,7 +35,9 @@
 
         /* Create two columns/boxes that floats next to each other */
    
-        
+        temperature{
+          font-size: 30px;
+        }
 
         body {
         background-size: cover;
@@ -58,14 +60,16 @@
       }
       */
 
+      
       #firstsetup {
-        position: relative;
-        font-size: 30px;
+        position: right;
+        text-align: left;
         display: inline-block
       }
       #secondsetup{
-        text-align: center;
-        font-size: 20px;
+        position: left;
+        text-align: left;
+        font-size: 22px;
       }
      
 
@@ -80,34 +84,48 @@
       <div class="container-fluid mt-3">
         
         <div class="row">
+      
+<!-- After header we split the body to diffferen sizes mainly 3 and 9: remeber total is 12-->
+          <div class="col-sm-3 p-3 bg-primary text-white">
 
-            <div class="col-sm-3 p-3 bg-primary text-white">
-              <div id="firstsetup" >
-                <p id="location1"  style="display: inline-block"> </p>  
-                
-                <p id="temperature"  style="display: inline-block"  ></p>
+            <!-- Display Location, date and time-->
+            <div class="row">
+              <div class="col-sm-4 p-3 bg-primary text-white">
+                <div id="secondsetup" >
+                  <p id="location1"> location goes here </p>  
+                  <p id="date1"> date goes here </p>
+                  <p id="time1"> Time goes here</p>
+                  <!-- ask for the new location -->
+                  <input id="change_loc" style="font-size: 10px; width: 100px;" placeholder= "Change Location"></input>
+                </div>
               </div>
 
-              <div id="secondsetup">
-                <p id="date1"> date goes here </p>
-                <p id="time1"> Time goes here</p>
-              </div>
-              
-              <div> 
+              <!-- Display Location, date and time-->
+              <div class="col-sm-8 p-3 bg-dark  text-white">
+                      <div id="firstsetup" >
+                        <span style='font-size:40px;display: inline-block; '>&#127777;</span>
+                        <p id="temperature"   style="font-size: 40px ; display: inline-block;"></p>
+                        <p id="feels_like_w" style="font-size: 20px ; " > feels like weather  goes here</p>
+                        <p id="min_max" style="font-size: 20px "> Min Max weather goes here</p>
+                        <span style='font-size:40px;display: inline-block; '>&#127788;</span>
+                        <p id="wind_condition" style="font-size: 20px ; display: inline-block;""> wind consition goes here</p>
+                        <p id="cond" style="font-size: 20px "> weather conditin goes here</p>
+                      </div>
+                    </div>
 
-           
-                <p id="temperature" style="display: inline-block" > weather goes here</p>
-                <p id="feels_like_w"> feels like weather goes here</p>
-                <p id="wind_condition"> wind consition goes here</p>
-                <p id="prediction"> link for Prediction for today and for week goes here</p>
-                <input id="change_loc" value=" Change Location"></input>
-              </div>
+            </div>
+            
+<!-- Here go the predicition-->
+                      <div> 
+                        <p id="prediction"> link for Prediction for today and for week goes here</p>
              
-
-                
+                      </div>
+               
                <h6>Predicted weather after 6 hrs </h6>
                <p>Date and Time: <span id = "date2"></span> <br /></p>
     
+
+
 
               <p> 
                   Temparature: <span id = "temp1"></span> <br />
@@ -119,36 +137,31 @@
               </p>
     
           </div>
-       
 
-          <div class="col-sm-9 p-3 bg-dark text-white">
-            <div id="header"></div>
-           <div>
+<!-- This is to display cloths ::: -->
+              <div class="col-sm-9 p-3 bg-dark text-white">
+                  <div id="header"></div>
+              <div>
           
           
-            <button  id="checklist" onclick="create_checklist()">Check List</button>
-            <div id="myDIV" style="padding:16px;background-color:rgb(162, 21, 21)" style="display: inline-block" ></div>
+                <!-- This is to display check list-->
+                  <button  id="checklist" onclick="create_checklist()">Check List</button>
+                <div id="myDIV" style="padding:16px;background-color:rgb(162, 21, 21)" style="display: inline-block" ></div>
           </div>
 
         </div>
 
-
-      </div>
-
-    
-
-
-    
-    
-    
     
     <script>
 
 // link html to javascript::::::::::::::::::::::::: All links goes here
 
-        let temperature= document.getElementById("temperature")
-        let location1= document.getElementById("location1")
-        const date1 = document.getElementById("date1")
+        let temperature= document.getElementById("temperature");
+        let location_current= document.getElementById("location1");
+        let date1 = document.getElementById("date1");
+        let feels_like_w =document.getElementById("feels_like_w");
+        let wind_condition = document.getElementById("wind_condition");
+        let current_condition= document.getElementById("cond")
 /*
         const head_main= document.getElementById("head_main");
         const location1= document.getElementById("location1");
@@ -174,6 +187,7 @@
       // May be this two we can go as map or something......
       let noOfDates_to_forecast_future;//
       let future_forecast;
+      let feels_like_temperature;
       //#####################################################################
 
 
@@ -186,23 +200,15 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
         const renponse= await fetch (api_url);
         const data= await renponse.json();
 
-        
-
-        //console.log(data);
 
         console.log(data.list[0], data.list[2],data.city);
-
-        // Get the date with inbuild function::::::
-
-
       
-
+          // this will give date and time of the current location::::
         let date = new Date();
         date1.textContent = date.getDate() +"/"  +(date.getMonth()+1) +"/"+ date.getFullYear()  ;
         time1.textContent=  date.getHours() +":" + date.getMinutes()+":"+ date.getSeconds()
 
-
-
+// set today temperature to celicus
         today_temperature= data.list[0].main.temp -273.15;
 
 
@@ -210,27 +216,26 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
         today_wind_rate= data.list[0].wind;
         today_weather_condn = data.list[0].weather[0].description;
         date_today=data.list[0].dt_txt; 
-        console.log(date_today)
+  
 
+        /* console date goes here:: No need them since we have display now
+        console.log(date_today)
         console.log("temperature: "+ today_temperature);
         console.log("Location: " +current_location);
         console.log(today_wind_rate);
         console.log("Weather Condition: " + today_weather_condn );
         console.log("Date and Time: "+ date_today);
+        */
+          
+        feels_like_temperature=Math.ceil(data.list[0].main.feels_like-273.15);
 
-        //document.getElementById("date1").textContent = date;
-
-        //document.getElementById("DT").textContent = date_today;
-     
+        /// Passed values to current weather condition based on the location:::
         temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
-
-        document.getElementById("feels_like_w").textContent = Math.ceil(data.list[0].main.feels_like-273.15);
-        //document.getElementById("max").textContent = Math.ceil(data.list[0].main.temp_max-273.15);
-
-        document.getElementById("wind_condition").textContent = today_wind_rate.speed; // done
-        document.getElementById("location1").textContent = current_location; // done
-
-        //document.getElementById("cond").textContent = data.list[0].weather[0].description;
+        feels_like_w.textContent = "feels like " + feels_like_temperature + " ºC";
+        min_max.textContent = Math.ceil(data.list[0].main.temp_min-273.15) +" ºC  /" +Math.ceil(data.list[0].main.temp_max-273.15)+ " ºC";
+        wind_condition.textContent = today_wind_rate.speed; // done
+        location_current.textContent = data.city.name; // done
+        current_condition.textContent = data.list[0].weather[0].description;
 
 
        
@@ -244,120 +249,16 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
 
         //document.getElementById("WR").textContent = weather_remarks;
         // Prediction in 6 hours::
-
         document.getElementById("date2").textContent = data.list[2].dt_txt; 
-
-
         document.getElementById("temp1").textContent = Math.ceil(data.list[2].main.temp-273.15).toFixed();
         document.getElementById("FL1").textContent = Math.ceil(data.list[2].main.feels_like-273.15);
         document.getElementById("max1").textContent = Math.ceil(data.list[2].main.temp_max-273.15);
         document.getElementById("WS1").textContent = data.list[2].wind.speed;
         document.getElementById("cond1").textContent = data.list[2].weather[0].description;
-        
-
-        
-
     
       }
 
         getISS();
-
-
-
-/*
-      let api_url="https://api.openweathermap.org/data/2.5/weather?lat=65.010211&lon=25.483722&appid=2d4079dbf470ffdeb5080fbc16e098fc"; 
-        //let api_url = "http://dataservice.accuweather.com/forecasts/v1/minute";65.010211, 25.483722
-        async function getISS() {
-            const renponse= await fetch (api_url);
-            const data= await renponse.json();
-            console.log(data.main);
-            console.log(data.main.temp_max);
-            const {main}=data.main;
-            document.getElementById("temp").textContent = Math.ceil(data.main.temp-273.15);
-            document.getElementById("FL").textContent = Math.ceil(data.main.feels_like-273.15);
-            document.getElementById("max").textContent = Math.ceil(data.main.temp_max-273.15);
-            document.getElementById("WS").textContent = data.wind.speed;
-
-        }
-
-            getISS();
-            var SERVER_URL = "http://opendata.fmi.fi/wfs";
-var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
-//var connection = new fi.fmi.metoclient.metolib.WfsConnection();
-
-
-            var parser = new Metolib.WfsRequestParser();
-        parser.getData({
-            url : SERVER_URL,
-            storedQueryId : STORED_QUERY_OBSERVATION,
-            requestParameter : "td",
-            // Integer values are used to init dates for older browsers.
-            // (new Date("2013-05-10T08:00:00Z")).getTime()
-            // (new Date("2013-05-12T10:00:00Z")).getTime()
-            begin : new Date(1368172800000),
-            end : new Date(1368352800000),
-            timestep : 60 * 60 * 1000,
-            sites : "Helsinki",
-            callback : function(data, errors) {
-                // Handle the data and errors object in a way you choose.
-                // Here, we delegate the content for a separate handler function.
-                handleCallback(data, errors);
-            }
-        });
-
-
-
-/*
-      let jsonStr = JSON.stringify({'now': new Date()}) ;   
-      console.log(jsonStr);
-
-
-      const x = document.getElementById("demo");
-      function getLocation() {
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-          x.innerHTML = "Geolocation is not supported by this browser.";
-        }
-      }
-
-      function showPosition(position) {
-        console.log("Latitude: " + position.coords.latitude +
-        "<br>Longitude: " + position.coords.longitude);
-      }
-      
-      getLocation()
-
-/*
-
-      function getGeo() {
-        navigator.geolocation.getCurrentPosition(getCurrentLoc)
-    }
-
-    function getCurrentLoc(data) {
-        var lat,lon;
-        lat=data.coords.latitude;
-        lon=data.coords.longitude;
-        getLocalWeather(lat,lon)
-        initMap(lat,lon)
-    }
-    */
-
- // fetch the data:
-
- // how to store data::: It can be array, map or anything: lets assume we assigned them here 
-
- 
-        
-        current_location;
-        date_today;
-        time_today;
-        today_wind_rate;
-        today_rainy_presentage;
-        today_forcast;
-      // May be this two we can go as map or something......
-        noOfDates_to_forecast_future;//
-        future_forecast;
 
 
 
@@ -382,44 +283,45 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
         // Define enum for wind_rate:
 
  // process the data:::
- // This function return cloths need to wear depend on the weather:
+ // This function return cloths need to wear depend on the feels like weather:
+
       function check_temperature(){  
 
           switch(true){
 
       // below -25 :: I add this to put some warning message
-            case today_temperature <-25:
+            case feels_like_temperature<-25:
               return array_cloths.too_cold;
               console.log("we need another warning message or something for this.")
               break;
       //below -15
-            case today_temperature <-15:
+            case feels_like_temperature <-15:
               return array_cloths.too_cold;
               break;
 
       // between -5 and -15
-            case today_temperature<-5:
+            case feels_like_temperature<-5:
             return array_cloths.pretty_cold;
            // return array_cloths.test;
             break;
 
       // +5 to -5 :::
-            case today_temperature<5:
+            case feels_like_temperature<5:
             return array_cloths.around_zero;
             break;
 
       //5 to +15//
-            case today_temperature<15:
+            case feels_like_temperature<15:
             return array_cloths.offseason_feel;
             break;
 
             //5 to +15//
-            case today_temperature<30:
+            case feels_like_temperature<30:
             return array_cloths.summary_mood;
             break;
 
       // above +15
-            case today_temperature<60:
+            case feels_like_temperature<60:
             return array_cloths.too_hot;
             break;
 
@@ -440,15 +342,9 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
              // if sun is shining add other one
              // if windy add another one
 
-    var div1 = document.createElement("div");
-    //div1.style.width = "100px";
-    //div1.style.height = "100px";
-    //div1.style.background = "red";
-    div1.style.color = "white";
-    div1.style.display= "inline-block"
-    //div1.innerHTML = "Hello";
 
    
+      /* Here we create elements for check list and cloth images:::*/
 
       function create_checklist(){
       
@@ -468,14 +364,13 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
 
         // Create pictures under same name::
         
-
         image = document.createElement("img");
         image.src=element+".jpg"
+        // Adding images to header DIV
         var src = document.getElementById("header");
         src.appendChild(image);
 
-
-
+// Add elements to myDIV
         document.getElementById("myDIV").appendChild(chk_box);
         document.getElementById("myDIV").appendChild(chk_para); 
         //document.body.appendChild(chk_para); 
@@ -486,51 +381,10 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
       }
 
 
+      create_checklist()
 
+ // Animations goes here::::::::::::::::::::::::::::::::::::::::::::
 
-      //*******************Animation*****************
-/*
-      var id = null;
-function myMove() {
-  var elem = document.getElementById("myAnimation");   
-  var pos = 0;
-  clearInterval(id);
-  id = setInterval(frame, 10);
-  function frame() {
-    if (pos == 350) {
-      clearInterval(id);
-    } else {
-      pos++; 
-      elem.style.top = pos + 'px'; 
-      elem.style.left = pos + 'px'; 
-    }
-  }
-}
-  */ 
-  /*
-      console.log("Today temperature is  " +today_temperature)
-      image1.src ="winter_jacket.jpg";
-      image1.style.height = '150px';
-      image1.style.width = '150px';
-      */
-
- // WE have to think about:
- // rain::
- // wind:
- //temperature::
-
- // how about switch cases for each?? 
- // might need to think about two options together : like what will happen if it is rainning and windy
-
- // check enum for possible status::
- 
-
-
- 
-
- // what to return::
-
- // where to return :::::
 
 
  </script>
