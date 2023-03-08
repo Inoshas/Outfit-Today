@@ -62,6 +62,10 @@
         font-size: 30px;
         display: inline-block
       }
+      #secondsetup{
+        text-align: center;
+        font-size: 20px;
+      }
      
 
      </style >
@@ -70,7 +74,7 @@
     <header>
     <h1 id="head_main">Outfit Today</h1>
     </header>
-
+   
 
       <div class="container-fluid mt-3">
         
@@ -79,14 +83,18 @@
             <div class="col-sm-3 p-3 bg-primary text-white">
               <div id="firstsetup" >
                 <p id="location1"  style="display: inline-block"> </p>  
-                <p id="location1"  style="display: inline-block">    </p>  
+                <i class='fas fa-temperature-high'></i>
                 <p id="temperature"  style="display: inline-block"  ></p>
+              </div>
+
+              <div id="secondsetup">
+                <p id="date1"> date goes here </p>
+                <p id="time1"> Time goes here</p>
               </div>
               
               <div> 
 
-                <p id="date1"> date goes here </p>
-                <p id="time1"> Time goes here</p>
+           
                 <p id="temperature" style="display: inline-block" > weather goes here</p>
                 <p id="feels_like_w"> feels like weather goes here</p>
                 <p id="wind_condition"> wind consition goes here</p>
@@ -139,6 +147,8 @@
 // link html to javascript::::::::::::::::::::::::: All links goes here
 
         let temperature= document.getElementById("temperature")
+        let location1= document.getElementById("location1")
+        const date1 = document.getElementById("date1")
 /*
         const head_main= document.getElementById("head_main");
         const location1= document.getElementById("location1");
@@ -182,8 +192,16 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
 
         console.log(data.list[0], data.list[2],data.city);
 
-        const date = new Date();
-        console.log(date);
+        // Get the date with inbuild function::::::
+
+
+      
+
+        let date = new Date();
+        date1.textContent = date.getDate() +"/"  +(date.getMonth()+1) +"/"+ date.getFullYear()  ;
+        time1.textContent=  date.getHours() +":" + date.getMinutes()+":"+ date.getSeconds()
+
+
 
         today_temperature= data.list[0].main.temp -273.15;
 
@@ -192,6 +210,7 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
         today_wind_rate= data.list[0].wind;
         today_weather_condn = data.list[0].weather[0].description;
         date_today=data.list[0].dt_txt; 
+        console.log(date_today)
 
         console.log("temperature: "+ today_temperature);
         console.log("Location: " +current_location);
@@ -199,7 +218,7 @@ let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon
         console.log("Weather Condition: " + today_weather_condn );
         console.log("Date and Time: "+ date_today);
 
-        document.getElementById("date1").textContent = date;
+        //document.getElementById("date1").textContent = date;
 
         //document.getElementById("DT").textContent = date_today;
      
@@ -349,11 +368,12 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
             around_zero : ["Short sleeve", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Wollen socks"  , "Winter boots" , "Off seasonal cap" ,  "Off seasonal gloves" ] ,
             offseason_feel :  ["Short sleeve", "Socks",  "Inner overall", "Offseasonal jacket"  , "Cap"  , "Shoes" ], 
             summary_mood : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles" ],
-            too_hot : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles", "Water bottle", "Sun cream"],
-            test: ["Winter jacket", "Winter pant", "Thermal pant" ]
+            too_hot : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles"],
+            rain_cloths : [ "Water proof pants" , "Rain boots" , " Rain gloves"],
+            sun_shine : ["Sun glasses"]
            }  ;
-                           
 
+           // 
           
         
 
@@ -380,7 +400,7 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
       // between -5 and -15
             case today_temperature<-5:
             return array_cloths.pretty_cold;
-            return array_cloths.test
+           // return array_cloths.test;
             break;
 
       // +5 to -5 :::
@@ -400,21 +420,25 @@ var STORED_QUERY_OBSERVATION = "fmi::observations::weather::multipointcoverage";
 
       // above +15
             case today_temperature<60:
-            return array_cloths.too_hot
+            return array_cloths.too_hot;
             break;
 
             default:
-            return array_cloths.test
-            console.log("Something is hapening:::")
+           // return array_cloths.test
+            console.log("Something is hapening:::");
             break;
 
           }
       }
           
 
-    console.log(check_temperature());
+    //console.log(check_temperature());
 
-    
+    /**** Checking for other weather conditions ...................*/
+
+         // if rainning expand array by adding two elements
+             // if sun is shining add other one
+             // if windy add another one
 
     var div1 = document.createElement("div");
     //div1.style.width = "100px";
