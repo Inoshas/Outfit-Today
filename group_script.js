@@ -1,6 +1,6 @@
 
 // link html to javascript::::::::::::::::::::::::: All links goes here
-
+//  new changes with
 let temperature= document.getElementById("temperature");
 let location_current= document.getElementById("location1");
 let date1 = document.getElementById("date1");
