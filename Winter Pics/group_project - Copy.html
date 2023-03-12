@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    
+    <title>image rotation</title>
+
+    <style>
+       *{
+        margin:0;
+        padding:0;
+        box-sizing: border-box;
+       }
+
+       body{
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background:#000;
+       }
+
+       .box{
+        position:relative;
+        width:200px;
+        height :200px;
+        transform-style: preserve-3d;
+        animation: animate 20s linear infinite;
+       }
+       @keyframes animate 
+       {
+            0%{
+                transform: perspective(1000px) rotateY(0deg);
+            }
+            100%{
+                transform: perspective(1000px) rotateY(360deg);
+            }
+       }
+       .box span{
+        position: absolute;
+        top:0;
+        left:0;
+        width :100%;
+        height:100%;
+        transform-origin: center;
+        transform-style:preserve-3d ;
+      /*transform: rotateY(calc(var(--i)*36deg)) translateZ(400px);*/
+      
+    }
+       .box span img{
+        position: absolute;
+        top:0;
+        left:0;
+        width:100%;
+        height:100%;
+        object-fit: cover;
+
+       }
+    </style>
+</head>
+<body> 
+
+
+    <div class="box">
+        <span style = "--i:1;"> <img src="Thermal pant.jpg"> </span>
+        <span style = "--i:2;"> <img src= "Pant.jpg"> </span>
+        <span style = "--i:3;"> <img src="Long sleeve.jpg"> </span>
+        <span style = "--i:4;"> <img src="Inner overall.jpg"> </span>
+        <span style = "--i:5;"> <img src="Socks.jpg"> </span>
+        <span style = "--i:6;"> <img src="Winter jacket.jpg"> </span>
+        <span style = "--i:7;"> <img src="Winter cap.jpg"> </span>
+        <span style = "--i:8;"> <img src="Winter gloves.jpg"> </span>
+        <span style = "--i:9;"> <img src="Winter boots.jpg"> </span>
+        <span style = "--i:10;"> <img src="Scarf.jpg"> </span>   
+
+    </div>
+    
+</body>
+
+
+<script>
+    const result=document.getElementsByClassName("box");
+    let result2=result[0].childElementCount;
+    console.log(result2);
+
+    for (let iter of result[0].childNodes){
+        console.log(iter);
+        iter.style.transform=`rotateY(calc(var(--i)*(36deg))) translateZ(400px)`;
+    }
+
+   
+   //result[0].span.style.transform= `rotateY(calc(var(--i)*(36deg))) translateZ(400px)`;
+//result[0].style.outerHTML= `rotateY(calc(var(--i)*(360deg/${result2}))) translateZ(400px)`;
+
+console.log(result);
+
+//      transform: rotateY(calc(var(--i)*36deg)) translateZ(400px);
+</script>
+</html>

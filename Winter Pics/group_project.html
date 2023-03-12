@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <title>image rotation</title>
+    <style>
+        img{
+           
+           position: absolute;
+        }
+
+        .container{
+            width: 350px;
+            height: 200px;
+            position: relative;
+            margin-top: 15%;
+            margin-left: 40%;
+            perspective: 1000px;
+            transform-style:preserve-3d ;
+            transform: rotateX(-10deg) rotateZ(-10deg);
+            animation: ror 20s linear infinite;
+        }
+
+        @keyframes ror{
+            50%{
+                transform: rotateX(30deg);
+            }
+            80% {
+                transform: rotateX(-30deg);
+            }
+        }
+        .images{
+            width:100%;
+            position : absolute;
+            transform-style: preserve-3d;
+            animation: rotate 20s linear infinite;
+        }
+        @keyframes rotate{
+            from{
+
+            }
+            to{
+                transform: rotateY(360deg);
+
+            }
+        }
+        img:nth-child(1){
+            transform: rotateY(60deg) translateZ(300px);
+        }
+        img:nth-child(2){
+            transform: rotateY(120deg) translateZ(300px);
+        }
+    
+        img:nth-child(3){
+            transform: rotateY(180deg) translateZ(300px);
+        }
+    
+        img:nth-child(4){
+            transform: rotateY(240deg) translateZ(300px);
+        }
+    
+        img:nth-child(5){
+            transform: rotateY(300deg) translateZ(300px);
+        }
+        img:nth-child(6){
+            transform: rotateY(360deg) translateZ(300px);
+        }
+    
+        img:hover{
+            width: 340px;
+            height: 220 px;
+            cursor: pointer;
+        }
+    
+        backgr
+
+    </style>
+</head>
+<body> 
+
+
+    <div class="container">
+        <div class="images"> 
+            <img src="Thermal pant.jpg">
+            <img src= "Pant.jpg" >
+            <img src= "Long sleeve.jpg">
+            <img src= "Inner overall.jpg">
+            <img src="Socks.jpg">
+            <img src="Winter jacket.jpg" >
+        </div>
+    </div>
+    
+</body>
+</html>

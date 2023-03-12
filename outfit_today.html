@@ -5,387 +5,101 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
+
+    <link rel="stylesheet" href="group_style.css"> 
     
 </head>
 <body>
 
-    <style>
-        * {
-         box-sizing: border-box;
-            }
-
-        body {
-        font-family: Arial, Helvetica, sans-serif;
-        background-size: cover;
-                /*height: 55px;*/
-                background-color: rgb(233, 219, 219); /* For browsers that do not support gradients */
-                background-image: linear-gradient(to right, rgb(241, 236, 236), rgb(178, 175, 168), rgb(245, 245, 198), rgb(209, 235, 209), rgb(243, 243, 249));     
-        }
-
-        /* Style the header */
-        header {
-        background-color: #f9c0c0;
-        padding: 15px;
-        text-align: center;
-        font-size: 30px;
-        color: rgb(8, 3, 3);
-        }
-
-        /* Create two columns/boxes that floats next to each other */
-   
-        temperature{
-          font-size: 30px;
-        }
-
-        body {
-        background-size: cover;
-        /*height: 55px;*/
-        background-color: red; /* For browsers that do not support gradients */
-        background-image: linear-gradient(to right, rgb(241, 236, 236), rgb(178, 175, 168), rgb(245, 245, 198), rgb(209, 235, 209), rgb(243, 243, 249));
-        }
-/*
-      #myContainer {
-      width: 1070px;
-      height: 400px;
-      position: relative;
-      background: rgb(241, 241, 135);
-      }
-      #myAnimation {
-        width: 50px;
-        height: 50px;
-        position: absolute;
-        background: red;
-      }
-      */
-
-      
-      #firstsetup {
-        position: right;
-        text-align: left;
-        display: inline-block
-      }
-      #secondsetup{
-        position: left;
-        text-align: left;
-        font-size: 22px;
-      }
-     
-
-     </style >
-
-     
-    <header>
-    <h1 id="head_main">Outfit Today</h1>
-    </header>
+    
+  <header>
+  <h1 id="head_main">Outfit Today</h1>
+  </header>
 
 
-      <div class="container-fluid mt-3">
+  <div class="container-fluid mt-3">
         
-        <div class="row">
+    <div class="row">
       
 <!-- After header we split the body to diffferen sizes mainly 3 and 9: remeber total is 12-->
-          <div class="col-sm-3 p-3 bg-primary text-white">
+      <div class="col-sm-3 p-3 bg-primary text-white">
 
             <!-- Display Location, date and time-->
-            <div class="row">
-              <div class="col-sm-4 p-3 bg-primary text-white">
-                <div id="secondsetup" >
-                  <p id="location1"> location goes here </p>  
-                  <p id="date1"> date goes here </p>
-                  <p id="time1"> Time goes here</p>
-                  <!-- ask for the new location -->
-                  <input id="change_loc" style="font-size: 10px; width: 100px;" placeholder= "Change Location"></input>
-                </div>
-              </div>
+        <div class="row">
 
-              <!-- Display Location, date and time-->
-              <div class="col-sm-8 p-3 bg-dark  text-white">
-                      <div id="firstsetup" >
-                        <span style='font-size:40px;display: inline-block; '>&#127777;</span>
-                        <p id="temperature"   style="font-size: 40px ; display: inline-block;"></p>
-                        <p id="feels_like_w" style="font-size: 20px ; " > feels like weather  goes here</p>
-                        <p id="min_max" style="font-size: 20px "> Min Max weather goes here</p>
-                        <span style='font-size:40px;display: inline-block; '>&#127788;</span>
-                        <p id="wind_condition" style="font-size: 20px ; display: inline-block;""> wind consition goes here</p>
-                        <p id="cond" style="font-size: 20px "> weather conditin goes here</p>
-                      </div>
-                    </div>
-
+          <div class="col-sm-4 p-3 bg-primary text-white">
+            <div id="secondsetup" >
+              <p id="location1"> location goes here </p>  
+              <p id="date1"> date goes here </p>
+              <p id="time1"> Time goes here</p>
+              <!-- ask for the new location -->
+              <input id="change_loc" style="font-size: 10px; width: 100px;" placeholder= "Change Location"></input>
             </div>
-            
-<!-- Here go the predicition-->
-                      <div> 
-                        <p id="prediction"> link for Prediction for today and for week goes here</p>
-             
-                      </div>
-               
-               <h6>Predicted weather after 6 hrs </h6>
-               <p>Date and Time: <span id = "date2"></span> <br /></p>
-    
-
-
-
-              <p> 
-                  Temparature: <span id = "temp1"></span> <br />
-                  Feels Like: <span id = "FL1"></span> <br />
-                  Maximum Temp: <span id = "max1"></span> <br />
-                  Wind Speed: <span id = "WS1"></span> <br />
-                  Weather Condition: <span id = "cond1"></span> <br />
-                  
-              </p>
-    
           </div>
 
-<!-- This is to display cloths ::: -->
-              <div class="col-sm-9 p-3 bg-dark text-white">
-                  <div id="header"></div>
-              <div>
-          
-          
-                <!-- This is to display check list-->
-                  <button  id="checklist" onclick="create_checklist()">Check List</button>
-                <div id="myDIV" style="padding:16px;background-color:rgb(162, 21, 21)" style="display: inline-block" ></div>
+              <!-- Display Location, date and time-->
+          <div class="col-sm-8 p-3 bg-dark  text-white">
+            <div id="firstsetup" >
+              <span style='font-size:40px;display: inline-block; '>&#127777;</span>
+              <p id="temperature"   style="font-size: 40px ; display: inline-block;"></p>
+              <p id="feels_like_w" style="font-size: 20px ; " > feels like weather  goes here</p>
+              <p id="min_max" style="font-size: 20px "> Min Max weather goes here</p>
+              <span style='font-size:40px;display: inline-block; '>&#127788;</span>
+              <p id="wind_condition" style="font-size: 20px ; display: inline-block;""> wind consition goes here</p>
+              <p id="cond" style="font-size: 20px "> weather conditin goes here</p>
+            </div>
           </div>
 
         </div>
 
+        <!-------------------------------------------------------------------------------------->
+<!-- Here go the predicition ---- THIS PART NEED TO EDIT WITH PAULS DATA-->
+
+
+        <div> 
+          <p id="prediction"> link for Prediction for today and for week goes here</p>
+        </div>
+               
+          <h6>Predicted weather after 6 hrs </h6>
+          <p>Date and Time: <span id = "date2"></span> <br /></p>
+
+
+        <p> 
+            Temparature: <span id = "temp1"></span> <br />
+            Feels Like: <span id = "FL1"></span> <br />
+            Maximum Temp: <span id = "max1"></span> <br />
+            Wind Speed: <span id = "WS1"></span> <br />
+            Weather Condition: <span id = "cond1"></span> <br />    
+        </p>
     
-    <script>
+      </div>
 
-// link html to javascript::::::::::::::::::::::::: All links goes here
+      <!----- Up to this with PAULS data...................... -->
 
-        let temperature= document.getElementById("temperature");
-        let location_current= document.getElementById("location1");
-        let date1 = document.getElementById("date1");
-        let feels_like_w =document.getElementById("feels_like_w");
-        let wind_condition = document.getElementById("wind_condition");
-        let current_condition= document.getElementById("cond")
-/*
-        const head_main= document.getElementById("head_main");
-        const location1= document.getElementById("location1");
-        const date1 = document.getElementById("date1");
-        const time1 = document.getElementById("time1");
-        ;
-        const feels_like_w =document.getElementById("feels_like_w");
-        const wind_condition = document.getElementById("wind_condition");
-        const prediction=document.getElementById("prediction") ;
-        const change_loca=document.getElementById("change_loca");
-        const image1 =document.getElementById("image1")
-*/
+<!-------------------------------------------------------------------------------------->
 
 
-// Global variable: All global variables goes here
-      let today_temperature;
-      let current_location;
-      let date_today;
-      let time_today;
-      let today_wind_rate;
-      let today_rainy_presentage;
-      let today_forcast;
-      // May be this two we can go as map or something......
-      let noOfDates_to_forecast_future;//
-      let future_forecast;
-      let feels_like_temperature;
-      //#####################################################################
 
-
-// Fetching data goes here: 
-// we assign them  belows:
-
-let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon=25.483722&appid=28ccc81c35e0d2b02668d8948dbe91d2";
-        
-        async function getISS() {
-        const renponse= await fetch (api_url);
-        const data= await renponse.json();
-
-
-        console.log(data.list[0], data.list[2],data.city);
-      
-          // this will give date and time of the current location::::
-        let date = new Date();
-        date1.textContent = date.getDate() +"/"  +(date.getMonth()+1) +"/"+ date.getFullYear()  ;
-        time1.textContent=  date.getHours() +":" + date.getMinutes()+":"+ date.getSeconds()
-
-// set today temperature to celicus
-        today_temperature= data.list[0].main.temp -273.15;
-
-
-        current_location= data.city.name;
-        today_wind_rate= data.list[0].wind;
-        today_weather_condn = data.list[0].weather[0].description;
-        date_today=data.list[0].dt_txt; 
+<!-- This is to display cloths ::: -->
+      <div class="col-sm-9 p-3 bg-dark text-white">
+          <div id="image_div" class="box">
+          </div>
+      <div>
+          
   
+        <!-- This is to display check list-->
+          <button  id="checklist" onclick="create_checklist()">Check List</button>
+        <div id="myDIV" style="padding:16px;background-color:rgb(162, 21, 21)" style="display: inline-block" ></div>
+      </div>
 
-        /* console date goes here:: No need them since we have display now
-        console.log(date_today)
-        console.log("temperature: "+ today_temperature);
-        console.log("Location: " +current_location);
-        console.log(today_wind_rate);
-        console.log("Weather Condition: " + today_weather_condn );
-        console.log("Date and Time: "+ date_today);
-        */
-          
-        feels_like_temperature=Math.ceil(data.list[0].main.feels_like-273.15);
+    </div>
 
-        /// Passed values to current weather condition based on the location:::
-        temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
-        feels_like_w.textContent = "feels like " + feels_like_temperature + " ºC";
-        min_max.textContent = Math.ceil(data.list[0].main.temp_min-273.15) +" ºC  /" +Math.ceil(data.list[0].main.temp_max-273.15)+ " ºC";
-        wind_condition.textContent = today_wind_rate.speed; // done
-        location_current.textContent = data.city.name; // done
-        current_condition.textContent = data.list[0].weather[0].description;
-
-
-       
-        if (today_temperature<263){
-            weather_remarks="Pretty Cold";
-        } else if (today_temperature >= 263 && today_temperature <= 273.15){
-            weather_remarks="moderate Cold";
-        } else {
-            weather_remarks="It is Summer!";
-        } 
-
-        //document.getElementById("WR").textContent = weather_remarks;
-        // Prediction in 6 hours::
-        document.getElementById("date2").textContent = data.list[2].dt_txt; 
-        document.getElementById("temp1").textContent = Math.ceil(data.list[2].main.temp-273.15).toFixed();
-        document.getElementById("FL1").textContent = Math.ceil(data.list[2].main.feels_like-273.15);
-        document.getElementById("max1").textContent = Math.ceil(data.list[2].main.temp_max-273.15);
-        document.getElementById("WS1").textContent = data.list[2].wind.speed;
-        document.getElementById("cond1").textContent = data.list[2].weather[0].description;
     
-      }
-
-        getISS();
-
-
-
-        // lets make an object with different cloths:
-       const array_cloths =
-          { too_cold: ["Thermal pant", "Pant" , "Long sleeve", "Inner overall", "Socks", "Winter jacket"  ,"Winter pant"  ,"Wollen socks","Winter boots" ,"Winter cap" , "Scarf" , "Mittens", "Winter gloves"] ,
-            pretty_cold: ["Long sleeve", "Thermal pant","Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Wollen socks"  , "Winter boots" ,   "Winter cap" ,  "Scarf" ,  "Winter gloves" ],
-            around_zero : ["Short sleeve", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Wollen socks"  , "Winter boots" , "Off seasonal cap" ,  "Off seasonal gloves" ] ,
-            offseason_feel :  ["Short sleeve", "Socks",  "Inner overall", "Offseasonal jacket"  , "Cap"  , "Shoes" ], 
-            summary_mood : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles" ],
-            too_hot : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles"],
-            rain_cloths : [ "Water proof pants" , "Rain boots" , " Rain gloves"],
-            sun_shine : ["Sun glasses"]
-           }  ;
-
-           // 
-          
-        
-
-        // Define enum for rain_presentage:
-
-        // Define enum for wind_rate:
-
- // process the data:::
- // This function return cloths need to wear depend on the feels like weather:
-
-      function check_temperature(){  
-
-          switch(true){
-
-      // below -25 :: I add this to put some warning message
-            case feels_like_temperature<-25:
-              return array_cloths.too_cold;
-              console.log("we need another warning message or something for this.")
-              break;
-      //below -15
-            case feels_like_temperature <-15:
-              return array_cloths.too_cold;
-              break;
-
-      // between -5 and -15
-            case feels_like_temperature<-5:
-            return array_cloths.pretty_cold;
-           // return array_cloths.test;
-            break;
-
-      // +5 to -5 :::
-            case feels_like_temperature<5:
-            return array_cloths.around_zero;
-            break;
-
-      //5 to +15//
-            case feels_like_temperature<15:
-            return array_cloths.offseason_feel;
-            break;
-
-            //5 to +15//
-            case feels_like_temperature<30:
-            return array_cloths.summary_mood;
-            break;
-
-      // above +15
-            case feels_like_temperature<60:
-            return array_cloths.too_hot;
-            break;
-
-            default:
-           // return array_cloths.test
-            console.log("Something is hapening:::");
-            break;
-
-          }
-      }
-          
-
-    //console.log(check_temperature());
-
-    /**** Checking for other weather conditions ...................*/
-
-         // if rainning expand array by adding two elements
-             // if sun is shining add other one
-             // if windy add another one
-
-
-   
-      /* Here we create elements for check list and cloth images:::*/
-
-      function create_checklist(){
-      
-        // document.body.appendChild(div1);
-        cloths_need = check_temperature();
-        cloths_need.forEach(element => {
-         
-          // create check boxes and set names using array names
-        var chk_box = document.createElement("INPUT");
-        chk_box.setAttribute("type", "checkbox");
-        chk_box.innerText ="test"
-
-        //style="display: inline-block"
-        var chk_para = document.createElement("p");
-        chk_para.innerText =element + '\u00a0' + '\u00a0';
-        chk_para.style.display= "inline-block";
-
-        // Create pictures under same name::
-        
-        image = document.createElement("img");
-        image.src=element+".jpg"
-        // Adding images to header DIV
-        var src = document.getElementById("header");
-        src.appendChild(image);
-
-// Add elements to myDIV
-        document.getElementById("myDIV").appendChild(chk_box);
-        document.getElementById("myDIV").appendChild(chk_para); 
-        //document.body.appendChild(chk_para); 
-
-        });
-        
-
-      }
-
-
-      create_checklist()
-
- // Animations goes here::::::::::::::::::::::::::::::::::::::::::::
-
-
+  <script src="group_script.js">
 
  </script>
 </body>
