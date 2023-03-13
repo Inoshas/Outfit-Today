@@ -212,7 +212,7 @@ function create_checklist(){
 
     // Create pictures under same name::
     image = document.createElement("img");
-    image.src=element+".jpg"; // assign the name for the image:::
+    image.src=`Pictures/${element}.jpg`; // assign the name for the image:::
     // Adding images to header DIV
     span_1=document.createElement("span");
     span_1.style= `--i:${item};`;
