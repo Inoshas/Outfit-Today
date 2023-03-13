@@ -1,13 +1,13 @@
 
 // link html to javascript::::::::::::::::::::::::: All links goes here
-//  new changes with
+
 let temperature= document.getElementById("temperature");
 let location_current= document.getElementById("location1");
 let date1 = document.getElementById("date1");
 let feels_like_w =document.getElementById("feels_like_w");
 let wind_condition = document.getElementById("wind_condition");
 let current_condition= document.getElementById("cond");
-let checklist =document.getElementById("checklist");
+let create_list =document.getElementById("create_list")
 // let image_div=document.getElementById("image_div");
 let image_box=document.getElementsByClassName("box")
 
@@ -63,7 +63,7 @@ console.log(data.list[0], data.list[2],data.city);
   // this will give date and time of the current location::::
 let date = new Date();
 date1.textContent = date.getDate() +"/"  +(date.getMonth()+1) +"/"+ date.getFullYear()  ;
-time1.textContent=  date.getHours() +":" + date.getMinutes()+":"+ date.getSeconds()
+time1.textContent=  date.getHours() +":" + date.getMinutes()+":"+ date.getSeconds();
 
 // set today temperature to celicus
 today_temperature= data.list[0].main.temp -273.15;
@@ -117,7 +117,13 @@ getISS();
 
 //// ********************** PART 2*************************************************//// 
 
+
+
+
+
 /****************** This part is for adding pictures and processing data ....... **************** */
+
+
 
 
 
@@ -129,12 +135,58 @@ const array_cloths =
     offseason_feel :  ["Short sleeve", "Socks",  "Inner overall", "Offseasonal jacket"  , "Cap"  , "Shoes" ], 
     summary_mood : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles" ],
     too_hot : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles"],
-    rain_cloths : [ "Water proof pants" , "Rain boots" , " Rain gloves"],
+    rain_cloths : [ "Water proof pants" , "Rain boots" , "Rain gloves"],
     sun_shine : ["Sun glasses"]
    }  ;
 
    // 
   
+
+
+   //Testing Purpose::: Adding these
+
+
+//************************************************************************************** */
+    let today_time_array = [];
+    let today_wind_rates= [];
+    let today_temp_forecast=[];
+    let today_rain_pres =[];
+    new_value_temp=3; // temperature for each hour goes here:::
+    new_value_wind=4; // wind for each hour goes here:::::::::::::::
+    new_value_rainy=1; // 
+    //hours_index = 2; // this is current time
+
+
+    // if you are getting every 3 hours put it that way::::::::::::::::: then hours_index ++3 
+    for (let hours_index = 0; hours_index < 24; hours_index += 3) {
+        today_time_array.push(hours_index);
+        today_rain_pres.push(new_value_rainy);
+        today_wind_rates.push(new_value_wind) ;
+        today_temp_forecast.push( new_value_temp);
+    // today_temperature_forecast = set (hours_index, new_value_temp);
+    //  today_wind_rates= new Map (hours_index, new_value_temp);
+    // These things no need :: checking purpose::::::::
+        new_value_temp +=5;
+        new_value_wind +=5;
+        new_value_rainy +=6;
+    }
+    // Above has values with forecast :::::::::::::::
+
+    // This will give min and max temperature ::::::...
+    min_temperatue= Math.min(...today_temp_forecast);
+    max_temperature=Math.max(...today_temp_forecast);
+    // rain ::: We need maximum rain presentage and time:::
+ 
+    max_rainPresentage = Math.max(...today_rain_pres);
+    console.log(max_rainPresentage)
+    //index_value= today_rain_pres.findIndex(Math.max(today_rain_pres));
+ 
+
+/***************************************************************************************** */
+    
+    // if there is any possibility we gonnna display cloths for rain
+
+
 
 
 function check_temperature(){  
@@ -193,8 +245,17 @@ function check_temperature(){
 
 /* Here we create elements for check list and cloth images:::*/
 
+
+
+
+
 function create_checklist(){
 
+    if (myDIV.firstChild) {
+        while (myDIV.hasChildElement()) {
+            myDIV.removeChild(box.lastChild);
+        }
+    }
 // take cloths from defined array
     cloths_need = check_temperature();
     console.log(cloths_need)
@@ -225,8 +286,46 @@ function create_checklist(){
     document.getElementById("myDIV").appendChild(chk_para); 
 
     });
+    // Call function here:::::::::::::::: 
+    extra_items();
 
 }
+
+function extra_items(){
+
+    
+    if (max_rainPresentage > 0){
+        //console.log("Highest raining possibility is "+ max_rainPresentage +"% at" +today_time_array[index_value] );
+        cloths_rain=array_cloths.rain_cloths; 
+        console.log("testing:" +cloths_rain);
+
+        cloths_rain.forEach(function(element,index){
+            image1 = document.createElement("img");
+            image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
+            image1.style.display= "inline-block";
+            image1.style.height="150px" ;
+            image1.height="200px"
+            document.getElementById("aditional").appendChild(image1);
+            image1.style.display= "inline-block";
+
+            var chk_box = document.createElement("INPUT");
+            chk_box.setAttribute("type", "checkbox");
+
+            var chk_para = document.createElement("p");
+            chk_para.innerText =element + '\u00a0' + '\u00a0';
+            chk_para.style.display= "inline-block";
+
+            document.getElementById("extra_list").appendChild(chk_box);
+            document.getElementById("extra_list").appendChild(chk_para); 
+            
+        })
+    }
+}
+
+
+//create_list.onclick=function () {create_checklist()}
+
+
 
 
 /*
