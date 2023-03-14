@@ -26,6 +26,7 @@ const image1 =document.getElementById("image1")
 
 
 // Global variable: All global variables goes here
+let boundry_wind = 6 ; // give the lower bound tto check wind condition::::::::::::::::::::
 let today_temperature;
 let current_location;
 let date_today;
@@ -76,7 +77,7 @@ date_today=data.list[0].dt_txt;
 
 
   
-feels_like_temperature= Math.ceil(data.list[0].main.feels_like-273.15);
+feels_like_temperature= -25//Math.ceil(data.list[0].main.feels_like-273.15);
 
 /// Passed values to current weather condition based on the location:::
 temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
@@ -136,7 +137,8 @@ const array_cloths =
     summary_mood : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles" ],
     too_hot : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles"],
     rain_cloths : [ "Water proof pants" , "Rain boots" , "Rain gloves"],
-    sun_shine : ["Sun glasses"]
+    sun_shine : ["Sun glasses"],
+    windy :["Wind proof jacket"]
    }  ;
 
    // 
@@ -179,13 +181,15 @@ const array_cloths =
  
     max_rainPresentage = Math.max(...today_rain_pres);
     console.log(max_rainPresentage)
+
+    max_windrate =Math.max(...today_wind_rates);
+    console.log(max_rainPresentage)
     //index_value= today_rain_pres.findIndex(Math.max(today_rain_pres));
  
 
 /***************************************************************************************** */
     
     // if there is any possibility we gonnna display cloths for rain
-
 
 
 
@@ -240,13 +244,10 @@ function check_temperature(){
 //************** WE NEED TO ADD RAINY AND WINDY CONDITION CLOTH SELECTION HERE.... */
 
 
-     var span_1;
-     var image;
-
 /* Here we create elements for check list and cloth images:::*/
 
 
-
+var span_1
 
 
 function create_checklist(){
@@ -258,7 +259,9 @@ function create_checklist(){
     }
 // take cloths from defined array
     cloths_need = check_temperature();
-    console.log(cloths_need)
+    console.log(cloths_need.length)
+    angle_needed=Math.ceil(360/cloths_need.length);
+    console.log(angle_needed)
     cloths_need.forEach(function(element,item) {
     
     // create check boxes and set names using array names
@@ -276,8 +279,10 @@ function create_checklist(){
     image.src=`Pictures/${element}.jpg`; // assign the name for the image:::
     // Adding images to header DIV
     span_1=document.createElement("span");
-    span_1.style= `--i:${item};`;
+    span_1.style= `--i:${item*angle_needed};`;
+   console.log(span_1)
 
+    
     span_1.appendChild(image);
     image_box[0].appendChild(span_1);
 
@@ -285,15 +290,39 @@ function create_checklist(){
     document.getElementById("myDIV").appendChild(chk_box);
     document.getElementById("myDIV").appendChild(chk_para); 
 
+ 
     });
-    // Call function here:::::::::::::::: 
-    extra_items();
 
+    //span_1.transform = `rotateY(calc(var(--i)*45deg)) translateZ(400px);`
+
+    var vr= window.getComputedStyle(span_1, null);
+    tr= vr.getPropertyValue("transform")
+    console.log("tr")
+
+    let sin = Math.sin;
+    let cos = Math.cos;
+    let a = Math.PI * 0.3;
+    console.log(cos(Math.PI*.6))
+    console.log(-sin(Math.PI*.6))
+
+    //span_1.style.setProperty("transform" , [-0.5, 0, -0.866025, 0, 0, 1, 0, 0, 0.866025, 0, -0.5, 0, 346.41, 0, -200, 1] )
+
+/*
+    var values = tr.split('(')[1],
+    values = values.split(')')[0],
+    values = values.split(',');
+    console.log(values)
+    */
+   
+    // Call function here:::::::::::::::: 
+
+    
+    extra_items();
 }
 
 function extra_items(){
 
-    
+    // This is for raining::::::::::::::::::::::::::::::::::
     if (max_rainPresentage > 0){
         //console.log("Highest raining possibility is "+ max_rainPresentage +"% at" +today_time_array[index_value] );
         cloths_rain=array_cloths.rain_cloths; 
@@ -319,7 +348,47 @@ function extra_items(){
             document.getElementById("extra_list").appendChild(chk_para); 
             
         })
+            var chk_para = document.createElement("p");
+            chk_para.innerText =" The highest rain presentage reported is xx % and at yy time" ;
+            document.getElementById("extra_list").appendChild(chk_para);      
     }
+
+    // Same goes for wind ::::::::::::
+    // We propse cloths for wind only if it is postive temperature 
+    // if temperature is negative we give a warning message::::::
+    if (max_windrate > boundry_wind){
+        
+        cloths_windy=array_cloths.windy; 
+        console.log("testing:" +cloths_windy);
+        //if (today_temperature >0){
+            cloths_windy.forEach(function(element,index){
+                image1 = document.createElement("img");
+                image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
+                image1.style.display= "inline-block";
+                image1.style.height="150px" ;
+                image1.height="200px"
+                document.getElementById("aditional").appendChild(image1);
+                image1.style.display= "inline-block";
+    
+                var chk_box = document.createElement("INPUT");
+                chk_box.setAttribute("type", "checkbox");
+    
+                var chk_para = document.createElement("p");
+                chk_para.innerText =element + '\u00a0' + '\u00a0';
+                chk_para.style.display= "inline-block";
+    
+                document.getElementById("extra_list").appendChild(chk_box);
+                document.getElementById("extra_list").appendChild(chk_para); 
+                
+            })
+
+       // }
+
+            var chk_para = document.createElement("p");
+            chk_para.innerText =" The highest wind rate is reported is aa % and at tt time" ;
+            document.getElementById("extra_list").appendChild(chk_para);      
+    }
+
 }
 
 
@@ -339,6 +408,14 @@ selects[i].style.transform=  `rotateY(calc(var(--i)*36deg)) translateZ(400px);`
 
 // image_box[0].transform= `rotateY(calc(var(--i)*36deg)) translateZ(400px);` ;
 //image_box[0].setAttribute('transform', `rotateY(calc(var(--i)*36deg)) translateZ(400px);` )
+
+
+
+/*
+var vr= window.getComputedStyle(image_box[0], null);
+ var test= vr.getPropertyValue("transform")
+ console.log(test)
+*/
 
 
 
