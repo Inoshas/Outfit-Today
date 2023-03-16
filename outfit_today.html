@@ -17,7 +17,7 @@
 
     
   <header>
-  <h1 id="head_main">Outfit Today</h1>
+  <h1 id="head_main">OUTFIT TODAY</h1>
   </header>
 
 
@@ -27,28 +27,38 @@
       
 <!-- After header we split the body to diffferen sizes mainly 3 and 9: remeber total is 12-->
       <div class="col-sm-3 p-3 bg-primary text-white">
+        <body onload="DefaultScreen()">
+          <center>
+         
+            <h1 id="Para1" style="font-family: serif; font-size: 30px;"> Weather</h1>
+            <h2 id="cityName" style="font-family: serif; font-weight: 600; font-size: 40px;"> </h2>
+            <p id="date1"> </p>
+            <div style="display: inline-block;"> 
+                <p id="inputContainer" style="display: inline-block;" >City: <input type="text" id="cityInput" style="display: inline-block; color: black; size: 20px;"></p>
+              <button type="button" style="display: inline-block;" onclick="GetInfo()" > Enter </button>   
+            </div>
+              
+            
+        </center>
+        </body>
 
             <!-- Display Location, date and time-->
         <div class="row">
 
-          <div class="col-sm-4 p-3 bg-primary text-white">
+          <div class="col-sm-5 p-3 bg-primary text-white">
             <div id="secondsetup" >
-              <p id="location1"> location goes here </p>  
-              <p id="date1"> date goes here </p>
-              <p id="time1"> Time goes here</p>
-              <!-- ask for the new location -->
-              <input id="change_loc" style="font-size: 10px; width: 100px;" placeholder= "Change Location"></input>
+              <br>
+              <span style='font: size 30px;px;display: inline-block; '>&#127777;</span>
+              <p id="temperature"   style="font-size: 30px ; display: inline-block;"></p>
             </div>
           </div>
 
               <!-- Display Location, date and time-->
-          <div class="col-sm-8 p-3 bg-dark  text-white">
+          <div class="col-sm-7 p-3 bg-primary text-white">
             <div id="firstsetup" >
-              <span style='font-size:40px;display: inline-block; '>&#127777;</span>
-              <p id="temperature"   style="font-size: 40px ; display: inline-block;"></p>
               <p id="feels_like_w" style="font-size: 20px ; " > feels like weather  goes here</p>
-              <p id="min_max" style="font-size: 20px "> Min Max weather goes here</p>
-              <span style='font-size:40px;display: inline-block; '>&#127788;</span>
+              <p id="min_max" style="font-size: 20px "> min  / max </p>
+              <span style='font-size:50px;display: inline-block; '>&#127788;</span>
               <p id="wind_condition" style="font-size: 20px ; display: inline-block;""> wind consition goes here</p>
               <p id="cond" style="font-size: 20px "> weather conditin goes here</p>
             </div>
@@ -85,19 +95,21 @@
 
 
 <!-- This is to display cloths ::: -->
-      <div class="col-sm-9 p-3 bg-dark text-white">
+      <div class="col-sm-9 p-3  text-white">
+        -<button  id="checklist" onclick="create_checklist()">Going out</button> 
           <div id="image_div" class="box">
+      
           </div>
       <div>
-          
+        
   
         <!-- This is to display check list-->
-          <button  id="checklist" onclick="create_checklist()">Check List</button>
+        
 
 
-        <div id="myDIV" style="padding:16px;background-color:rgb(162, 21, 21)" style="display: inline-block" ></div>
-        <div id="aditional" style="padding:16px;background-color:rgb(21, 115, 162)" style="display: inline-block"> </div>
-        <div id="extra_list" style="padding:16px;background-color:rgb(162, 162, 21)" style="display: inline-block"> </div>
+        <div id="myDIV" style="padding:16px; color: black; display:table-row-group;"  ></div>
+        <div id="aditional" style="padding:16px;" style="display: inline-block"> </div>
+        <div id="extra_list" style="padding:16px;" style="display: inline-block"> </div>
       </div>
 
     </div>

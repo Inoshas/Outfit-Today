@@ -2,7 +2,6 @@
 // link html to javascript::::::::::::::::::::::::: All links goes here
 
 let temperature= document.getElementById("temperature");
-let location_current= document.getElementById("location1");
 let date1 = document.getElementById("date1");
 let feels_like_w =document.getElementById("feels_like_w");
 let wind_condition = document.getElementById("wind_condition");
@@ -40,17 +39,129 @@ let future_forecast;
 let feels_like_temperature;
 //#####################################################################
 
+//####################----MAIN PROG----##################################
+function GetInfo() {
+
+    var newName = document.getElementById("cityInput");
+    var cityName = document.getElementById("cityName");
+    cityName.innerHTML = newName.value;
+
+    fetch('https://api.openweathermap.org/data/2.5/forecast?q='+newName.value+'&appid=28ccc81c35e0d2b02668d8948dbe91d2&units=metric')
+    .then(response => response.json())
+    .then(data => {
+
+        console.log(data.list[0], data.list[2],data.city);
+
+       
+      let date = new Date();
+      date1.textContent=(new Date(date.getTime() + (date.getTimezoneOffset()*60000)+data.city.timezone*1000)).toLocaleString()
+  
+     
+      
+      // set today temperature to celicus
+      today_temperature= data.list[0].main.temp;
+      
+      
+      current_location= data.city.name;
+      today_wind_rate= data.list[0].wind;
+      today_weather_condn = data.list[0].weather[0].description;
+      date_today=data.list[0].dt_txt; 
+      
+      
+        
+      feels_like_temperature= Math.ceil(data.list[0].main.feels_like) ;
+      console.log(feels_like_temperature)
+      
+      /// Passed values to current weather condition based on the location:::
+      temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
+      feels_like_w.textContent = "feels like " + feels_like_temperature + " ºC";
+      
+      // MIN MAX temperature is not coming correctly::  CHECK??????
+      
+      // Need to correct this ---------------- ????? Which API???
+      //min_max.textContent = Math.ceil(data.list[0].main.temp_min-273.15) +" ºC  /" +Math.ceil(data.list[0].main.temp_max-273.15)+ " ºC";
+      wind_condition.textContent = today_wind_rate.speed; // done
+      //location_current.textContent = data.city.name; // done
+      current_condition.textContent = data.list[0].weather[0].description;
+      
+      
+      
+      if (today_temperature<-10){
+          weather_remarks="Pretty Cold";
+      } else if (today_temperature >= -10 && today_temperature <= 0){
+          weather_remarks="moderate Cold";
+      } else {
+          weather_remarks="It is Summer!";
+      } 
+      
+      //document.getElementById("WR").textContent = weather_remarks;
+      // Prediction in 6 hours::
+      document.getElementById("date2").textContent = data.list[2].dt_txt; 
+      document.getElementById("temp1").textContent = Math.ceil(data.list[2].main.temp).toFixed();
+      document.getElementById("FL1").textContent = Math.ceil(data.list[2].main.feels_like);
+      document.getElementById("max1").textContent = Math.ceil(data.list[2].main.temp_max);
+      document.getElementById("WS1").textContent = data.list[2].wind.speed;
+      document.getElementById("cond1").textContent = data.list[2].weather[0].description;
+      
+    })
+    .catch(err => alert("Something Went Wrong: Location not Found \n Check the Spelling!!"))
+
+    // Date and Time
+    
 
 
+
+}
 ///************PART 1 ************************** ******************/
+// Default Screen. 
 
-//********** THIS PART IS TO FETCH DAT AND INCLUDE THEM... --> ..............  */
+function DefaultScreen(){
+    // Get the current location
 
-// Paul:: Please note that above I have already called few elements using ID:: Use them if you want:::
-// Fetching data goes here: 
-// we assign them  belows:
+let geo={};
+
+function sucess(pos){
+
+    const lat = pos.coords.latitude;
+    geo.latitude=lat;
 
 
+    const lon = pos.coords.longitude;
+    geo.longitude=lon;
+    const myTimeout = setTimeout(myGeo(), 2000);
+
+}
+
+//console.log(geo)
+
+
+function error(){                
+}
+
+options={};
+
+navigator.geolocation.getCurrentPosition(sucess,error, options);
+
+  // pause for 5 Sec, to load the location input. 
+
+function myGeo() {
+    console.log(geo)
+    fetch('https://api.openweathermap.org/data/2.5/forecast?lat='+geo.latitude+'&lon='+geo.longitude+'&appid=28ccc81c35e0d2b02668d8948dbe91d2&units=metric')
+    .then(response => response.json())
+    .then(data =>{
+
+
+        document.getElementById("cityInput").defaultValue = data.city.name;
+
+        GetInfo();
+
+    })
+    
+    
+}    
+  
+}
+/*
 
 let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon=25.483722&appid=28ccc81c35e0d2b02668d8948dbe91d2";
 
@@ -114,7 +225,7 @@ document.getElementById("cond1").textContent = data.list[2].weather[0].descripti
 
 getISS();
 
-
+*/
 
 //// ********************** PART 2*************************************************//// 
 
@@ -267,12 +378,20 @@ function create_checklist(){
     // create check boxes and set names using array names
     var chk_box = document.createElement("INPUT");
     chk_box.setAttribute("type", "checkbox");
-    chk_box.innerText ="test";
+    chk_box.setAttribute("name", "test")
+    chk_box.setAttribute("id", "mycheckbox");
+
+    var chk_box_lable = document.createElement("LABEL");
+    chk_box_lable.setAttribute("for", "mycheckbox");
+    chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
+
+    var chk_box_gap = document.createElement("BR");
+
 
     //style="display: inline-block"
-    var chk_para = document.createElement("p");
-    chk_para.innerText =element + '\u00a0' + '\u00a0';
-    chk_para.style.display= "inline-block";
+   // var chk_para = document.createElement("p");
+   // chk_para.innerText ='\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
+    //chk_para.style.display= "inline-block";
 
     // Create pictures under same name::
     image = document.createElement("img");
@@ -280,7 +399,7 @@ function create_checklist(){
     // Adding images to header DIV
     span_1=document.createElement("span");
     span_1.style= `--i:${item*angle_needed};`;
-   console.log(span_1)
+   
 
     
     span_1.appendChild(image);
@@ -288,34 +407,19 @@ function create_checklist(){
 
     // Add elements to myDIV
     document.getElementById("myDIV").appendChild(chk_box);
-    document.getElementById("myDIV").appendChild(chk_para); 
+    document.getElementById("myDIV").appendChild(chk_box_lable);
+    /*
+    if (item%4===0 && item!=0){
+        document.getElementById("myDIV").appendChild(chk_box_gap);
+    }*/
+    
+
+//    document.getElementById("myDIV").appendChild(chk_para); 
 
  
     });
 
-    //span_1.transform = `rotateY(calc(var(--i)*45deg)) translateZ(400px);`
-
-    var vr= window.getComputedStyle(span_1, null);
-    tr= vr.getPropertyValue("transform")
-    console.log("tr")
-
-    let sin = Math.sin;
-    let cos = Math.cos;
-    let a = Math.PI * 0.3;
-    console.log(cos(Math.PI*.6))
-    console.log(-sin(Math.PI*.6))
-
-    //span_1.style.setProperty("transform" , [-0.5, 0, -0.866025, 0, 0, 1, 0, 0, 0.866025, 0, -0.5, 0, 346.41, 0, -200, 1] )
-
-/*
-    var values = tr.split('(')[1],
-    values = values.split(')')[0],
-    values = values.split(',');
-    console.log(values)
-    */
-   
-    // Call function here:::::::::::::::: 
-
+    
     
     extra_items();
 }
@@ -396,38 +500,5 @@ function extra_items(){
 
 
 
-
-/*
-function changeCSS() {
-var selects = image_box;
-for(var i =0, il = selects.length;i<il;i++){
-selects[i].style.transform=  `rotateY(calc(var(--i)*36deg)) translateZ(400px);`
-}
-}
-*/ //image_box[0].style.transform = `rotateY(calc(var(--i)*60deg)) translateZ(400px);` ;
-
-// image_box[0].transform= `rotateY(calc(var(--i)*36deg)) translateZ(400px);` ;
-//image_box[0].setAttribute('transform', `rotateY(calc(var(--i)*36deg)) translateZ(400px);` )
-
-
-
-/*
-var vr= window.getComputedStyle(image_box[0], null);
- var test= vr.getPropertyValue("transform")
- console.log(test)
-*/
-
-
-
-//image_div.style.transform=`rotateY(calc(var(--i)*36deg)) translateZ(400px);`
-// span_1.style.transform=`rotateY(calc(var(--i)*36deg)) translateZ(400px);`
-// image.style.transform=`rotateY(calc(var(--i)*36deg)) translateZ(400px);`
-
-
-//transform: rotateY(calc(var(--i)*36deg)) translateZ(400px)
-
-//create_checklist()
-
-// Animations goes here::::::::::::::::::::::::::::::::::::::::::::
 
 
