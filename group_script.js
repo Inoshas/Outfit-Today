@@ -69,8 +69,8 @@ function GetInfo() {
       
       
         
-      feels_like_temperature= Math.ceil(data.list[0].main.feels_like) ;
-      console.log(feels_like_temperature)
+      feels_like_temperature=Math.ceil(data.list[0].main.feels_like) ;
+      console.log("1"+feels_like_temperature)
       
       /// Passed values to current weather condition based on the location:::
       temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
@@ -95,20 +95,25 @@ function GetInfo() {
       } 
       
       //document.getElementById("WR").textContent = weather_remarks;
-      // Prediction in 6 hours::
+      /* Prediction in 6 hours::
       document.getElementById("date2").textContent = data.list[2].dt_txt; 
       document.getElementById("temp1").textContent = Math.ceil(data.list[2].main.temp).toFixed();
       document.getElementById("FL1").textContent = Math.ceil(data.list[2].main.feels_like);
       document.getElementById("max1").textContent = Math.ceil(data.list[2].main.temp_max);
       document.getElementById("WS1").textContent = data.list[2].wind.speed;
       document.getElementById("cond1").textContent = data.list[2].weather[0].description;
+
+      */
+      //create_checklist();
       
     })
     .catch(err => alert("Something Went Wrong: Location not Found \n Check the Spelling!!"))
+    console.log("not running")
 
     // Date and Time
     
 
+      
 
 
 }
@@ -120,23 +125,23 @@ function DefaultScreen(){
 
 let geo={};
 
-function sucess(pos){
+    function sucess(pos){
 
-    const lat = pos.coords.latitude;
-    geo.latitude=lat;
+        const lat = pos.coords.latitude;
+        geo.latitude=lat;
 
 
-    const lon = pos.coords.longitude;
-    geo.longitude=lon;
-    const myTimeout = setTimeout(myGeo(), 2000);
+        const lon = pos.coords.longitude;
+        geo.longitude=lon;
+        const myTimeout = setTimeout(myGeo(), 2000);
 
-}
+    }
 
 //console.log(geo)
 
 
-function error(){                
-}
+    function error(){                
+    }
 
 options={};
 
@@ -144,7 +149,7 @@ navigator.geolocation.getCurrentPosition(sucess,error, options);
 
   // pause for 5 Sec, to load the location input. 
 
-function myGeo() {
+    function myGeo() {
     console.log(geo)
     fetch('https://api.openweathermap.org/data/2.5/forecast?lat='+geo.latitude+'&lon='+geo.longitude+'&appid=28ccc81c35e0d2b02668d8948dbe91d2&units=metric')
     .then(response => response.json())
@@ -154,13 +159,15 @@ function myGeo() {
         document.getElementById("cityInput").defaultValue = data.city.name;
 
         GetInfo();
+      
 
-    })
+        })
     
-    
-}    
+          
+    } 
   
 }
+
 /*
 
 let api_url= "https://api.openweathermap.org/data/2.5/forecast?lat=65.010211&lon=25.483722&appid=28ccc81c35e0d2b02668d8948dbe91d2";
@@ -305,6 +312,7 @@ const array_cloths =
 
 
 function check_temperature(){  
+    console.log("2"+feels_like_temperature)
 
   switch(true){
 
@@ -369,8 +377,9 @@ function create_checklist(){
         }
     }
 // take cloths from defined array
+    
     cloths_need = check_temperature();
-    console.log(cloths_need.length)
+    //console.log(cloths_need.length)
     angle_needed=Math.ceil(360/cloths_need.length);
     console.log(angle_needed)
     cloths_need.forEach(function(element,item) {
@@ -388,10 +397,6 @@ function create_checklist(){
     var chk_box_gap = document.createElement("BR");
 
 
-    //style="display: inline-block"
-   // var chk_para = document.createElement("p");
-   // chk_para.innerText ='\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
-    //chk_para.style.display= "inline-block";
 
     // Create pictures under same name::
     image = document.createElement("img");
@@ -408,15 +413,7 @@ function create_checklist(){
     // Add elements to myDIV
     document.getElementById("myDIV").appendChild(chk_box);
     document.getElementById("myDIV").appendChild(chk_box_lable);
-    /*
-    if (item%4===0 && item!=0){
-        document.getElementById("myDIV").appendChild(chk_box_gap);
-    }*/
-    
 
-//    document.getElementById("myDIV").appendChild(chk_para); 
-
- 
     });
 
     
@@ -496,7 +493,6 @@ function extra_items(){
 }
 
 
-//create_list.onclick=function () {create_checklist()}
 
 
 
