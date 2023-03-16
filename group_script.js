@@ -7,21 +7,9 @@ let feels_like_w =document.getElementById("feels_like_w");
 let wind_condition = document.getElementById("wind_condition");
 let current_condition= document.getElementById("cond");
 let create_list =document.getElementById("create_list")
-// let image_div=document.getElementById("image_div");
 let image_box=document.getElementsByClassName("box")
-
-/*
-const head_main= document.getElementById("head_main");
-const location1= document.getElementById("location1");
-const date1 = document.getElementById("date1");
-const time1 = document.getElementById("time1");
-;
-const feels_like_w =document.getElementById("feels_like_w");
-const wind_condition = document.getElementById("wind_condition");
-const prediction=document.getElementById("prediction") ;
-const change_loca=document.getElementById("change_loca");
-const image1 =document.getElementById("image1")
-*/
+let submitXX=document.getElementById("submit")
+let myDIV = document.getElementById("myDIV");
 
 
 // Global variable: All global variables goes here
@@ -39,8 +27,12 @@ let future_forecast;
 let feels_like_temperature;
 //#####################################################################
 
+
+submitXX.addEventListener("click" , GetInfo)
+
 //####################----MAIN PROG----##################################
 function GetInfo() {
+    console.log("TEST GetInfo First line")
 
     var newName = document.getElementById("cityInput");
     var cityName = document.getElementById("cityName");
@@ -49,66 +41,52 @@ function GetInfo() {
     fetch('https://api.openweathermap.org/data/2.5/forecast?q='+newName.value+'&appid=28ccc81c35e0d2b02668d8948dbe91d2&units=metric')
     .then(response => response.json())
     .then(data => {
-
+        console.log("Data was obtained...")
         console.log(data.list[0], data.list[2],data.city);
-
        
-      let date = new Date();
-      date1.textContent=(new Date(date.getTime() + (date.getTimezoneOffset()*60000)+data.city.timezone*1000)).toLocaleString()
-  
-     
-      
-      // set today temperature to celicus
-      today_temperature= data.list[0].main.temp;
-      
-      
-      current_location= data.city.name;
-      today_wind_rate= data.list[0].wind;
-      today_weather_condn = data.list[0].weather[0].description;
-      date_today=data.list[0].dt_txt; 
-      
-      
+        let date = new Date();
+        date1.textContent=(new Date(date.getTime() + (date.getTimezoneOffset()*60000)+data.city.timezone*1000)).toLocaleString()
+    
+        // set today temperature to celicus
+        today_temperature= data.list[0].main.temp;
         
-      feels_like_temperature=Math.ceil(data.list[0].main.feels_like) ;
-      console.log("1"+feels_like_temperature)
-      
-      /// Passed values to current weather condition based on the location:::
-      temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
-      feels_like_w.textContent = "feels like " + feels_like_temperature + " ºC";
-      
-      // MIN MAX temperature is not coming correctly::  CHECK??????
-      
-      // Need to correct this ---------------- ????? Which API???
-      //min_max.textContent = Math.ceil(data.list[0].main.temp_min-273.15) +" ºC  /" +Math.ceil(data.list[0].main.temp_max-273.15)+ " ºC";
-      wind_condition.textContent = today_wind_rate.speed; // done
-      //location_current.textContent = data.city.name; // done
-      current_condition.textContent = data.list[0].weather[0].description;
-      
-      
-      
-      if (today_temperature<-10){
-          weather_remarks="Pretty Cold";
-      } else if (today_temperature >= -10 && today_temperature <= 0){
-          weather_remarks="moderate Cold";
-      } else {
-          weather_remarks="It is Summer!";
-      } 
-      
-      //document.getElementById("WR").textContent = weather_remarks;
-      /* Prediction in 6 hours::
-      document.getElementById("date2").textContent = data.list[2].dt_txt; 
-      document.getElementById("temp1").textContent = Math.ceil(data.list[2].main.temp).toFixed();
-      document.getElementById("FL1").textContent = Math.ceil(data.list[2].main.feels_like);
-      document.getElementById("max1").textContent = Math.ceil(data.list[2].main.temp_max);
-      document.getElementById("WS1").textContent = data.list[2].wind.speed;
-      document.getElementById("cond1").textContent = data.list[2].weather[0].description;
+        current_location= data.city.name;
+        today_wind_rate= data.list[0].wind;
+        today_weather_condn = data.list[0].weather[0].description;
+        date_today=data.list[0].dt_txt; 
+        
+        feels_like_temperature=Math.ceil(data.list[0].main.feels_like) ;
+        console.log("***"+feels_like_temperature)
+    
+        /// Passed values to current weather condition based on the location:::
+        temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
+        feels_like_w.textContent = "feels like " + feels_like_temperature + " ºC";
+        
+        // MIN MAX temperature is not coming correctly::  CHECK??????
+        
+        // Need to correct this ---------------- ????? Which API???
+        //min_max.textContent = Math.ceil(data.list[0].main.temp_min-273.15) +" ºC  /" +Math.ceil(data.list[0].main.temp_max-273.15)+ " ºC";
+        wind_condition.textContent = today_wind_rate.speed; // done
+        //location_current.textContent = data.city.name; // done
+        current_condition.textContent = data.list[0].weather[0].description;
+           
+        //document.getElementById("WR").textContent = weather_remarks;
+        /* Prediction in 6 hours::
+        document.getElementById("date2").textContent = data.list[2].dt_txt; 
+        document.getElementById("temp1").textContent = Math.ceil(data.list[2].main.temp).toFixed();
+        document.getElementById("FL1").textContent = Math.ceil(data.list[2].main.feels_like);
+        document.getElementById("max1").textContent = Math.ceil(data.list[2].main.temp_max);
+        document.getElementById("WS1").textContent = data.list[2].wind.speed;
+        document.getElementById("cond1").textContent = data.list[2].weather[0].description;
 
-      */
-      //create_checklist();
+        */
+        console.log("TEST GetInfo last line")
+
+        create_checklist();
       
     })
-    .catch(err => alert("Something Went Wrong: Location not Found \n Check the Spelling!!"))
-    console.log("not running")
+    .catch(err => alert(err));
+//    .catch(err => alert("Something Went Wrong: Location not Found \n Check the Spelling!!"));
 
     // Date and Time
     
@@ -150,6 +128,7 @@ navigator.geolocation.getCurrentPosition(sucess,error, options);
   // pause for 5 Sec, to load the location input. 
 
     function myGeo() {
+    console.log("**##:")
     console.log(geo)
     fetch('https://api.openweathermap.org/data/2.5/forecast?lat='+geo.latitude+'&lon='+geo.longitude+'&appid=28ccc81c35e0d2b02668d8948dbe91d2&units=metric')
     .then(response => response.json())
@@ -159,7 +138,7 @@ navigator.geolocation.getCurrentPosition(sucess,error, options);
         document.getElementById("cityInput").defaultValue = data.city.name;
 
         GetInfo();
-      
+        console.log("TEST 101")
 
         })
     
@@ -312,7 +291,8 @@ const array_cloths =
 
 
 function check_temperature(){  
-    console.log("2"+feels_like_temperature)
+    console.log("int temp")
+    console.log(feels_like_temperature)
 
   switch(true){
 
@@ -322,6 +302,7 @@ function check_temperature(){
     console.log("we need another warning message or something for this.")
     break;
 //below -15
+
     case feels_like_temperature <-15:
     return array_cloths.too_cold;
     break;
@@ -370,55 +351,65 @@ var span_1
 
 
 function create_checklist(){
+    console.log("I am running")
 
-    if (myDIV.firstChild) {
-        while (myDIV.hasChildElement()) {
-            myDIV.removeChild(box.lastChild);
+    if (myDIV.hasChildNodes()) {
+        while (myDIV.hasChildNodes()) {
+            myDIV.removeChild(myDIV.lastChild);
         }
     }
+
+    if (image_box[0].hasChildNodes()) {
+        while (image_box[0].hasChildNodes()) {
+            image_box[0].removeChild(image_box[0].lastChild);
+        }
+    }
+
+
 // take cloths from defined array
     
     cloths_need = check_temperature();
     //console.log(cloths_need.length)
     angle_needed=Math.ceil(360/cloths_need.length);
     console.log(angle_needed)
+
     cloths_need.forEach(function(element,item) {
-    
-    // create check boxes and set names using array names
-    var chk_box = document.createElement("INPUT");
-    chk_box.setAttribute("type", "checkbox");
-    chk_box.setAttribute("name", "test")
-    chk_box.setAttribute("id", "mycheckbox");
+        
+        // create check boxes and set names using array names
+        var chk_box = document.createElement("INPUT");
+        chk_box.setAttribute("type", "checkbox");
+        chk_box.setAttribute("name", "test")
+        chk_box.setAttribute("id", "mycheckbox");
 
-    var chk_box_lable = document.createElement("LABEL");
-    chk_box_lable.setAttribute("for", "mycheckbox");
-    chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
+        var chk_box_lable = document.createElement("LABEL");
+        chk_box_lable.setAttribute("for", "mycheckbox");
+        chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
 
-    var chk_box_gap = document.createElement("BR");
+        // Add elements to myDIV
+        myDIV.appendChild(chk_box);
+        myDIV.appendChild(chk_box_lable);
+//        var chk_box_gap = document.createElement("BR");
 
 
 
-    // Create pictures under same name::
-    image = document.createElement("img");
-    image.src=`Pictures/${element}.jpg`; // assign the name for the image:::
-    // Adding images to header DIV
-    span_1=document.createElement("span");
-    span_1.style= `--i:${item*angle_needed};`;
-   
+        // Create pictures under same name::
+        image = document.createElement("img");
+        image.src=`Pictures/${element}.jpg`; // assign the name for the image:::
+        console.log(element)
+        console.log(image.src)
+ 
+        // Adding images to header DIV
+        span_1=document.createElement("span");
+        span_1.style= `--i:${item*angle_needed};`;
+        span_1.appendChild(image);
+ 
+        image_box[0].appendChild(span_1);
 
-    
-    span_1.appendChild(image);
-    image_box[0].appendChild(span_1);
-
-    // Add elements to myDIV
-    document.getElementById("myDIV").appendChild(chk_box);
-    document.getElementById("myDIV").appendChild(chk_box_lable);
 
     });
-
-    
-    
-    extra_items();
+ 
+    //extra_items();
+  
 }
 
 function extra_items(){
