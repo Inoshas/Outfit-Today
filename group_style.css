@@ -113,5 +113,13 @@ table, th, td {
   border:1px solid rgb(104, 33, 174);
 }
 
+.verticalLine {
+  border-left: 4px solid #4b42f5;
+  height: 1000px;
+  position: absolute;
+  left: 25%;
+  margin-left: -3px;
+  top: 210px;
+}
 
 

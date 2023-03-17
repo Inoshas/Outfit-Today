@@ -188,6 +188,7 @@ submitXX.addEventListener("click" , GetInfo);
         new_link = document.createElement('a');
         new_link.setAttribute("class","new_link");
         new_link.setAttribute('href', new_href);
+        new_link.setAttribute('target', "_blank")
         new_link.innerHTML="for more info"
         mylink.appendChild(new_link);
 
@@ -299,6 +300,8 @@ submitXX.addEventListener("click" , GetInfo);
   
 
 
+
+   
    //////////////////////// Third part to add extra things::::::::::::::::::::: ///////////////////////
 
 
@@ -342,15 +345,7 @@ submitXX.addEventListener("click" , GetInfo);
  
 
 /***************************************************************************************** */
-    
 
-
-
-
-
-  
-
-//************** WE NEED TO ADD RAINY AND WINDY CONDITION CLOTH SELECTION HERE.... */
 
 
 /* Here we create elements for check list and cloth images:::*/
