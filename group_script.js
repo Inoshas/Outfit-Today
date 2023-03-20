@@ -78,7 +78,7 @@ submitXX.addEventListener("click" , GetInfo);
             
             // Need to correct this ---------------- ????? Which API???
             //min_max.textContent = Math.ceil(data.list[0].main.temp_min-273.15) +" ºC  /" +Math.ceil(data.list[0].main.temp_max-273.15)+ " ºC";
-            wind_condition.textContent = today_wind_rate.speed; // done
+            wind_condition.textContent = today_wind_rate.speed + " m/s"; // done
             //location_current.textContent = data.city.name; // done
             current_condition.textContent = data.list[0].weather[0].description;
             
@@ -235,7 +235,7 @@ submitXX.addEventListener("click" , GetInfo);
 
         });
     
-        extra_items();
+        //extra_items();
     
     }
 
@@ -285,12 +285,12 @@ submitXX.addEventListener("click" , GetInfo);
 
 // lets make an object with different cloths:
     const array_cloths =
-    { too_cold: ["Thermal pant", "Pant" , "Long sleeve", "Inner overall", "Socks", "Winter jacket"  ,"Winter pant"  ,"Wollen socks","Winter boots" ,"Winter cap" , "Scarf" , "Mittens", "Winter gloves"] ,
-        pretty_cold: ["Long sleeve", "Thermal pant","Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Wollen socks"  , "Winter boots" ,   "Winter cap" ,  "Scarf" ,  "Winter gloves" ],
-        around_zero : ["Short sleeve", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Wollen socks"  , "Winter boots" , "Off seasonal cap" ,  "Off seasonal gloves" ] ,
-        offseason_feel :  ["Short sleeve", "Socks",  "Inner overall", "Offseasonal jacket"  , "Cap"  , "Shoes" ], 
-        summary_mood : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles" ],
-        too_hot : [ "Short sleeve", "Short",  "Inner overall",   , "Cap"  , "Sandles"],
+    { too_cold: ["Thermal pant", "Pant" , "Long sleeve top", "Inner overall", "Socks", "Winter pant","Winter jacket"  ,"Woolen socks","Winter boots" ,"Winter cap" , "Scarf" , "Mittens", "Winter gloves"] ,
+        pretty_cold: ["Long sleeve top", "Thermal pant","Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Woolen socks"  , "Winter boots" ,   "Winter cap" ,  "Winter scarf" ,  "Winter gloves" ],
+        around_zero : ["Short sleeve top", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" ,   "Winter boots" , "off-seasonal cap" ,  "Off-seasonal gloves", "scarf" ] ,
+        offseason_feel :  ["Short sleeve top", "Socks",  "Inner overall", "Off-seasonal jacket"  , "Cap"  , "Shoes" , "scarf" ], 
+        summary_mood : [ "Short sleeve top", "Shorts",    "Cap"  , "Sandles" ],
+        too_hot : [ "Short sleeve top", "Shorts",   "Cap"  , "Sandles"],
         rain_cloths : [ "Water proof pants" , "Rain boots" , "Rain gloves"],
         sun_shine : ["Sun glasses"],
         windy :["Wind proof jacket"]
@@ -366,7 +366,7 @@ function extra_items(){
 
         cloths_rain.forEach(function(element,index){
             image1 = document.createElement("img");
-            image1.src=`Pictures/${element}.png`; // assign the name for the image:::
+            image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
             image1.style.display= "inline-block";
             image1.style.height="150px" ;
             image1.height="200px"
