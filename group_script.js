@@ -366,7 +366,7 @@ function extra_items(){
 
         cloths_rain.forEach(function(element,index){
             image1 = document.createElement("img");
-            image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
+            image1.src=`Pictures/${element}.png`; // assign the name for the image:::
             image1.style.display= "inline-block";
             image1.style.height="150px" ;
             image1.height="200px"
