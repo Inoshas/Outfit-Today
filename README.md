@@ -1,2 +1,2 @@
-# GroupProject-Weather-Forecast for Kids 
-The group projects about displaying weather and cloths
+# GroupProject: Outfit Today
+This project is to display the suitable cloths for different weather conditions. 
