@@ -21,6 +21,7 @@ let mylink=document.getElementById("mylink");
 
 let extra_list=document.getElementById("extra_list");
 let additional=document.getElementById("additional");
+let part1=document.getElementById("part1");
 
 // Global variable: All global variables goes here
 let boundry_wind = 6 ; // give the lower bound tto check wind condition::::::::::::::::::::
@@ -36,6 +37,16 @@ let today_time_array = [];
 let today_wind_rates= [];
 let today_temp_forecast=[];
 let today_rain_pres =[];
+
+
+let arr_temp=[];
+let arr_fl = [];
+let arr_wc= [];
+let arr_rain= [];
+let arr_wind= [];
+let arr_day= [];
+let arr_Hours=[];
+
 
 
 //#####################################################################
@@ -98,13 +109,114 @@ submitXX.addEventListener("click" , GetInfo);
             
             // we need this to display link::
             new_ID= data.city.id
+
+            // for rain and wind codition data ::::::::::::::::::::::::::::::
+
+            
+            arr_temp=[];
+            arr_fl = [];
+            arr_wc= [];
+            arr_rain= [];
+            arr_wind= [];
+            arr_day= [];
+            arr_Hours=[];
+
+            var d = new Date();
+
+            var nd = new Date((d.getTime() + (d.getTimezoneOffset() * 60000)) + (data.city.timezone*1000));
+
+           
+
+            let n = 24-nd.getHours();
+
+            n=(n/3).toFixed();
+
+            hours_now=nd.getHours();
+
+            console.log("####"+nd.getHours());
+
+                        
+
+            for (i=0; i<n; i++){
+                arr_wind.push(data.list[i].wind.speed)
+                arr_rain.push(Number(data.list[i].pop))
+
+                arr_temp.push(data.list[i].main.temp)
+                arr_fl.push(data.list[i].main.feels_like)
+                arr_wc.push(data.list[i].weather[0].description)
+                
+
+                arr_day.push(nd.getDate());
+                arr_Hours.push(nd.getHours())
+            }
+
+            let max_rain=Math.max(...arr_rain);
+            let index_rain = arr_rain.indexOf(max_rain);
+            
+
+            let rain_time = data.list[index_rain].dt_txt;
+
+            console.log(rain_time);
+
+            let max_temp = Math.round(Math.max(...arr_temp));
+            let min_temp = Math.round(Math.min(...arr_temp))
+            console.log(arr_temp)
+
+            min_max.innerText = min_temp + " ºC | " +max_temp+ " ºC"
         
 
             create_checklist();
+            create_table();
             
         })
         .catch(err => alert(err));
 
+
+    }
+
+    function create_table(){
+        
+        console.log(arr_temp.length);
+        max_length=0;
+
+        if (arr_temp.length > 4) 
+            max_length= 4;
+        else max_length =arr_temp.length-1;
+        console.log("check" + max_length)
+
+        if (part1.hasChildNodes()) {
+            while (part1.hasChildNodes()) {
+                part1.removeChild(part1.lastChild);
+            }
+        }
+
+    
+        for( iter=1; iter <= max_length ; iter++ ){
+            //var temp_icon=document.createElement('i');
+            //temp_icon.setAttribute("class", "fas fa-temperature-high");
+            
+            var temp_para= document.createElement('p');
+            var fels_para= document.createElement('p');
+            var rain_para= document.createElement('p');
+            var wind_para=document.createElement('p');
+            var line =document.createElement('hr')
+
+
+            temp_para.innerText= arr_temp[iter] ;
+            fels_para.innerText = "feels like " + arr_fl[iter];
+            rain_para.innerText = arr_rain[iter]+ " %";
+            wind_para.innerText =  arr_wind[iter] + " m/s"
+
+            console.log(arr_temp[iter]);
+            //part1.appendChild(temp_icon);
+            part1.appendChild(temp_para);      
+            part1.appendChild(fels_para);
+            part1.appendChild(rain_para);
+            part1.appendChild(wind_para);
+            part1.appendChild(line)
+
+        }
+       
 
     }
 
@@ -380,6 +492,22 @@ function extra_items(){
             extra_list.removeChild(extra_list.lastChild);
         }
     }
+
+ 
+    if (additional2.hasChildNodes()) {
+        while (additional2.hasChildNodes()) {
+            additional2.removeChild(additional2.lastChild);
+        }
+    }
+
+
+
+    if (extra_list2.hasChildNodes()) {
+        while (extra_list2.hasChildNodes()) {
+            extra_list2.removeChild(extra_list2.lastChild);
+        }
+    }
+
    
 
     // This is for raining::::::::::::::::::::::::::::::::::
@@ -417,19 +545,28 @@ function extra_items(){
             chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
 
             // Add elements to myDIV
-            additional.appendChild(chk_box);
-            additional.appendChild(chk_box_lable);
+            extra_list2.appendChild(chk_box);
+            extra_list2.appendChild(chk_box_lable);
 
         })
            
     }
    
-       
+      
+    var chk_para = document.createElement("p");
+    chk_para.innerText =" The highest wind rate reported is aa % and at tt time" ;
+    document.getElementById("additional2").appendChild(chk_para);   
 
     // Same goes for wind ::::::::::::
     // We propse cloths for wind only if it is postive temperature 
     // if temperature is negative we give a warning message::::::
     if (max_windrate > boundry_wind){
+    
+
+        var chk_para = document.createElement("p");
+        chk_para.innerText = "Suggestions for windy conditions are, " ;
+        additional2.appendChild(chk_para); 
+       
         
         cloths_windy=array_cloths.windy; 
         console.log("testing:" +cloths_windy);
@@ -438,29 +575,29 @@ function extra_items(){
                 image1 = document.createElement("img");
                 image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
                 image1.style.display= "inline-block";
+                image1.style.height = "150px"
 
     
                 
-                additional.appendChild(image1);
-               
-    
+                additional2.appendChild(image1);
+
                 var chk_box = document.createElement("INPUT");
                 chk_box.setAttribute("type", "checkbox");
+                chk_box.setAttribute("id", "mycheckbox");
     
-                var chk_para = document.createElement("p");
-                chk_para.innerText =element + '\u00a0' + '\u00a0';
-                chk_para.style.display= "inline-block";
+                var chk_box_lable = document.createElement("LABEL");
+                chk_box_lable.setAttribute("for", "mycheckbox");
+                chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
     
-                document.getElementById("extra_list").appendChild(chk_box);
-                document.getElementById("extra_list").appendChild(chk_para); 
+                // Add elements to myDIV
+                additional2.appendChild(chk_box);
+                additional2.appendChild(chk_box_lable);
                 
             })
 
        // }
 
-            var chk_para = document.createElement("p");
-            chk_para.innerText =" The highest wind rate is reported is aa % and at tt time" ;
-            document.getElementById("extra_list").appendChild(chk_para);      
+         
     }
 
 }

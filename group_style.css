@@ -131,6 +131,20 @@ table, th, td {
 
 
 .additional img{
-  margin-right: 100px;
-  height: 400px;
+  margin-right: 25px;
+  height: 150px;
+
+}
+.additional2 img{
+  margin-right: 25px;
+  height: 150px;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 4px solid #7541f6;
+  margin: 1em 0;
+  padding: 0;
 }
