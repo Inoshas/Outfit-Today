@@ -3,8 +3,9 @@
   box-sizing: border-box;
     }
 
-body {
 
+
+body {
 background-size: cover;
         /*height: 55px;*/
 background-color: rgb(200, 200, 178);
@@ -19,8 +20,6 @@ font-weight: 100;
 
 
 
-
-
 /* Style the header */
 header {
 margin-top: 15PX;
@@ -31,6 +30,8 @@ background-color: rgb(161, 194, 188);
 background-image: url("Pictures/header3.jpg");
 }
 
+
+/* style the button*/
 button{
   background-color: rgba(10, 16, 55, 0);
 font-style: italic;align-self: start;
@@ -40,9 +41,11 @@ font-style: italic;align-self: start;
 
 /* Create two columns/boxes that floats next to each other */
 
+
 temperature{
   font-size: 30px;
 }
+
 
 
 #firstsetup {
@@ -50,6 +53,8 @@ position: right;
 text-align: left;
 display: inline-block
 }
+
+
 #secondsetup{
 position: left;
 text-align: left;
@@ -57,14 +62,8 @@ font-size: 22px;
 }
 
 
-.vertical {
-  border-left: 6px solid black;
-  height: 1000px;
-  position:absolute;
-  left: 25%;
-  top:0
-}
 
+/* This is the starting point for rotation*/
 .box{
 position:relative;
 width:150px;
@@ -74,9 +73,10 @@ margin-left: 500px;
 margin-bottom: 50px;
 transform-style: preserve-3d;
 animation: animate 20s linear infinite;
-
-
 }
+
+
+
 @keyframes animate 
 {
     0%{
@@ -86,6 +86,8 @@ animation: animate 20s linear infinite;
         transform: perspective(2000px) rotateY(360deg);
     }
 }
+
+
 .box span{
 position: absolute;
 top:0;
@@ -95,10 +97,9 @@ height:100%;
 transform-origin: center;
 transform-style:preserve-3d ;
 transform: rotateY(calc(var(--i)*1deg)) translateZ(400px);
-/*transform: rotateY(calc(var(--i)*30deg)) translateZ(400px);*/
-
-
 }
+
+
 .box span img{
 position: absolute;
 top:0;
@@ -106,12 +107,18 @@ left:500;
 width:100%;
 height:100%;
 object-fit: cover;
-
 }
+
+/*this is the ending point for rotation*/
+
+
 
 table, th, td {
   border:1px solid rgb(104, 33, 174);
 }
+
+
+
 
 .verticalLine {
   border-left: 4px solid #4b42f5;
@@ -123,3 +130,7 @@ table, th, td {
 }
 
 
+.additional img{
+  margin-right: 100px;
+  height: 400px;
+}

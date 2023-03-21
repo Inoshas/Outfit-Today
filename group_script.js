@@ -19,6 +19,9 @@ let myDIV = document.getElementById("myDIV");
 let Prediction = document.getElementById( "prediction");
 let mylink=document.getElementById("mylink");
 
+let extra_list=document.getElementById("extra_list");
+let additional=document.getElementById("additional");
+
 // Global variable: All global variables goes here
 let boundry_wind = 6 ; // give the lower bound tto check wind condition::::::::::::::::::::
 let rain_boundry = 0;
@@ -42,7 +45,17 @@ submitXX.addEventListener("click" , GetInfo);
 
 //####################----All other functions / objects/ array gioes here----##################################
 
-// PART 1 :  functions for fetching data:::::::::::::
+// ********************** FUNCTIONS ***************************************
+
+//GetInfo()
+//DefaultScreen()
+//myGeo()
+//error() 
+//check_temperature() ::: return cloth array depend on the temperature
+//create_checklist() ::: create list of elements based on themperature
+//extra_items() :::: create list of elements based on rain and wind 
+
+// PART 1 :  functions for fetching data:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     function GetInfo() {
         console.log("TEST GetInfo First line")
 
@@ -73,12 +86,13 @@ submitXX.addEventListener("click" , GetInfo);
             /// Passed values to current weather condition based on the location:::
             temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
             feels_like_w.textContent = "feels like " + feels_like_temperature + " ºC";
+            wind_condition.textContent = today_wind_rate.speed + " m/s";
             
             // MIN MAX temperature is not coming correctly::  CHECK??????
             
             // Need to correct this ---------------- ????? Which API???
             //min_max.textContent = Math.ceil(data.list[0].main.temp_min-273.15) +" ºC  /" +Math.ceil(data.list[0].main.temp_max-273.15)+ " ºC";
-            wind_condition.textContent = today_wind_rate.speed + " m/s"; // done
+             // done
             //location_current.textContent = data.city.name; // done
             current_condition.textContent = data.list[0].weather[0].description;
             
@@ -94,7 +108,7 @@ submitXX.addEventListener("click" , GetInfo);
 
     }
 
-// Default Screen. 
+// Function for showing default screen::::::::::::::::::::::::::::::::::::::::::::::::::::
 
     function DefaultScreen(){
         // Get the current location
@@ -143,19 +157,12 @@ submitXX.addEventListener("click" , GetInfo);
     
     }
 
-// *************************Part 1 ends here ************************************
-
-//// ********************** PART 2*************************************************//// 
 
 
-/****************** This part is for adding pictures and processing data ....... **************** */
-
-
-
-// functions come first:::::::::::::::::::::::::
+// functions to create check list:::::::::::::::::::::::::
 
     function create_checklist(){
-        console.log("I am running")
+     
 
     /// remove all created childs here:::::::::::::::::::::::
 
@@ -177,7 +184,7 @@ submitXX.addEventListener("click" , GetInfo);
 
         if (mylink.hasChildNodes()) {
             while (mylink.hasChildNodes()) {
-                mylink.removeChild(mylink.lastChild);
+                mylink.removeChild(mylink.lastChild); 
             }
         }
 
@@ -235,7 +242,7 @@ submitXX.addEventListener("click" , GetInfo);
 
         });
     
-        //extra_items();
+        extra_items();
     
     }
 
@@ -291,7 +298,7 @@ submitXX.addEventListener("click" , GetInfo);
         offseason_feel :  ["Short sleeve top", "Socks",  "Inner overall", "Off-seasonal jacket"  , "Cap"  , "Shoes" , "scarf" ], 
         summary_mood : [ "Short sleeve top", "Shorts",    "Cap"  , "Sandles" ],
         too_hot : [ "Short sleeve top", "Shorts",   "Cap"  , "Sandles"],
-        rain_cloths : [ "Water proof pants" , "Rain boots" , "Rain gloves"],
+        rain_cloths : [ "Water proof pant" , "Rain boots" , "Rain gloves", "Umbrella"],
         sun_shine : ["Sun glasses"],
         windy :["Wind proof jacket"]
     }  ;
@@ -358,36 +365,66 @@ var span_1
 
 function extra_items(){
 
+    // remove all created childs here:::::::::::::::::::::::
+
+    if (additional.hasChildNodes()) {
+        while (additional.hasChildNodes()) {
+            additional.removeChild(additional.lastChild);
+        }
+    }
+
+
+
+    if (extra_list.hasChildNodes()) {
+        while (extra_list.hasChildNodes()) {
+            extra_list.removeChild(extra_list.lastChild);
+        }
+    }
+   
+
     // This is for raining::::::::::::::::::::::::::::::::::
+    if (max_rainPresentage !=0){
+            var chk_para = document.createElement("p");
+            chk_para.innerText = "The highest rain presentage reported is xx % and at yy time" ;
+            extra_list.appendChild(chk_para); 
+    }
+    
     if (max_rainPresentage > rain_boundry ){
         //console.log("Highest raining possibility is "+ max_rainPresentage +"% at" +today_time_array[index_value] );
+        var chk_para = document.createElement("p");
+        chk_para.innerText = "Suggestions for rainy conditions are, " ;
+        extra_list.appendChild(chk_para); 
+
         cloths_rain=array_cloths.rain_cloths; 
         console.log("testing:" +cloths_rain);
+    
 
         cloths_rain.forEach(function(element,index){
             image1 = document.createElement("img");
             image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
             image1.style.display= "inline-block";
             image1.style.height="150px" ;
-            image1.height="200px"
-            document.getElementById("aditional").appendChild(image1);
+            //image1.height="200px"
+            additional.appendChild(image1);
             image1.style.display= "inline-block";
 
             var chk_box = document.createElement("INPUT");
             chk_box.setAttribute("type", "checkbox");
+            chk_box.setAttribute("id", "mycheckbox");
 
-            var chk_para = document.createElement("p");
-            chk_para.innerText =element + '\u00a0' + '\u00a0';
-            chk_para.style.display= "inline-block";
+            var chk_box_lable = document.createElement("LABEL");
+            chk_box_lable.setAttribute("for", "mycheckbox");
+            chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
 
-            document.getElementById("extra_list").appendChild(chk_box);
-            document.getElementById("extra_list").appendChild(chk_para); 
-            
+            // Add elements to myDIV
+            additional.appendChild(chk_box);
+            additional.appendChild(chk_box_lable);
+
         })
-            var chk_para = document.createElement("p");
-            chk_para.innerText =" The highest rain presentage reported is xx % and at yy time" ;
-            document.getElementById("extra_list").appendChild(chk_para);      
+           
     }
+   
+       
 
     // Same goes for wind ::::::::::::
     // We propse cloths for wind only if it is postive temperature 
@@ -401,10 +438,11 @@ function extra_items(){
                 image1 = document.createElement("img");
                 image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
                 image1.style.display= "inline-block";
-                image1.style.height="150px" ;
-                image1.height="200px"
-                document.getElementById("aditional").appendChild(image1);
-                image1.style.display= "inline-block";
+
+    
+                
+                additional.appendChild(image1);
+               
     
                 var chk_box = document.createElement("INPUT");
                 chk_box.setAttribute("type", "checkbox");
