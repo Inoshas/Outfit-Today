@@ -24,8 +24,12 @@ let additional=document.getElementById("additional");
 let part1=document.getElementById("part1");
 
 // Global variable: All global variables goes here
-let boundry_wind = 6 ; // give the lower bound tto check wind condition::::::::::::::::::::
-let rain_boundry = 0;
+// According to https://www.windfinder.com/wind/windspeed.html   wind boundry was set to below::::
+// that is for moderate breeze ::: 1ktz nearly equal .55 m/s
+
+let boundry_wind = 5.56 ; // give the lower bound tto check wind condition::::::::::::::::::::
+
+let rain_boundry = .25;
 let today_temperature;
 let current_location;
 let today_wind_rate;
@@ -33,10 +37,7 @@ let feels_like_temperature;
 let new_ID;
 
 //************** additional variable to assign  */
-let today_time_array = [];
-let today_wind_rates= [];
-let today_temp_forecast=[];
-let today_rain_pres =[];
+
 
 
 let arr_temp=[];
@@ -46,6 +47,11 @@ let arr_rain= [];
 let arr_wind= [];
 let arr_day= [];
 let arr_Hours=[];
+
+let max_rainPresentage;
+let index_rain ;
+let max_windrate ;
+let index_wind ;
 
 
 
@@ -150,8 +156,10 @@ submitXX.addEventListener("click" , GetInfo);
                 arr_Hours.push(nd.getHours())
             }
 
-            let max_rain=Math.max(...arr_rain);
-            let index_rain = arr_rain.indexOf(max_rain);
+            max_rainPresentage=Math.max(...arr_rain);
+            index_rain = arr_rain.indexOf(max_rainPresentage);
+            max_windrate=Math.max(...arr_rain);
+            index_wind = arr_rain.indexOf(max_windrate);
             
 
             let rain_time = data.list[index_rain].dt_txt;
@@ -429,49 +437,6 @@ submitXX.addEventListener("click" , GetInfo);
 
 //************************************************************************************** */
   
-    new_value_temp=3; // temperature for each hour goes here:::
-    new_value_wind=4; // wind for each hour goes here:::::::::::::::
-    new_value_rainy=1; // 
-    //hours_index = 2; // this is current time
-
-
-    // if you are getting every 3 hours put it that way::::::::::::::::: then hours_index ++3 
-    for (let hours_index = 0; hours_index < 24; hours_index += 3) {
-        today_time_array.push(hours_index);
-        today_rain_pres.push(new_value_rainy);
-        today_wind_rates.push(new_value_wind) ;
-        today_temp_forecast.push( new_value_temp);
-    // today_temperature_forecast = set (hours_index, new_value_temp);
-    //  today_wind_rates= new Map (hours_index, new_value_temp);
-    // These things no need :: checking purpose::::::::
-        new_value_temp +=5;
-        new_value_wind +=5;
-        new_value_rainy +=6;
-    }
-    // Above has values with forecast :::::::::::::::
-
-    // This will give min and max temperature ::::::...
-    min_temperatue= Math.min(...today_temp_forecast);
-    max_temperature=Math.max(...today_temp_forecast);
-    // rain ::: We need maximum rain presentage and time:::
- 
-    max_rainPresentage = Math.max(...today_rain_pres);
-    console.log(max_rainPresentage)
-
-    max_windrate =Math.max(...today_wind_rates);
-    console.log(max_rainPresentage)
-    //index_value= today_rain_pres.findIndex(Math.max(today_rain_pres));
- 
-
-/***************************************************************************************** */
-
-
-
-/* Here we create elements for check list and cloth images:::*/
-
-
-var span_1
-
 
 
 
@@ -513,11 +478,17 @@ function extra_items(){
     // This is for raining::::::::::::::::::::::::::::::::::
     if (max_rainPresentage !=0){
             var chk_para = document.createElement("p");
-            chk_para.innerText = "The highest rain presentage reported is xx % and at yy time" ;
+            if (today_temperature >0){
+                chk_para.innerText = "The highest rain presentage reported is " + max_rainPresentage*100+ "%  at status says ???? "  ;
+            }
+            else{
+                chk_para.innerText = "Highest Possibility to experience snowing  is " + max_rainPresentage*100+ "%  at status says  ???? " 
+            }
+
             extra_list.appendChild(chk_para); 
     }
     
-    if (max_rainPresentage > rain_boundry ){
+    if (max_rainPresentage > rain_boundry  && today_temperature > 0){
         //console.log("Highest raining possibility is "+ max_rainPresentage +"% at" +today_time_array[index_value] );
         var chk_para = document.createElement("p");
         chk_para.innerText = "Suggestions for rainy conditions are, " ;
@@ -554,13 +525,15 @@ function extra_items(){
    
       
     var chk_para = document.createElement("p");
-    chk_para.innerText =" The highest wind rate reported is aa % and at tt time" ;
+    chk_para.innerText =" The highest wind rate reported is " + max_rainPresentage+ "m/s at ????? and  status says ???" ;
     document.getElementById("additional2").appendChild(chk_para);   
 
     // Same goes for wind ::::::::::::
     // We propse cloths for wind only if it is postive temperature 
     // if temperature is negative we give a warning message::::::
-    if (max_windrate > boundry_wind){
+
+    // According to https://www.windfinder.com/wind/windspeed.html  
+    if (max_windrate > boundry_wind && today_temperature > 5){
     
 
         var chk_para = document.createElement("p");
