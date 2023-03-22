@@ -142,9 +142,9 @@ table, th, td {
 
 hr {
   display: block;
-  height: 1px;
+  height: 2px;
   border: 0;
-  border-top: 4px solid #7541f6;
+  border-top: 4px solid #03010cca;
   margin: 1em 0;
   padding: 0;
 }

@@ -47,6 +47,7 @@ let arr_rain= [];
 let arr_wind= [];
 let arr_day= [];
 let arr_Hours=[];
+let arr_time =[];
 
 let max_rainPresentage;
 let index_rain ;
@@ -88,6 +89,8 @@ submitXX.addEventListener("click" , GetInfo);
         
             let date = new Date();
             date1.textContent=(new Date(date.getTime() + (date.getTimezoneOffset()*60000)+data.city.timezone*1000)).toLocaleString()
+            var d1 = (new Date(date.getTime() + (date.getTimezoneOffset()*60000)+data.city.timezone*1000));
+
         
             // set today temperature to celicus
             today_temperature= data.list[0].main.temp;
@@ -126,6 +129,7 @@ submitXX.addEventListener("click" , GetInfo);
             arr_wind= [];
             arr_day= [];
             arr_Hours=[];
+            arr_time =[];
 
             var d = new Date();
 
@@ -144,9 +148,12 @@ submitXX.addEventListener("click" , GetInfo);
                         
 
             for (i=0; i<n; i++){
+               
                 arr_wind.push(data.list[i].wind.speed)
                 arr_rain.push(Number(data.list[i].pop))
-
+               arr_time.push(d1.getHours()+(3*i))
+              
+             
                 arr_temp.push(data.list[i].main.temp)
                 arr_fl.push(data.list[i].main.feels_like)
                 arr_wc.push(data.list[i].weather[0].description)
@@ -155,6 +162,8 @@ submitXX.addEventListener("click" , GetInfo);
                 arr_day.push(nd.getDate());
                 arr_Hours.push(nd.getHours())
             }
+            console.log("printing**********")
+            console.log("*********"+arr_time)
 
             max_rainPresentage=Math.max(...arr_rain);
             index_rain = arr_rain.indexOf(max_rainPresentage);
@@ -200,23 +209,31 @@ submitXX.addEventListener("click" , GetInfo);
 
     
         for( iter=1; iter <= max_length ; iter++ ){
-            //var temp_icon=document.createElement('i');
-            //temp_icon.setAttribute("class", "fas fa-temperature-high");
+            /*var temp_icon=document.createElement('i');
+            temp_icon.setAttribute("class", "fas");
+            temp_icon.innerHTML = '&#xf769'
+            console.log(temp_icon)*/
             
-            var temp_para= document.createElement('p');
-            var fels_para= document.createElement('p');
-            var rain_para= document.createElement('p');
-            var wind_para=document.createElement('p');
-            var line =document.createElement('hr')
+            var time_para=  document.createElement('p');
+            var temp_para=  document.createElement('p');
+            var fels_para=  document.createElement('p');
+            var rain_para=  document.createElement('p');
+            var wind_para=  document.createElement('p');
+            var line =      document.createElement('hr');
+
+            time_para.innerHTML= arr_time[iter];
+            temp_para.innerHTML= Math.round(arr_temp[iter]) ;
+            fels_para.innerHTML = "feels like " + Math.round(arr_fl[iter]);
+            rain_para.innerHTML = arr_rain[iter]*100+ " %";
+            wind_para.innerHTML=  arr_wind[iter] + " m/s";
 
 
-            temp_para.innerText= arr_temp[iter] ;
-            fels_para.innerText = "feels like " + arr_fl[iter];
-            rain_para.innerText = arr_rain[iter]+ " %";
-            wind_para.innerText =  arr_wind[iter] + " m/s"
-
-            console.log(arr_temp[iter]);
-            //part1.appendChild(temp_icon);
+            console.log(time_para);
+            console.log(temp_para);
+           
+           // part1.appendChild(temp_icon);
+           console.log(arr_time.length +"***"+ arr_temp.length )
+            part1.appendChild(time_para);
             part1.appendChild(temp_para);      
             part1.appendChild(fels_para);
             part1.appendChild(rain_para);
@@ -316,7 +333,7 @@ submitXX.addEventListener("click" , GetInfo);
         new_link.setAttribute("class","new_link");
         new_link.setAttribute('href', new_href);
         new_link.setAttribute('target', "_blank")
-        new_link.innerHTML="for more info"
+        new_link.innerHTML="For more forecast info"
         mylink.appendChild(new_link);
 
 
@@ -479,10 +496,10 @@ function extra_items(){
     if (max_rainPresentage !=0){
             var chk_para = document.createElement("p");
             if (today_temperature >0){
-                chk_para.innerText = "The highest rain presentage reported is " + max_rainPresentage*100+ "%  at status says ???? "  ;
+                chk_para.innerHTML = "The highest rain presentage reported is <font color='Blue' font size = '5' >" + max_rainPresentage*100+ "%  </font> at " +arr_time[index_rain] +" status says ???? " + arr_wc[index_rain]  ;
             }
             else{
-                chk_para.innerText = "Highest Possibility to experience snowing  is " + max_rainPresentage*100+ "%  at status says  ???? " 
+                chk_para.innerHTML = "Highest Possibility to experience snowing  is <font color='Blue' font size = '5' >" + max_rainPresentage*100+ "%  </font>  at "+arr_time[index_rain] +" status says  ???? " + arr_wc[index_rain]
             }
 
             extra_list.appendChild(chk_para); 
@@ -525,7 +542,8 @@ function extra_items(){
    
       
     var chk_para = document.createElement("p");
-    chk_para.innerText =" The highest wind rate reported is " + max_rainPresentage+ "m/s at ????? and  status says ???" ;
+//    chk_para.innerText =" The highest wind rate reported is " + max_rainPresentage + "m/s at ????? and  status says ???" ;
+    chk_para.innerHTML =" The highest wind rate reported is <font color='Blue' font size = '5' >" + max_rainPresentage + "m/s </font>at "+ arr_time[index_wind] +" and  status says ???" + arr_wc[index_rain] ;
     document.getElementById("additional2").appendChild(chk_para);   
 
     // Same goes for wind ::::::::::::
@@ -533,7 +551,7 @@ function extra_items(){
     // if temperature is negative we give a warning message::::::
 
     // According to https://www.windfinder.com/wind/windspeed.html  
-    if (max_windrate > boundry_wind && today_temperature > 5){
+    if (max_windrate > boundry_wind && today_temperature > 5 && max_windrate !=0){
     
 
         var chk_para = document.createElement("p");
