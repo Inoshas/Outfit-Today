@@ -22,6 +22,7 @@ let mylink=document.getElementById("mylink");
 let extra_list=document.getElementById("extra_list");
 let additional=document.getElementById("additional");
 let part1=document.getElementById("part1");
+let table_DIV=document.getElementById("table_DIV")
 
 // Global variable: All global variables goes here
 // According to https://www.windfinder.com/wind/windspeed.html   wind boundry was set to below::::
@@ -196,49 +197,89 @@ submitXX.addEventListener("click" , GetInfo);
         console.log(arr_temp.length);
         max_length=0;
 
-        if (arr_temp.length > 4) 
-            max_length= 4;
+        if (arr_temp.length > 3) 
+            max_length= 3;
         else max_length =arr_temp.length-1;
         console.log("check" + max_length)
 
-        if (part1.hasChildNodes()) {
-            while (part1.hasChildNodes()) {
-                part1.removeChild(part1.lastChild);
-            }
+        
+    if (table_DIV.hasChildNodes()) {
+        while (table_DIV.hasChildNodes()) {
+            table_DIV.removeChild(table_DIV.lastChild);
         }
+    }
 
+
+
+
+
+        var new_Div= document.createElement('div');
+        new_Div.setAttribute("class", "col-sm-3 p-1  text-black");
+        var line =      document.createElement('hr');
+        table_DIV.appendChild(new_Div);
     
+
+        var time_parax=  document.createElement('p');
+
+        var temp_parax=  document.createElement('p');
+        var fels_parax=  document.createElement('p');
+        fels_parax.style.fontSize="18px"
+      
+        var rain_parax=  document.createElement('p');
+        rain_parax.style.fontSize="20px"
+        var wind_parax=  document.createElement('p');
+        wind_parax.style.fontSize="30px"
+       
+
+        time_parax.innerHTML= "&#128341"
+        temp_parax.innerHTML= "&#127777"
+        fels_parax.innerHTML = "feels like"
+        
+        rain_parax.innerHTML = "&#127784"
+        wind_parax.innerHTML=  "&#127788"
+      
+
+        new_Div.appendChild(time_parax);
+        new_Div.appendChild(temp_parax);      
+        new_Div.appendChild(fels_parax);
+        new_Div.appendChild(rain_parax);
+        new_Div.appendChild(wind_parax);
+     
+        table_DIV.appendChild(new_Div);
+
+
         for( iter=1; iter <= max_length ; iter++ ){
-            /*var temp_icon=document.createElement('i');
-            temp_icon.setAttribute("class", "fas");
-            temp_icon.innerHTML = '&#xf769'
-            console.log(temp_icon)*/
-            
-            var time_para=  document.createElement('p');
-            var temp_para=  document.createElement('p');
-            var fels_para=  document.createElement('p');
-            var rain_para=  document.createElement('p');
-            var wind_para=  document.createElement('p');
+        
+            var new_Div= document.createElement('div');
+            new_Div.setAttribute("class", "col-sm-3 p-1  text-black");
             var line =      document.createElement('hr');
 
-            time_para.innerHTML= arr_time[iter];
-            temp_para.innerHTML= Math.round(arr_temp[iter]) ;
-            fels_para.innerHTML = "feels like " + Math.round(arr_fl[iter]);
-            rain_para.innerHTML = arr_rain[iter]*100+ " %";
-            wind_para.innerHTML=  arr_wind[iter] + " m/s";
+          
+        
 
 
-            console.log(time_para);
-            console.log(temp_para);
-           
-           // part1.appendChild(temp_icon);
-           console.log(arr_time.length +"***"+ arr_temp.length )
-            part1.appendChild(time_para);
-            part1.appendChild(temp_para);      
-            part1.appendChild(fels_para);
-            part1.appendChild(rain_para);
-            part1.appendChild(wind_para);
-            part1.appendChild(line)
+ 
+            
+            
+            var time_para2=  document.createElement('p');
+            var temp_para2=  document.createElement('p');
+            var fels_para2=  document.createElement('p');
+            var rain_para2=  document.createElement('p');
+            var wind_para2=  document.createElement('p');
+
+            time_para2.innerHTML= arr_time[iter]+".00";
+            temp_para2.innerHTML= Math.round(arr_temp[iter]) +  " ºC";
+            fels_para2.innerHTML = Math.round(arr_fl[iter]) +  " ºC"; 
+            rain_para2.innerHTML = Math.round(arr_rain[iter]*100)+ " %";
+            wind_para2.innerHTML=  arr_wind[iter] +  " m/s";
+
+            new_Div.appendChild(time_para2);
+            new_Div.appendChild(temp_para2);      
+            new_Div.appendChild(fels_para2);
+            new_Div.appendChild(rain_para2);
+            new_Div.appendChild(wind_para2);
+            new_Div.appendChild(line);
+            table_DIV.appendChild(new_Div)
 
         }
        
@@ -494,15 +535,16 @@ function extra_items(){
 
     // This is for raining::::::::::::::::::::::::::::::::::
     if (max_rainPresentage !=0){
+        /*
             var chk_para = document.createElement("p");
             if (today_temperature >0){
-                chk_para.innerHTML = "The highest rain presentage reported is <font color='Blue' font size = '5' >" + max_rainPresentage*100+ "%  </font> at " +arr_time[index_rain] +" status says ???? " + arr_wc[index_rain]  ;
+                chk_para.innerHTML = arr_wc[index_rain] + "with the <font color='Blue' font size = '5' >" + Math.round(max_rainPresentage*100)+ "%  </font> at " +arr_time[index_rain] +" status says ???? " highest rain presentage of  +  ;
             }
             else{
-                chk_para.innerHTML = "Highest Possibility to experience snowing  is <font color='Blue' font size = '5' >" + max_rainPresentage*100+ "%  </font>  at "+arr_time[index_rain] +" status says  ???? " + arr_wc[index_rain]
+                chk_para.innerHTML = arr_wc[index_rain] + "Highest Possibility to experience snowing  is <font color='Blue' font size = '5' >" + Math.round(max_rainPresentage*100)+ "%   </font>  at "+arr_time[index_rain] +" status says  ???? " + arr_wc[index_rain]
             }
 
-            extra_list.appendChild(chk_para); 
+            extra_list.appendChild(chk_para); */
     }
     
     if (max_rainPresentage > rain_boundry  && today_temperature > 0){
