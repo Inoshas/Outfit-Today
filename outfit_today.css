@@ -25,7 +25,7 @@ header {
 margin-top: 15PX;
 padding: 10px;
 text-align: center;
-font-family:serif;
+font-family:Georgia, 'Times New Roman', Times, serif;
 background-color: rgb(161, 194, 188);
 background-image: url("Pictures/header3.jpg");
 }
