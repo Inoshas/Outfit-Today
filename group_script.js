@@ -18,7 +18,6 @@ let submitXX=document.getElementById("submit");
 let myDIV = document.getElementById("myDIV");
 let Prediction = document.getElementById( "prediction");
 let mylink=document.getElementById("mylink");
-
 let extra_list=document.getElementById("extra_list");
 let additional=document.getElementById("additional");
 let part1=document.getElementById("part1");
@@ -29,16 +28,14 @@ let table_DIV=document.getElementById("table_DIV")
 // that is for moderate breeze ::: 1ktz nearly equal .55 m/s
 
 let boundry_wind = 5.56 ; // give the lower bound tto check wind condition::::::::::::::::::::
+let rain_boundry = .25; // The lowest  presentage to suggest rainny cloths::::::::::::::::
 
-let rain_boundry = .25;
+
 let today_temperature;
 let current_location;
 let today_wind_rate;
 let feels_like_temperature;
 let new_ID;
-
-//************** additional variable to assign  */
-
 
 
 let arr_temp=[];
@@ -66,13 +63,16 @@ submitXX.addEventListener("click" , GetInfo);
 
 // ********************** FUNCTIONS ***************************************
 
-//GetInfo()
-//DefaultScreen()
-//myGeo()
-//error() 
+//GetInfo() : taking data from API as an object by searching location name
+//DefaultScreen() : What to print when open the browser by current location
+//myGeo() ::  saving latitude and longitude
+//error()  ::: defaullt
 //check_temperature() ::: return cloth array depend on the temperature
 //create_checklist() ::: create list of elements based on themperature
 //extra_items() :::: create list of elements based on rain and wind 
+// create_table() :::: create forecast data in left side
+
+
 
 // PART 1 :  functions for fetching data:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     function GetInfo() {
@@ -102,27 +102,21 @@ submitXX.addEventListener("click" , GetInfo);
             date_today=data.list[0].dt_txt; 
             
             feels_like_temperature=Math.ceil(data.list[0].main.feels_like) ;
-            console.log("***"+feels_like_temperature)
+            //console.log("***"+feels_like_temperature)
         
             /// Passed values to current weather condition based on the location:::
             temperature.textContent = Math.floor(today_temperature).toFixed() + " ºC" ; // done
             feels_like_w.textContent = "feels like " + feels_like_temperature + " ºC";
             wind_condition.textContent = today_wind_rate.speed + " m/s";
             
-            // MIN MAX temperature is not coming correctly::  CHECK??????
-            
-            // Need to correct this ---------------- ????? Which API???
-            //min_max.textContent = Math.ceil(data.list[0].main.temp_min-273.15) +" ºC  /" +Math.ceil(data.list[0].main.temp_max-273.15)+ " ºC";
-             // done
-            //location_current.textContent = data.city.name; // done
+     
             current_condition.textContent = data.list[0].weather[0].description;
             
             // we need this to display link::
             new_ID= data.city.id
 
             // for rain and wind codition data ::::::::::::::::::::::::::::::
-
-            
+            // We need to empty this, if we search another city, it should not extend the array:::
             arr_temp=[];
             arr_fl = [];
             arr_wc= [];
@@ -133,54 +127,43 @@ submitXX.addEventListener("click" , GetInfo);
             arr_time =[];
 
             var d = new Date();
-
             var nd = new Date((d.getTime() + (d.getTimezoneOffset() * 60000)) + (data.city.timezone*1000));
 
-           
-
-            let n = 24-nd.getHours();
-
+            let n = 25-nd.getHours();
             n=(n/3).toFixed();
-
             hours_now=nd.getHours();
-
-            console.log("####"+nd.getHours());
-
-                        
+             
 
             for (i=0; i<n; i++){
                
-                arr_wind.push(data.list[i].wind.speed)
-                arr_rain.push(Number(data.list[i].pop))
-               arr_time.push(d1.getHours()+(3*i))
-              
-             
-                arr_temp.push(data.list[i].main.temp)
-                arr_fl.push(data.list[i].main.feels_like)
-                arr_wc.push(data.list[i].weather[0].description)
-                
-
+                arr_wind.push(data.list[i].wind.speed);
+                arr_rain.push(Number(data.list[i].pop));
+                arr_time.push(d1.getHours()+(3*i));
+                arr_temp.push(data.list[i].main.temp);
+                arr_fl.push(data.list[i].main.feels_like);
+                arr_wc.push(data.list[i].weather[0].description);
                 arr_day.push(nd.getDate());
-                arr_Hours.push(nd.getHours())
+                arr_Hours.push(nd.getHours());
             }
-            console.log("printing**********")
-            console.log("*********"+arr_time)
+
+            //console.log("printing**********")
+            //console.log("*********"+arr_time)
 
             max_rainPresentage=Math.max(...arr_rain);
             index_rain = arr_rain.indexOf(max_rainPresentage);
-            max_windrate=Math.max(...arr_rain);
-            index_wind = arr_rain.indexOf(max_windrate);
+            max_windrate=Math.max(...arr_wind);
+            index_wind = arr_wind.indexOf(max_windrate);
             
 
             let rain_time = data.list[index_rain].dt_txt;
 
-            console.log(rain_time);
+            //console.log(rain_time);
 
             let max_temp = Math.round(Math.max(...arr_temp));
-            let min_temp = Math.round(Math.min(...arr_temp))
-            console.log(arr_temp)
+            let min_temp = Math.round(Math.min(...arr_temp));
+            //console.log(arr_temp)
 
-            min_max.innerText = min_temp + " ºC | " +max_temp+ " ºC"
+            min_max.innerText = min_temp + " ºC | " +max_temp+ " ºC";
         
 
             create_checklist();
@@ -192,98 +175,84 @@ submitXX.addEventListener("click" , GetInfo);
 
     }
 
+
     function create_table(){
         
-        console.log(arr_temp.length);
         max_length=0;
 
         if (arr_temp.length > 3) 
             max_length= 3;
         else max_length =arr_temp.length-1;
-        console.log("check" + max_length)
+        //console.log("check" + max_length)
 
         
-    if (table_DIV.hasChildNodes()) {
-        while (table_DIV.hasChildNodes()) {
-            table_DIV.removeChild(table_DIV.lastChild);
+        if (table_DIV.hasChildNodes()) {
+            while (table_DIV.hasChildNodes()) {
+                table_DIV.removeChild(table_DIV.lastChild);
+            }
         }
-    }
 
+        if (max_length !=0){
 
-
-
-
-        var new_Div= document.createElement('div');
-        new_Div.setAttribute("class", "col-sm-3 p-1  text-black");
-        var line =      document.createElement('hr');
-        table_DIV.appendChild(new_Div);
-    
-
-        var time_parax=  document.createElement('p');
-
-        var temp_parax=  document.createElement('p');
-        var fels_parax=  document.createElement('p');
-        fels_parax.style.fontSize="18px"
-      
-        var rain_parax=  document.createElement('p');
-        rain_parax.style.fontSize="20px"
-        var wind_parax=  document.createElement('p');
-        wind_parax.style.fontSize="30px"
-       
-
-        time_parax.innerHTML= "&#128341"
-        temp_parax.innerHTML= "&#127777"
-        fels_parax.innerHTML = "feels like"
-        
-        rain_parax.innerHTML = "&#127784"
-        wind_parax.innerHTML=  "&#127788"
-      
-
-        new_Div.appendChild(time_parax);
-        new_Div.appendChild(temp_parax);      
-        new_Div.appendChild(fels_parax);
-        new_Div.appendChild(rain_parax);
-        new_Div.appendChild(wind_parax);
-     
-        table_DIV.appendChild(new_Div);
-
-
-        for( iter=1; iter <= max_length ; iter++ ){
-        
+            // Create table with relevant  icons and lables :::
             var new_Div= document.createElement('div');
             new_Div.setAttribute("class", "col-sm-3 p-1  text-black");
             var line =      document.createElement('hr');
-
-          
+            table_DIV.appendChild(new_Div);
         
+            var time_parax=  document.createElement('p');
+            var temp_parax=  document.createElement('p');
+            var fels_parax=  document.createElement('p');
+            fels_parax.style.fontSize="18px";
+            var rain_parax=  document.createElement('p');
+            rain_parax.style.fontSize="20px";
+            var wind_parax=  document.createElement('p');
+            wind_parax.style.fontSize="30px";
+        
+            time_parax.innerHTML= "&#128341";
+            temp_parax.innerHTML= "&#127777";
+            fels_parax.innerHTML = "feels like";
+            rain_parax.innerHTML = "&#127784";
+            wind_parax.innerHTML=  "&#127788";
+        
+            new_Div.appendChild(time_parax);
+            new_Div.appendChild(temp_parax);      
+            new_Div.appendChild(fels_parax);
+            new_Div.appendChild(rain_parax);
+            new_Div.appendChild(wind_parax);
+            table_DIV.appendChild(new_Div);
 
 
- 
+            for( iter=1; iter <= max_length ; iter++ ){
             
+                var new_Div= document.createElement('div');
+                new_Div.setAttribute("class", "col-sm-3 p-1  text-black");
+                var line =      document.createElement('hr');
+
             
-            var time_para2=  document.createElement('p');
-            var temp_para2=  document.createElement('p');
-            var fels_para2=  document.createElement('p');
-            var rain_para2=  document.createElement('p');
-            var wind_para2=  document.createElement('p');
+                var time_para2=  document.createElement('p');
+                var temp_para2=  document.createElement('p');
+                var fels_para2=  document.createElement('p');
+                var rain_para2=  document.createElement('p');
+                var wind_para2=  document.createElement('p');
 
-            time_para2.innerHTML= arr_time[iter]+".00";
-            temp_para2.innerHTML= Math.round(arr_temp[iter]) +  " ºC";
-            fels_para2.innerHTML = Math.round(arr_fl[iter]) +  " ºC"; 
-            rain_para2.innerHTML = Math.round(arr_rain[iter]*100)+ " %";
-            wind_para2.innerHTML=  arr_wind[iter] +  " m/s";
+                time_para2.innerHTML= arr_time[iter]+":00";
+                temp_para2.innerHTML= Math.round(arr_temp[iter]) +  " ºC";
+                fels_para2.innerHTML = Math.round(arr_fl[iter]) +  " ºC"; 
+                rain_para2.innerHTML = Math.round(arr_rain[iter]*100)+ " %";
+                wind_para2.innerHTML=  arr_wind[iter] +  " m/s";
 
-            new_Div.appendChild(time_para2);
-            new_Div.appendChild(temp_para2);      
-            new_Div.appendChild(fels_para2);
-            new_Div.appendChild(rain_para2);
-            new_Div.appendChild(wind_para2);
-            new_Div.appendChild(line);
-            table_DIV.appendChild(new_Div)
+                new_Div.appendChild(time_para2);
+                new_Div.appendChild(temp_para2);      
+                new_Div.appendChild(fels_para2);
+                new_Div.appendChild(rain_para2);
+                new_Div.appendChild(wind_para2);
+                new_Div.appendChild(line);
+                table_DIV.appendChild(new_Div)
 
+            }
         }
-       
-
+   
     }
 
 // Function for showing default screen::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -291,57 +260,45 @@ submitXX.addEventListener("click" , GetInfo);
     function DefaultScreen(){
         // Get the current location
 
-    let geo={};
+        let geo={};
 
-        function sucess(pos){
+            function sucess(pos){
 
-            const lat = pos.coords.latitude;
-            geo.latitude=lat;
-
-
-            const lon = pos.coords.longitude;
-            geo.longitude=lon;
-            const myTimeout = setTimeout(myGeo(), 2000);
-
-        }
-
-    //console.log(geo)
-
-        function error(){                
-        }
-
-        options={};
-
-        navigator.geolocation.getCurrentPosition(sucess,error, options);
-
-    // pause for 5 Sec, to load the location input. 
-
-        function myGeo() {
-            console.log("**##:")
-            console.log(geo)
-            fetch('https://api.openweathermap.org/data/2.5/forecast?lat='+geo.latitude+'&lon='+geo.longitude+'&appid=28ccc81c35e0d2b02668d8948dbe91d2&units=metric')
-            .then(response => response.json())
-            .then(data =>{
+                const lat = pos.coords.latitude;
+                geo.latitude=lat;
 
 
-                document.getElementById("cityInput").defaultValue = data.city.name;
+                const lon = pos.coords.longitude;
+                geo.longitude=lon;
+                const myTimeout = setTimeout(myGeo(), 2000);
 
-                GetInfo();
-                console.log("TEST 101")
+            }
 
-                })
-            
-        } 
-    
+            function error(){                
+            }
+
+            options={};
+
+            navigator.geolocation.getCurrentPosition(sucess,error, options);
+
+        // pause for 5 Sec, to load the location input. 
+
+            function myGeo() {
+                console.log("**##:")
+                console.log(geo)
+                fetch('https://api.openweathermap.org/data/2.5/forecast?lat='+geo.latitude+'&lon='+geo.longitude+'&appid=28ccc81c35e0d2b02668d8948dbe91d2&units=metric')
+                .then(response => response.json())
+                .then(data =>{
+                    document.getElementById("cityInput").defaultValue = data.city.name;
+                    GetInfo();
+                    //console.log("TEST 101")
+                    })        
+        }   
     }
-
-
 
 // functions to create check list:::::::::::::::::::::::::
 
     function create_checklist(){
-     
-
     /// remove all created childs here:::::::::::::::::::::::
 
         if (myDIV.hasChildNodes()) {
@@ -350,15 +307,11 @@ submitXX.addEventListener("click" , GetInfo);
             }
         }
 
-
-
         if (image_box[0].hasChildNodes()) {
             while (image_box[0].hasChildNodes()) {
                 image_box[0].removeChild(image_box[0].lastChild);
             }
         }
-
-
 
         if (mylink.hasChildNodes()) {
             while (mylink.hasChildNodes()) {
@@ -377,7 +330,6 @@ submitXX.addEventListener("click" , GetInfo);
         new_link.innerHTML="For more forecast info"
         mylink.appendChild(new_link);
 
-
     // take cloths from defined array
         
         cloths_need = check_temperature();
@@ -385,8 +337,7 @@ submitXX.addEventListener("click" , GetInfo);
         angle_needed=Math.ceil(360/cloths_need.length);
         console.log(angle_needed)
 
-        cloths_need.forEach(function(element,item) {
-            
+        cloths_need.forEach(function(element,item) {    
             // create check boxes and set names using array names
             var chk_box = document.createElement("INPUT");
             chk_box.setAttribute("type", "checkbox");
@@ -397,13 +348,9 @@ submitXX.addEventListener("click" , GetInfo);
             chk_box_lable.setAttribute("for", "mycheckbox");
             chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
 
-            // Add elements to myDIV
             myDIV.appendChild(chk_box);
             myDIV.appendChild(chk_box_lable);
-    //        var chk_box_gap = document.createElement("BR");
-
-
-
+ 
             // Create pictures under same name::
             image = document.createElement("img");
             image.src=`Pictures/${element}.jpg`; // assign the name for the image:::
@@ -417,14 +364,10 @@ submitXX.addEventListener("click" , GetInfo);
     
             image_box[0].appendChild(span_1);
 
-
         });
     
-        extra_items();
-    
+        extra_items();    
     }
-
-
 
     function check_temperature(){  
         //console.log("int temp")
@@ -468,172 +411,142 @@ submitXX.addEventListener("click" , GetInfo);
     }
 
 
-// lets make an object with different cloths:
-    const array_cloths =
-    { too_cold: ["Thermal pant", "Pant" , "Long sleeve top", "Inner overall", "Socks", "Winter pant","Winter jacket"  ,"Woolen socks","Winter boots" ,"Winter cap" , "Scarf" , "Mittens", "Winter gloves"] ,
-        pretty_cold: ["Long sleeve top", "Thermal pant","Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Woolen socks"  , "Winter boots" ,   "Winter cap" ,  "Winter scarf" ,  "Winter gloves" ],
-        around_zero : ["Short sleeve top", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" ,   "Winter boots" , "off-seasonal cap" ,  "Off-seasonal gloves", "scarf" ] ,
-        offseason_feel :  ["Short sleeve top", "Socks",  "Inner overall", "Off-seasonal jacket"  , "Cap"  , "Shoes" , "scarf" ], 
-        summary_mood : [ "Short sleeve top", "Shorts",    "Cap"  , "Sandles" ],
-        too_hot : [ "Short sleeve top", "Shorts",   "Cap"  , "Sandles"],
-        rain_cloths : [ "Water proof pant" , "Rain boots" , "Rain gloves", "Umbrella"],
-        sun_shine : ["Sun glasses"],
-        windy :["Wind proof jacket"]
-    }  ;
+    function extra_items(){
 
-   // 
-  
+        // remove all created childs here:::::::::::::::::::::::
 
-
-
-   
-   //////////////////////// Third part to add extra things::::::::::::::::::::: ///////////////////////
-
-
-   //Testing Purpose::: Adding these
-
-
-//************************************************************************************** */
-  
-
-
-
-function extra_items(){
-
-    // remove all created childs here:::::::::::::::::::::::
-
-    if (additional.hasChildNodes()) {
-        while (additional.hasChildNodes()) {
-            additional.removeChild(additional.lastChild);
-        }
-    }
-
-
-
-    if (extra_list.hasChildNodes()) {
-        while (extra_list.hasChildNodes()) {
-            extra_list.removeChild(extra_list.lastChild);
-        }
-    }
-
- 
-    if (additional2.hasChildNodes()) {
-        while (additional2.hasChildNodes()) {
-            additional2.removeChild(additional2.lastChild);
-        }
-    }
-
-
-
-    if (extra_list2.hasChildNodes()) {
-        while (extra_list2.hasChildNodes()) {
-            extra_list2.removeChild(extra_list2.lastChild);
-        }
-    }
-
-   
-
-    // This is for raining::::::::::::::::::::::::::::::::::
-    if (max_rainPresentage !=0){
-        /*
-            var chk_para = document.createElement("p");
-            if (today_temperature >0){
-                chk_para.innerHTML = arr_wc[index_rain] + "with the <font color='Blue' font size = '5' >" + Math.round(max_rainPresentage*100)+ "%  </font> at " +arr_time[index_rain] +" status says ???? " highest rain presentage of  +  ;
+        if (additional.hasChildNodes()) {
+            while (additional.hasChildNodes()) {
+                additional.removeChild(additional.lastChild);
             }
-            else{
-                chk_para.innerHTML = arr_wc[index_rain] + "Highest Possibility to experience snowing  is <font color='Blue' font size = '5' >" + Math.round(max_rainPresentage*100)+ "%   </font>  at "+arr_time[index_rain] +" status says  ???? " + arr_wc[index_rain]
+        }
+
+        if (extra_list.hasChildNodes()) {
+            while (extra_list.hasChildNodes()) {
+                extra_list.removeChild(extra_list.lastChild);
             }
-
-            extra_list.appendChild(chk_para); */
-    }
+        }
     
-    if (max_rainPresentage > rain_boundry  && today_temperature > 0){
-        //console.log("Highest raining possibility is "+ max_rainPresentage +"% at" +today_time_array[index_value] );
-        var chk_para = document.createElement("p");
-        chk_para.innerText = "Suggestions for rainy conditions are, " ;
-        extra_list.appendChild(chk_para); 
+        if (additional2.hasChildNodes()) {
+            while (additional2.hasChildNodes()) {
+                additional2.removeChild(additional2.lastChild);
+            }
+        }
 
-        cloths_rain=array_cloths.rain_cloths; 
-        console.log("testing:" +cloths_rain);
-    
+        if (extra_list2.hasChildNodes()) {
+            while (extra_list2.hasChildNodes()) {
+                extra_list2.removeChild(extra_list2.lastChild);
+            }
+        }
+        let status1;
+        let status2;
+        // This is for raining::::::::::::::::::::::::::::::::::
+        if (max_rainPresentage !=0){
+            
+                var chk_para = document.createElement("p");
+                if (today_temperature >0){
+                     status1 =  "There is a "+  Math.round(max_rainPresentage*100) +"% probability to experience " + arr_wc[index_rain]+ " at  " +arr_time[index_rain] +":00 hrs" ;
+                }
+                else{
+                    status1 =  "There is a "+  Math.round(max_rainPresentage*100) +"% probability to experience " + arr_wc[index_rain]+ " at  " +arr_time[index_rain] +":00 hrs" ;
+                }
 
-        cloths_rain.forEach(function(element,index){
-            image1 = document.createElement("img");
-            image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
-            image1.style.display= "inline-block";
-            image1.style.height="150px" ;
-            //image1.height="200px"
-            additional.appendChild(image1);
-            image1.style.display= "inline-block";
-
-            var chk_box = document.createElement("INPUT");
-            chk_box.setAttribute("type", "checkbox");
-            chk_box.setAttribute("id", "mycheckbox");
-
-            var chk_box_lable = document.createElement("LABEL");
-            chk_box_lable.setAttribute("for", "mycheckbox");
-            chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
-
-            // Add elements to myDIV
-            extra_list2.appendChild(chk_box);
-            extra_list2.appendChild(chk_box_lable);
-
-        })
-           
-    }
-   
-      
-    var chk_para = document.createElement("p");
-//    chk_para.innerText =" The highest wind rate reported is " + max_rainPresentage + "m/s at ????? and  status says ???" ;
-    chk_para.innerHTML =" The highest wind rate reported is <font color='Blue' font size = '5' >" + max_rainPresentage + "m/s </font>at "+ arr_time[index_wind] +" and  status says ???" + arr_wc[index_rain] ;
-    document.getElementById("additional2").appendChild(chk_para);   
-
-    // Same goes for wind ::::::::::::
-    // We propse cloths for wind only if it is postive temperature 
-    // if temperature is negative we give a warning message::::::
-
-    // According to https://www.windfinder.com/wind/windspeed.html  
-    if (max_windrate > boundry_wind && today_temperature > 5 && max_windrate !=0){
-    
-
-        var chk_para = document.createElement("p");
-        chk_para.innerText = "Suggestions for windy conditions are, " ;
-        additional2.appendChild(chk_para); 
-       
+                extra_list.appendChild(chk_para); 
+        }
         
-        cloths_windy=array_cloths.windy; 
-        console.log("testing:" +cloths_windy);
-        //if (today_temperature >0){
-            cloths_windy.forEach(function(element,index){
+        if (max_rainPresentage > rain_boundry  && today_temperature > 0){
+            //console.log("Highest raining possibility is "+ max_rainPresentage +"% at" +today_time_array[index_value] );
+            var chk_para = document.createElement("p");
+            status2 = "Suggestions for rainy conditions are, " ;
+            extra_list.appendChild(chk_para); 
+
+            cloths_rain=array_cloths.rain_cloths; 
+            console.log("testing:" +cloths_rain);
+            cloths_rain.forEach(function(element,index){
                 image1 = document.createElement("img");
                 image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
                 image1.style.display= "inline-block";
-                image1.style.height = "150px"
-
-    
-                
-                additional2.appendChild(image1);
+                image1.style.height="150px" ;
+                //image1.height="200px"
+                additional.appendChild(image1);
+                image1.style.display= "inline-block";
 
                 var chk_box = document.createElement("INPUT");
                 chk_box.setAttribute("type", "checkbox");
                 chk_box.setAttribute("id", "mycheckbox");
-    
+
                 var chk_box_lable = document.createElement("LABEL");
                 chk_box_lable.setAttribute("for", "mycheckbox");
                 chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
-    
+
                 // Add elements to myDIV
-                additional2.appendChild(chk_box);
-                additional2.appendChild(chk_box_lable);
-                
+                extra_list2.appendChild(chk_box);
+                extra_list2.appendChild(chk_box_lable);
+
             })
+            
+        }
+        
+        if (max_windrate !=0)
+        var chk_para = document.createElement("p");
+    //    chk_para.innerText =" The highest wind rate reported is " + max_rainPresentage + "m/s at ????? and  status says ???" ;
+        status1 = status1+ " and maximum wind rate reported is  " +  max_windrate+ " m/s  at "+ arr_time[index_wind] +":00 hrs"  ;
+        chk_para.innerHTML= status1;
+        document.getElementById("additional").appendChild(chk_para);   
 
-       // }
+        // Same goes for wind ::::::::::::
+        // We propse cloths for wind only if it is postive temperature 
+        // if temperature is negative we give a warning message::::::
 
-         
+        // According to https://www.windfinder.com/wind/windspeed.html  
+        if (max_windrate > boundry_wind && today_temperature > 5 && max_windrate !=0){
+        
+            var chk_para = document.createElement("p");
+            chk_para.innerText = "Suggestions for windy conditions are, " ;
+            additional2.appendChild(chk_para); 
+        
+            cloths_windy=array_cloths.windy; 
+            console.log("testing:" +cloths_windy);
+            //if (today_temperature >0){
+                cloths_windy.forEach(function(element,index){
+                    image1 = document.createElement("img");
+                    image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
+                    image1.style.display= "inline-block";
+                    image1.style.height = "150px"
+            
+                    additional2.appendChild(image1);
+
+                    var chk_box = document.createElement("INPUT");
+                    chk_box.setAttribute("type", "checkbox");
+                    chk_box.setAttribute("id", "mycheckbox");
+        
+                    var chk_box_lable = document.createElement("LABEL");
+                    chk_box_lable.setAttribute("for", "mycheckbox");
+                    chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
+                    // Add elements to myDIV
+                    additional2.appendChild(chk_box);
+                    additional2.appendChild(chk_box_lable);
+                    
+                })
+        }
     }
 
-}
+    //////********************************************************************************* */
+// lets make an object with different cloths:
+const array_cloths =
+{ too_cold: ["Thermal pant", "Pant" , "Long sleeve top", "Inner overall", "Socks", "Winter pant","Winter jacket"  ,"Woolen socks","Winter boots" ,"Winter cap" , "Scarf" , "Mittens", "Winter gloves"] ,
+    pretty_cold: ["Long sleeve top", "Thermal pant","Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Woolen socks"  , "Winter boots" ,   "Winter cap" ,  "Winter scarf" ,  "Winter gloves" ],
+    around_zero : ["Short sleeve top", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" ,   "Winter boots" , "off-seasonal cap" ,  "Off-seasonal gloves", "scarf" ] ,
+    offseason_feel :  ["Short sleeve top", "Socks",  "Inner overall", "Off-seasonal jacket"  , "Cap"  , "Shoes" , "scarf" ], 
+    summary_mood : [ "Short sleeve top", "Shorts",    "Cap"  , "Sandles" ],
+    too_hot : [ "Short sleeve top", "Shorts",   "Cap"  , "Sandles"],
+    rain_cloths : [ "Water proof pant" , "Rain boots" , "Rain gloves", "Umbrella"],
+    sun_shine : ["Sun glasses"],
+    windy :["Wind proof jacket"]
+}  ;
+
+// **********************************************************************************
+
 
 
 
