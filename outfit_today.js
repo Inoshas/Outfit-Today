@@ -23,11 +23,12 @@ let additional=document.getElementById("additional");
 let part1=document.getElementById("part1");
 let table_DIV=document.getElementById("table_DIV")
 
+
 // Global variable: All global variables goes here
 // According to https://www.windfinder.com/wind/windspeed.html   wind boundry was set to below::::
 // that is for moderate breeze ::: 1ktz nearly equal .55 m/s
 
-let boundry_wind = 5.56 ; // give the lower bound tto check wind condition::::::::::::::::::::
+let boundry_wind = 0//5.56 ; // give the lower bound tto check wind condition::::::::::::::::::::
 let rain_boundry = .25; // The lowest  presentage to suggest rainny cloths::::::::::::::::
 
 
@@ -80,7 +81,10 @@ submitXX.addEventListener("click" , GetInfo);
 
         var newName = document.getElementById("cityInput");
         var cityName = document.getElementById("cityName");
-        cityName.innerHTML = newName.value;
+        //let var2=  newName.value.toLowerCase() ;
+        //let test3=var2[0].toUpperCase() + (var2[1, end]).toLowerCase();
+           // console.log(var2+ "**" + test3)
+        cityName.innerHTML = newName.value[0].toUpperCase() + newName.value.substr(1, newName.value.length).toLowerCase() ;
 
         fetch('https://api.openweathermap.org/data/2.5/forecast?q='+newName.value+'&appid=28ccc81c35e0d2b02668d8948dbe91d2&units=metric')
         .then(response => response.json())
@@ -157,7 +161,7 @@ submitXX.addEventListener("click" , GetInfo);
 
             let rain_time = data.list[index_rain].dt_txt;
 
-            //console.log(rain_time);
+            
 
             let max_temp = Math.round(Math.max(...arr_temp));
             let min_temp = Math.round(Math.min(...arr_temp));
@@ -441,24 +445,17 @@ submitXX.addEventListener("click" , GetInfo);
         let status1;
         let status2;
         // This is for raining::::::::::::::::::::::::::::::::::
-        if (max_rainPresentage !=0){
-            
-                var chk_para = document.createElement("p");
+        if (max_rainPresentage !=0){     
                 if (today_temperature >0){
                      status1 =  "There is a "+  Math.round(max_rainPresentage*100) +"% probability to experience " + arr_wc[index_rain]+ " at  " +arr_time[index_rain] +":00 hrs" ;
                 }
                 else{
                     status1 =  "There is a "+  Math.round(max_rainPresentage*100) +"% probability to experience " + arr_wc[index_rain]+ " at  " +arr_time[index_rain] +":00 hrs" ;
                 }
-
-                extra_list.appendChild(chk_para); 
         }
         
         if (max_rainPresentage > rain_boundry  && today_temperature > 0){
-            //console.log("Highest raining possibility is "+ max_rainPresentage +"% at" +today_time_array[index_value] );
-            var chk_para = document.createElement("p");
-            status2 = "Suggestions for rainy conditions are, " ;
-            extra_list.appendChild(chk_para); 
+
 
             cloths_rain=array_cloths.rain_cloths; 
             console.log("testing:" +cloths_rain);
@@ -467,8 +464,9 @@ submitXX.addEventListener("click" , GetInfo);
                 image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
                 image1.style.display= "inline-block";
                 image1.style.height="150px" ;
+                image1.style.width ="175px"
                 //image1.height="200px"
-                additional.appendChild(image1);
+                additional2.appendChild(image1);
                 image1.style.display= "inline-block";
 
                 var chk_box = document.createElement("INPUT");
@@ -487,24 +485,17 @@ submitXX.addEventListener("click" , GetInfo);
             
         }
         
-        if (max_windrate !=0)
+        if (max_windrate != 0)
+        console.log("test::::"+max_windrate);
         var chk_para = document.createElement("p");
     //    chk_para.innerText =" The highest wind rate reported is " + max_rainPresentage + "m/s at ????? and  status says ???" ;
-        status1 = status1+ " and maximum wind rate reported is  " +  max_windrate+ " m/s  at "+ arr_time[index_wind] +":00 hrs"  ;
+        status1 = status1+ " the and maximum wind rate reported is  " +  max_windrate+ " m/s  at "+ arr_time[index_wind] +":00 hrs (" + arr_wc[index_wind]+"). ";
         chk_para.innerHTML= status1;
         document.getElementById("additional").appendChild(chk_para);   
 
-        // Same goes for wind ::::::::::::
-        // We propse cloths for wind only if it is postive temperature 
-        // if temperature is negative we give a warning message::::::
-
         // According to https://www.windfinder.com/wind/windspeed.html  
         if (max_windrate > boundry_wind && today_temperature > 5 && max_windrate !=0){
-        
-            var chk_para = document.createElement("p");
-            chk_para.innerText = "Suggestions for windy conditions are, " ;
-            additional2.appendChild(chk_para); 
-        
+    
             cloths_windy=array_cloths.windy; 
             console.log("testing:" +cloths_windy);
             //if (today_temperature >0){
@@ -512,7 +503,8 @@ submitXX.addEventListener("click" , GetInfo);
                     image1 = document.createElement("img");
                     image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
                     image1.style.display= "inline-block";
-                    image1.style.height = "150px"
+                    image1.style.height="150px" ;
+                    image1.style.width ="175px"
             
                     additional2.appendChild(image1);
 
@@ -523,29 +515,30 @@ submitXX.addEventListener("click" , GetInfo);
                     var chk_box_lable = document.createElement("LABEL");
                     chk_box_lable.setAttribute("for", "mycheckbox");
                     chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
-                    // Add elements to myDIV
-                    additional2.appendChild(chk_box);
-                    additional2.appendChild(chk_box_lable);
+
+                    extra_list2.appendChild(chk_box);
+                    extra_list2.appendChild(chk_box_lable);
+
                     
                 })
         }
     }
 
-    //////********************************************************************************* */
-// lets make an object with different cloths:
-const array_cloths =
-{ too_cold: ["Thermal pant", "Pant" , "Long sleeve top", "Inner overall", "Socks", "Winter pant","Winter jacket"  ,"Woolen socks","Winter boots" ,"Winter cap" , "Scarf" , "Mittens", "Winter gloves"] ,
-    pretty_cold: ["Long sleeve top", "Thermal pant","Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Woolen socks"  , "Winter boots" ,   "Winter cap" ,  "Winter scarf" ,  "Winter gloves" ],
-    around_zero : ["Short sleeve top", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" ,   "Winter boots" , "off-seasonal cap" ,  "Off-seasonal gloves", "scarf" ] ,
-    offseason_feel :  ["Short sleeve top", "Socks",  "Inner overall", "Off-seasonal jacket"  , "Cap"  , "Shoes" , "scarf" ], 
-    summary_mood : [ "Short sleeve top", "Shorts",    "Cap"  , "Sandles" ],
-    too_hot : [ "Short sleeve top", "Shorts",   "Cap"  , "Sandles"],
-    rain_cloths : [ "Water proof pant" , "Rain boots" , "Rain gloves", "Umbrella"],
-    sun_shine : ["Sun glasses"],
-    windy :["Wind proof jacket"]
-}  ;
+        //////********************************************************************************* */
+    // lets make an object with different cloths:
+    const array_cloths =
+    { too_cold: ["Thermal pant", "Pant" , "Long sleeve top", "Inner overall", "Socks", "Winter pant","Winter jacket"  ,"Woolen socks","Winter boots" ,"Winter cap" , "Scarf" , "Mittens", "Winter gloves"] ,
+        pretty_cold: ["Long sleeve top", "Thermal pant","Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Woolen socks"  , "Winter boots" ,   "Winter cap" ,  "Winter scarf" ,  "Winter gloves" ],
+        around_zero : ["Short sleeve top", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" ,   "Winter boots" , "off-seasonal cap" ,  "Off-seasonal gloves", "scarf" ] ,
+        offseason_feel :  ["Short sleeve top", "Socks",  "Inner overall", "Off-seasonal jacket"  , "Cap"  , "Shoes" , "scarf" ], 
+        summary_mood : [ "Short sleeve top", "Shorts",    "Cap"  , "Sandles" ],
+        too_hot : [ "Short sleeve top", "Shorts",   "Cap"  , "Sandles"],
+        rain_cloths : [ "Water proof pant" , "Rain boots" , "Rain gloves", "Umbrella"],
+        sun_shine : ["Sun glasses"],
+        windy :["Wind proof jacket"]
+    }  ;
 
-// **********************************************************************************
+    // **********************************************************************************
 
 
 
