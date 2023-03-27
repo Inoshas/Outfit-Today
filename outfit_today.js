@@ -447,12 +447,16 @@ submitXX.addEventListener("click" , GetInfo);
         // This is for raining::::::::::::::::::::::::::::::::::
         if (max_rainPresentage !=0){     
                 if (today_temperature >0){
-                     status1 =  "There is a "+  Math.round(max_rainPresentage*100) +"% probability to experience " + arr_wc[index_rain]+ " at  " +arr_time[index_rain] +":00 hrs" ;
+                     status1 =  "There is a "+  Math.round(max_rainPresentage*100) +"% probability to experience " + arr_wc[index_rain]+ " at  " +arr_time[index_rain] +":00 hrs." ;
                 }
                 else{
-                    status1 =  "There is a "+  Math.round(max_rainPresentage*100) +"% probability to experience " + arr_wc[index_rain]+ " at  " +arr_time[index_rain] +":00 hrs" ;
+                    status1 =  "There is a "+  Math.round(max_rainPresentage*100) +"% probability to experience " + arr_wc[index_rain]+ " at  " +arr_time[index_rain] +":00 hrs." ;
                 }
         }
+        else if (max_rainPresentage ==0){ 
+            status1=""
+        }
+        console.log("xxxxxxxx"+status1)
         
         if (max_rainPresentage > rain_boundry  && today_temperature > 0){
 
@@ -489,7 +493,7 @@ submitXX.addEventListener("click" , GetInfo);
         console.log("test::::"+max_windrate);
         var chk_para = document.createElement("p");
     //    chk_para.innerText =" The highest wind rate reported is " + max_rainPresentage + "m/s at ????? and  status says ???" ;
-        status1 = status1+ " the and maximum wind rate reported is  " +  max_windrate+ " m/s  at "+ arr_time[index_wind] +":00 hrs (" + arr_wc[index_wind]+"). ";
+        status1 = status1+ " The  maximum wind rate reported is  " +  max_windrate+ " m/s  at "+ arr_time[index_wind] +":00 hrs (" + arr_wc[index_wind]+"). ";
         chk_para.innerHTML= status1;
         document.getElementById("additional").appendChild(chk_para);   
 
