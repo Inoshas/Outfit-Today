@@ -3,6 +3,8 @@ This project is to display the suitable cloths for different weather conditions.
 Pictures, used in the project to indicate various outfits were mainly taken from Amazon[2] for testing purpose only. All these photos are in "Pictures" folder.   
 The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_today.html' and 'outfit_today.css' respectlively. 
 
+The members of the project work are Inosha Sugathapala (https://github.com/Inoshas ) and Tirthankar Paul (https://github.com/TirthankarPaul)
+
 
 Reference: 
 [1] https://openweathermap.org/.
