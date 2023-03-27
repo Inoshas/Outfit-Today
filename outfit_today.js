@@ -456,7 +456,7 @@ submitXX.addEventListener("click" , GetInfo);
         else if (max_rainPresentage ==0){ 
             status1=""
         }
-        console.log("xxxxxxxx"+status1)
+        
         
         if (max_rainPresentage > rain_boundry  && today_temperature > 0){
 
