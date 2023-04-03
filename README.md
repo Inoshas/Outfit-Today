@@ -22,8 +22,9 @@ The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_t
   https://openweathermap.org/.
 ```
 
-## Icon Reference
 
+## Icon Reference
+#### Cloths icons that used for display pupose. 
 ```http
   https://openweathermap.org/.
 ```
