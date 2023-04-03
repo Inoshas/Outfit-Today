@@ -18,14 +18,14 @@ The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_t
 #### Fetch current and future weather data such as rain, wind and temperature values and conditions based on the current location (if user allowed) or user preference.
 
 ```http
-  https://openweathermap.org/.
+  https://openweathermap.org/
 ```
 
 
 ## Icon Reference
 #### Cloths icons that used for display pupose. 
 ```http
-  https://openweathermap.org/.
+  https://www.flaticon.com/
 ```
 
 ## Acknowledgements
