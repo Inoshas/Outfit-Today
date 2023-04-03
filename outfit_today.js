@@ -28,10 +28,10 @@ let table_DIV=document.getElementById("table_DIV")
 // According to https://www.windfinder.com/wind/windspeed.html   wind boundry was set to below::::
 // that is for moderate breeze ::: 1ktz nearly equal .55 m/s
 
-let boundry_wind = 0//5.56 ; // give the lower bound tto check wind condition::::::::::::::::::::
+let boundry_wind = 5.56 ; // give the lower bound tto check wind condition::::::::::::::::::::
 let rain_boundry = .25; // The lowest  presentage to suggest rainny cloths::::::::::::::::
 
-
+//  
 let today_temperature;
 let current_location;
 let today_wind_rate;
@@ -71,7 +71,7 @@ submitXX.addEventListener("click" , GetInfo);
 //check_temperature() ::: return cloth array depend on the temperature
 //create_checklist() ::: create list of elements based on themperature
 //extra_items() :::: create list of elements based on rain and wind 
-// create_table() :::: create forecast data in left side
+//create_table() :::: create forecast data in left side
 
 
 
@@ -188,8 +188,7 @@ submitXX.addEventListener("click" , GetInfo);
             max_length= 3;
         else max_length =arr_temp.length-1;
         //console.log("check" + max_length)
-
-        
+ 
         if (table_DIV.hasChildNodes()) {
             while (table_DIV.hasChildNodes()) {
                 table_DIV.removeChild(table_DIV.lastChild);
@@ -201,7 +200,7 @@ submitXX.addEventListener("click" , GetInfo);
             // Create table with relevant  icons and lables :::
             var new_Div= document.createElement('div');
             new_Div.setAttribute("class", "col-sm-3 p-1  text-black");
-            var line =      document.createElement('hr');
+            var line =  document.createElement('hr');
             table_DIV.appendChild(new_Div);
         
             var time_parax=  document.createElement('p');
@@ -409,7 +408,7 @@ submitXX.addEventListener("click" , GetInfo);
             return array_cloths.too_hot;
                 break;
             default:
-            console.log("Something is hapening:::");
+            console.log("We can give warning message here");
                 break;
             }
     }
@@ -443,7 +442,7 @@ submitXX.addEventListener("click" , GetInfo);
             }
         }
         let status1;
-        let status2;
+     
         // This is for raining::::::::::::::::::::::::::::::::::
         if (max_rainPresentage !=0){     
                 if (today_temperature >0){
@@ -454,7 +453,7 @@ submitXX.addEventListener("click" , GetInfo);
                 }
         }
         else if (max_rainPresentage ==0){ 
-            status1=""
+            status1="";
         }
         
         
@@ -468,7 +467,7 @@ submitXX.addEventListener("click" , GetInfo);
                 image1.src=`Pictures/${element}.jpg`; // assign the name for the image:::
                 image1.style.display= "inline-block";
                 image1.style.height="150px" ;
-                image1.style.width ="175px"
+                image1.style.width ="175px";
                 //image1.height="200px"
                 additional2.appendChild(image1);
                 image1.style.display= "inline-block";
@@ -489,14 +488,14 @@ submitXX.addEventListener("click" , GetInfo);
             
         }
         
-        if (max_windrate != 0)
+        if (max_windrate != 0){
         console.log("test::::"+max_windrate);
         var chk_para = document.createElement("p");
     //    chk_para.innerText =" The highest wind rate reported is " + max_rainPresentage + "m/s at ????? and  status says ???" ;
         status1 = status1+ " The  maximum wind rate reported is  " +  max_windrate+ " m/s  at "+ arr_time[index_wind] +":00 hrs (" + arr_wc[index_wind]+"). ";
         chk_para.innerHTML= status1;
         document.getElementById("additional").appendChild(chk_para);   
-
+        }
         // According to https://www.windfinder.com/wind/windspeed.html  
         if (max_windrate > boundry_wind && today_temperature > 5 && max_windrate !=0){
     
