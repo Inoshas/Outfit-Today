@@ -9,8 +9,8 @@ The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_t
 
 ## Authors
 
-- [@Inosha](https://github.com/Inoshas)
-- [@Paul](https://github.com/TirthankarPaul)
+- [Inosha Sugathapala](https://github.com/Inoshas)
+- [Tirthankar Paul](https://github.com/TirthankarPaul)
 
 
 ## API Reference
