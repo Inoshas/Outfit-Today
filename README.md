@@ -7,7 +7,7 @@ Children, Parents, New immigrants, Daycare staff, School teachers.
 ### Content: 
 The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_today.html' and 'outfit_today.css' respectlively. 
 
-## Authors
+## Contributors
 
 - [Inosha Sugathapala](https://github.com/Inoshas)
 - [Tirthankar Paul](https://github.com/TirthankarPaul)
