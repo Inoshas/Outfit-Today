@@ -1,13 +1,35 @@
-# GroupProject: Outfit Today
-This project is to display the suitable cloths for different weather conditions. It is an ongoing project and aim is to display the required outdoor cloths based on the current weather condition and also it will suggest the outfit based on the future weather predictions. The weather data was fetched from Openweather[1] and processed accordingly as per need. 
-Pictures, used in the project to indicate various outfits were mainly taken from Amazon[2] for testing purpose only. All these photos are in "Pictures" folder.   
+# Out-fit Today
+
+This project will show the appropriate outdoor attire based on the current weather as well as offer dress recommendations based on projections for the near future. Data was studied primarily with reference to Finland, and clothing suggestions are made in accordance with daycare suggestions.  In Finland, all childcare and schoolchildren play outdoors in all weather conditions. We also noticed Finland's fast weather changes. So, parents need to plan ahead for the clothing they will need for the day, and childcare providers need to frequently teach kids what to wear outside. Also, it has been observed that new immigrants find it difficult to dress appropriately given the weather. Hence, in an effort to make everyone's lives easier, we decided to start this program. 
+### Target groups:
+Children, Parents, New immigrants, Daycare staff, School teachers. 
+
+### Content: 
 The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_today.html' and 'outfit_today.css' respectlively. 
 
-The members of the project work are Inosha Sugathapala (https://github.com/Inoshas ) and Tirthankar Paul (https://github.com/TirthankarPaul)
+## Contributors
+
+- [Inosha Sugathapala](https://github.com/Inoshas)
+- [Tirthankar Paul](https://github.com/TirthankarPaul)
 
 
-Reference: 
+## API Reference
 
-[1] https://openweathermap.org/.
-[2] https://amazon.de.
- 
+#### Fetch current and future weather data such as rain, wind and temperature values and conditions based on the current location (if user allowed) or user preference.
+
+```http
+  https://openweathermap.org/
+```
+
+
+## Icon Reference
+#### Cloths icons that used for display pupose. 
+```http
+  https://www.flaticon.com/
+```
+
+## Acknowledgements
+
+ - [Janne Kemppi](https://jannekemppi.wordpress.com/)
+ - [Opiframe](https://opiframe.com/)
+    
