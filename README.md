@@ -5,7 +5,8 @@ This project shows the appropriate outdoor attire based on the current weather a
 This project can be divided into three main parts. 
 * Fetching data
 * Processing data
-* Presenting data
+* Presenting data [css]{https://github.com/Inoshas/Outfit-Today/blob/ccfb0b6bc187f8e8a44d2aeabb95f927e442e5c3/outfit_today.css#L67}
+
 
 ### Target groups:
 Children, Parents, New immigrants, Daycare staff, School teachers. 
