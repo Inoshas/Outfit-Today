@@ -81,6 +81,7 @@ submitXX.addEventListener("click" , GetInfo);
 
         var newName = document.getElementById("cityInput");
         var cityName = document.getElementById("cityName");
+        var new_temperature=document.getElementById ("")
         //let var2=  newName.value.toLowerCase() ;
         //let test3=var2[0].toUpperCase() + (var2[1, end]).toLowerCase();
            // console.log(var2+ "**" + test3)
