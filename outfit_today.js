@@ -532,8 +532,8 @@ submitXX.addEventListener("click" , GetInfo);
     const array_cloths =
     { too_cold: ["Thermal pant", "Pant" , "Long sleeve top", "Inner overall", "Socks", "Winter pant","Winter jacket"  ,"Woolen socks","Winter boots" ,"Winter cap" , "Scarf" , "Mittens", "Winter gloves"] ,
         pretty_cold: ["Long sleeve top", "Thermal pant","Inner overall", "Socks",   "Winter jacket" , "Winter pant" , "Woolen socks"  , "Winter boots" ,   "Winter cap" ,  "Winter scarf" ,  "Winter gloves" ],
-        around_zero : ["Short sleeve top", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" ,   "Winter boots" , "off-seasonal cap" ,  "Off-seasonal gloves", "scarf" ] ,
-        offseason_feel :  ["Short sleeve top", "Socks",  "Inner overall", "Off-seasonal jacket"  , "Cap"  , "Shoes" , "scarf" ], 
+        around_zero : ["Short sleeve top", "Inner overall", "Socks",   "Winter jacket" , "Winter pant" ,   "Winter boots" , "Mid-seasonal cap" ,  "Mid-seasonal gloves", "scarf" ] ,
+        offseason_feel :  ["Short sleeve top", "Socks",  "Inner overall", "Mid-seasonal jacket"  , "Cap"  , "Shoes" , "scarf" ], 
         summary_mood : [ "Short sleeve top", "Shorts",    "Cap"  , "Sandles" ],
         too_hot : [ "Short sleeve top", "Shorts",   "Cap"  , "Sandles"],
         rain_cloths : [ "Water proof pant" , "Rain boots" , "Rain gloves", "Umbrella"],
