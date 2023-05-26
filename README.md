@@ -14,6 +14,9 @@ Children, Parents, New immigrants, Daycare staff, School teachers.
 ### Content: 
 The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_today.html' and 'outfit_today.css' respectlively. 
 
+## How to use
+After downloading all required files, launch 'outfit_today.html' in any browser. Your location can be manually added, or you can provide a software access to it. Enter any city into the space provided in front of the city to search for the current weather and the forecast for today.  
+
 ## Contributors
 
 - [Inosha Sugathapala](https://github.com/Inoshas)
