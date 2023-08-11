@@ -1,8 +1,8 @@
 # Outfit Today
 
-Welcome to our GitHub project that aims to revolutionize outdoor gear choices based on current weather conditions and forecasts. Our platform caters particularly to the Finnish climate, where outdoor activities are an integral part of students' routines, regardless of the weather.
+Welcome to our GitHub project that aims to revolutionize outdoor gear choices based on current weather conditions and forecasts. Our platform caters particularly to the Finnish climate, where outdoor activities are an integral part of students' routines, regardless of the weather. 
 
-In the enchanting land of Finland, children of all ages frolic outdoors during their school and daycare hours, embracing nature's diversity throughout the seasons. To ensure their comfort and well-being, parents and caregivers need to anticipate and prepare for the ever-changing weather conditions. This poses a unique challenge, especially for new immigrants who might not be accustomed to the Finnish climate.
+In the enchanting land of Finland, children of all ages frolic outdoors during their school and daycare hours, embracing nature's diversity throughout the seasons. To ensure their comfort and well-being, parents and caregivers need to anticipate and prepare for the ever-changing weather conditions. This poses a unique challenge, especially for new immigrants who might not be accustomed to the Finnish climate. Thus, the Initiators of this project recognized the need for a simplified approach to outdoor clothing choices based on weather conditions.
 
 Our project steps in as the ultimate solution. We've meticulously analyzed extensive weather data, blending it with meticulous clothing recommendations from nurseries and experts. Our system harmonizes meteorological insights with practical apparel advice, ensuring that every child is comfortably dressed for their outdoor adventures.
 
@@ -59,7 +59,7 @@ Now you're ready to confidently embrace the outdoors, fully equipped with an out
 
 
 
-## Contributors
+## Initiators
 
 - [Inosha Sugathapala](https://github.com/Inoshas)
 - [Tirthankar Paul](https://github.com/TirthankarPaul)
