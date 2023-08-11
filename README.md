@@ -46,7 +46,7 @@ Follow these steps to get started with the outfit selector:
 
 3. **Setting Your Location**: Choose one of two options to set your location:
    - **Automatic Location Detection**: Grant the browser permission to access your location for automatic retrieval.
-   - **Manual Entry**: Input your location details manually in the designated area.
+   - **Manual Entry**: Cancel location detection and input your location details manually in the designated area. Use this option not only for your current location but also to explore weather-based outfit suggestions for any place you're curious about.
      
 4. **Receive Your Outfit**: After confirming your location, the system will process weather data and provide a tailored outfit suggestion suitable for the current conditions.
 
