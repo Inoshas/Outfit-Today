@@ -1,6 +1,14 @@
 # Outfit Today
 
-This project shows the appropriate outdoor attire based on the current weather as well as offer dress recommendations based on projections for the near future. Data was studied primarily with reference to Finland, and clothing suggestions are made in accordance with daycare suggestions.  In Finland, all childcare and schoolchildren play outdoors in all weather conditions. We also noticed Finland's fast weather changes. So, parents need to plan ahead for the clothing they will need for the day, and childcare providers need to frequently teach kids what to wear outside. Also, it has been observed that new immigrants find it difficult to dress appropriately given the weather. Hence, in an effort to make everyone's lives easier, we decided to start this program. 
+Welcome to our GitHub project that aims to revolutionize outdoor gear choices based on current weather conditions and forecasts. Our platform caters particularly to the Finnish climate, where outdoor activities are an integral part of students' routines, regardless of the weather.
+
+In the enchanting land of Finland, children of all ages frolic outdoors during their school and daycare hours, embracing nature's diversity throughout the seasons. To ensure their comfort and well-being, parents and caregivers need to anticipate and prepare for the ever-changing weather conditions. This poses a unique challenge, especially for new immigrants who might not be accustomed to the Finnish climate.
+
+Our project steps in as the ultimate solution. We've meticulously analyzed extensive weather data, blending it with meticulous clothing recommendations from nurseries and experts. Our system harmonizes meteorological insights with practical apparel advice, ensuring that every child is comfortably dressed for their outdoor adventures.
+
+But our project doesn't stop there. We're all about accessibility and empowerment. If you're curious about what to wear for a specific temperature range, our platform offers a convenient search feature. This equips you with the knowledge you need to make informed clothing choices for any weather scenario.
+
+In essence, our project strives to simplify lives, fostering a more seamless and enjoyable experience for parents, caregivers, and newcomers alike. So whether you're planning your child's outdoor attire or seeking insights into temperature-based clothing selections, our initiative is here to make your journey smoother. Join us in embracing the Finnish outdoors with confidence and comfort.
 
 This project can be divided into three main parts. 
 * Fetching data
@@ -14,8 +22,21 @@ Children, Parents, New immigrants, Daycare staff, School teachers.
 ### Content: 
 The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_today.html' and 'outfit_today.css' respectlively. 
 
-## How to use
-After downloading all required files, launch 'outfit_today.html' in any browser. Your location can be manually added, or you can provide a software access to it. Enter any city into the space provided in front of the city to search for the current weather and the forecast for today.  
+## How to Use:
+
+Download the Files: Start by downloading all the required project files to your device.
+
+Launch the Application: Once you have the files ready, open your preferred web browser and locate the 'outfit_today.html' file among the downloaded files.
+
+Setting Your Location: There are two ways to set your location:
+
+Manual Entry: You can manually input your location details into the designated area.
+Automatic Location Detection: Alternatively, you can grant the browser access to your location. Upon approval, the system will automatically retrieve your current location.
+Access Your Weather-Ready Outfit: After confirming your location, our system will swiftly process the weather data. You'll then receive a carefully curated outfit suggestion tailored to the prevailing weather conditions.
+
+Temperature Insights: As an added feature, the current temperature will be displayed in the lower left corner of the screen, providing you with a quick reference point.
+
+Get ready to stride confidently into the Finnish outdoors, equipped with the perfect ensemble for the day's weather. Our user-friendly interface ensures that you're comfortably dressed and prepared for your outdoor adventures. So, whether you're manually entering your location or allowing automatic access, our outfit selector is here to assist you every step of the way. Enjoy your time outdoors, stress-free!
 
 ## Contributors
 
