@@ -5,8 +5,9 @@ let para1=document.getElementById("para1");
 let date1 = document.getElementById("date1");
 let cityName= document.getElementById( "cityName");
 let inputContainer= document.getElementById("inputContainer");
-let cityInput=document.getElementById("cityInput");
-let firstsetup=document.getElementById("firstsetup");
+let inputContainer2= document.getElementById("inputContainer2");
+let cityInput= document.getElementById("cityInput");
+let firstsetup= document.getElementById("firstsetup");
 let temperature= document.getElementById("temperature");
 let feels_like_w =document.getElementById("feels_like_w");
 let min_max=document.getElementById("min_max");
@@ -14,7 +15,7 @@ let wind_condition = document.getElementById("wind_condition");
 let current_condition= document.getElementById("cond");
 let create_list =document.getElementById("create_list");
 let image_box=document.getElementsByClassName("box");
-let submitXX=document.getElementById("submit");
+let submit1=document.getElementById("submit1");
 let myDIV = document.getElementById("myDIV");
 let Prediction = document.getElementById( "prediction");
 let mylink=document.getElementById("mylink");
@@ -22,8 +23,8 @@ let extra_list=document.getElementById("extra_list");
 let additional=document.getElementById("additional");
 let part1=document.getElementById("part1");
 let table_DIV=document.getElementById("table_DIV")
-
-
+let submit2=document.getElementById("submit2");
+let new_assign_temp= document.getElementById("tempNewInput")
 // Global variable: All global variables goes here
 // According to https://www.windfinder.com/wind/windspeed.html   wind boundry was set to below::::
 // that is for moderate breeze ::: 1ktz nearly equal .55 m/s
@@ -58,7 +59,8 @@ let index_wind ;
 //#####################################################################
 // Calling main functions here----------------------------
 
-submitXX.addEventListener("click" , GetInfo);
+submit1.addEventListener("click" , GetInfo);
+submit2.addEventListener("click", update_cloths);
 
 //####################----All other functions / objects/ array gioes here----##################################
 
@@ -80,8 +82,8 @@ submitXX.addEventListener("click" , GetInfo);
         console.log("TEST GetInfo First line")
 
         var newName = document.getElementById("cityInput");
-        var cityName = document.getElementById("cityName");
-        var new_temperature=document.getElementById ("")
+        //var cityName = document.getElementById("cityName");
+        //var new_temperature=document.getElementById ("")
         //let var2=  newName.value.toLowerCase() ;
         //let test3=var2[0].toUpperCase() + (var2[1, end]).toLowerCase();
            // console.log(var2+ "**" + test3)
@@ -161,8 +163,7 @@ submitXX.addEventListener("click" , GetInfo);
             
 
             let rain_time = data.list[index_rain].dt_txt;
-
-            
+  
 
             let max_temp = Math.round(Math.max(...arr_temp));
             let min_temp = Math.round(Math.min(...arr_temp));
@@ -170,7 +171,6 @@ submitXX.addEventListener("click" , GetInfo);
 
             min_max.innerText = min_temp + " ºC | " +max_temp+ " ºC";
         
-
             create_checklist();
             create_table();
             
@@ -270,7 +270,6 @@ submitXX.addEventListener("click" , GetInfo);
 
                 const lat = pos.coords.latitude;
                 geo.latitude=lat;
-
 
                 const lon = pos.coords.longitude;
                 geo.longitude=lon;
@@ -382,7 +381,6 @@ submitXX.addEventListener("click" , GetInfo);
         // below -25 :: I add this to put some warning message
             case feels_like_temperature<-25:
             return array_cloths.too_cold;
-            console.log("we need another warning message or something for this.")
                 break;
         //below -15
             case feels_like_temperature <-15:
@@ -528,6 +526,62 @@ submitXX.addEventListener("click" , GetInfo);
         }
     }
 
+    function update_cloths(){    
+       feels_like_temperature= document.getElementById("tempNewInput").value
+        console.log("testjjj"+feels_like_temperature)
+
+    
+        if (myDIV.hasChildNodes()) {
+            while (myDIV.hasChildNodes()) {
+                myDIV.removeChild(myDIV.lastChild);
+            }
+        }
+
+        if (image_box[0].hasChildNodes()) {
+            while (image_box[0].hasChildNodes()) {
+                image_box[0].removeChild(image_box[0].lastChild);
+            }
+        }
+
+        cloths_need = check_temperature();
+        //console.log(cloths_need.length)
+        angle_needed=Math.ceil(360/cloths_need.length);
+        console.log(angle_needed)
+    
+        cloths_need.forEach(function(element,item) {    
+            // create check boxes and set names using array names
+            var chk_box = document.createElement("INPUT");
+            chk_box.setAttribute("type", "checkbox");
+            chk_box.setAttribute("name", "test")
+            chk_box.setAttribute("id", "mycheckbox");
+
+            var chk_box_lable = document.createElement("LABEL");
+            chk_box_lable.setAttribute("for", "mycheckbox");
+            chk_box_lable.innerText= '\u00a0' + '\u00a0'+element + '\u00a0' + '\u00a0';
+
+            myDIV.appendChild(chk_box);
+            myDIV.appendChild(chk_box_lable);
+ 
+            // Create pictures under same name::
+            image = document.createElement("img");
+            image.src=`Pictures/${element}.jpg`; // assign the name for the image:::
+            
+    
+            // Adding images to header DIV
+            span_1=document.createElement("span");
+            span_1.style= `--i:${item*angle_needed};`;
+            span_1.appendChild(image);
+    
+            image_box[0].appendChild(span_1);
+
+
+        });
+        
+        max_rainPresentage=0;
+        max_windrate=0;
+        extra_items(); 
+
+    }
         //////********************************************************************************* */
     // lets make an object with different cloths:
     const array_cloths =
