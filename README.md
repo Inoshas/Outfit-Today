@@ -6,37 +6,58 @@ In the enchanting land of Finland, children of all ages frolic outdoors during t
 
 Our project steps in as the ultimate solution. We've meticulously analyzed extensive weather data, blending it with meticulous clothing recommendations from nurseries and experts. Our system harmonizes meteorological insights with practical apparel advice, ensuring that every child is comfortably dressed for their outdoor adventures.
 
-But our project doesn't stop there. We're all about accessibility and empowerment. If you're curious about what to wear for a specific temperature range, our platform offers a convenient search feature. This equips you with the knowledge you need to make informed clothing choices for any weather scenario.
+But our project doesn't stop there. We're all about accessibility and empowerment. If you're curious about what to wear for a specific temperature range, our platform offers a convenient search feature. This equips you with the knowledge you need to make informed clothing choices for any weather scenario. This feature is particularly helpful for travelers looking to pack their bags efficiently based on the expected weather at their destination.
 
-In essence, our project strives to simplify lives, fostering a more seamless and enjoyable experience for parents, caregivers, and newcomers alike. So whether you're planning your child's outdoor attire or seeking insights into temperature-based clothing selections, our initiative is here to make your journey smoother. Join us in embracing the Finnish outdoors with confidence and comfort.
+In essence, our project strives to simplify lives, fostering a more seamless and enjoyable experience for parents, caregivers, and newcomers alike. So whether you're planning your child's outdoor attire or seeking insights into temperature-based clothing selections, our initiative is here to make your journey smoother. Join us in embracing the outdoors with confidence and comfort.
 
-This project can be divided into three main parts. 
-* Fetching data
-* Processing data
-* Presenting data 
+## Project Overview
+
+This project can be divided into three main parts:
+
+1. **Fetching Data**: Our system collects real-time and forecasted weather data, which serves as the foundation for outfit recommendations.
+
+2. **Processing Data**: The gathered weather data is analyzed and paired with suitable clothing options based on Finnish climate insights.
+
+3. **Presenting Data**: Users receive tailored outfit suggestions, complete with weather conditions, temperature insights, and additional details like wind and rain conditions. A dedicated search feature assists travelers in planning their clothing based on specific temperature ranges.
+
+Feel free to explore and contribute to our project as we work to make outdoor clothing choices smarter and more accessible for everyone.
+
+
+
 
 
 ### Target groups:
-Children, Parents, New immigrants, Daycare staff, School teachers. 
+Children, Parents, New immigrants, Daycare staff, School teachers, Travelers. 
 
 ### Content: 
 The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_today.html' and 'outfit_today.css' respectlively. 
 
-## How to Use:
 
-Download the Files: Start by downloading all the required project files to your device.
 
-Launch the Application: Once you have the files ready, open your preferred web browser and locate the 'outfit_today.html' file among the downloaded files.
 
-Setting Your Location: There are two ways to set your location:
 
-Manual Entry: You can manually input your location details into the designated area.
-Automatic Location Detection: Alternatively, you can grant the browser access to your location. Upon approval, the system will automatically retrieve your current location.
-Access Your Weather-Ready Outfit: After confirming your location, our system will swiftly process the weather data. You'll then receive a carefully curated outfit suggestion tailored to the prevailing weather conditions.
+## Getting Started
 
-Temperature Insights: As an added feature, the current temperature will be displayed in the lower left corner of the screen, providing you with a quick reference point.
+Follow these steps to get started with the outfit selector:
 
-Get ready to stride confidently into the Finnish outdoors, equipped with the perfect ensemble for the day's weather. Our user-friendly interface ensures that you're comfortably dressed and prepared for your outdoor adventures. So, whether you're manually entering your location or allowing automatic access, our outfit selector is here to assist you every step of the way. Enjoy your time outdoors, stress-free!
+1. **Download the Files**: Download all the required project files to your device.
+
+2. **Launch the Application**: Open your preferred web browser and locate the 'outfit_today.html' file among the downloaded files.
+
+3. **Setting Your Location**: Choose one of two options to set your location:
+   - **Automatic Location Detection**: Grant the browser permission to access your location for automatic retrieval.
+   - **Manual Entry**: Input your location details manually in the designated area.
+     
+4. **Receive Your Outfit**: After confirming your location, the system will process weather data and provide a tailored outfit suggestion suitable for the current conditions.
+
+5. **Weather Insights**: Weather conditions, including temperature, wind and rain, will be displayed in the top left corner of the screen, providing a comprehensive overview of the outdoor environment.
+
+6. **Temperature Search**: For customized outfit recommendations based on specific temperature ranges, utilize the search button located at the bottom of the left-hand panel.
+
+
+Now you're ready to confidently embrace the outdoors, fully equipped with an outfit that matches the weather. Whether you manually enter your location or opt for automatic access, our outfit selector is here to streamline your clothing decisions. Enjoy your outdoor activities comfortably and with ease!
+
+
 
 ## Contributors
 
