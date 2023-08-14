@@ -54,6 +54,7 @@ Follow these steps to get started with the outfit selector:
 
 6. **Temperature Search**: For customized outfit recommendations based on specific temperature ranges, utilize the search button located at the bottom of the left-hand panel.
 
+![me](https://github.com/Inoshas/Outfit-Today/blob/main/Out_fit.gif)
 
 Now you're ready to confidently embrace the outdoors, fully equipped with an outfit that matches the weather. Whether you manually enter your location or opt for automatic access, our outfit selector is here to streamline your clothing decisions. Enjoy your outdoor activities comfortably and with ease!
 
