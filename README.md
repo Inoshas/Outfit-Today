@@ -1,3 +1,4 @@
+
 # Outfit Today
 
 Welcome to our GitHub project that aims to revolutionize outdoor gear choices based on current weather conditions and forecasts. Our platform caters particularly to the Finnish climate, where outdoor activities are an integral part of students' routines, regardless of the weather. 
@@ -23,18 +24,11 @@ This project can be divided into three main parts:
 Feel free to explore and contribute to our project as we work to make outdoor clothing choices smarter and more accessible for everyone.
 
 
-
-
-
 ### Target groups:
 Children, Parents, New immigrants, Daycare staff, School teachers, Travelers. 
 
 ### Content: 
 The main javasript, HTML and CSS files are named as 'outfit_today.js', 'outfit_today.html' and 'outfit_today.css' respectlively. 
-
-
-
-
 
 ## Getting Started
 
@@ -42,7 +36,7 @@ Follow these steps to get started with the outfit selector:
 
 1. **Download the Files**: Download all the required project files to your device.
 
-2. **Launch the Application**: Open your preferred web browser and locate the 'outfit_today.html' file among the downloaded files.
+2. **Launch the Application**: Open your preferred web browser and locate the 'outfit_today.html' file among the downloaded files. [Enabling JavaScript](#enabling-javascript-in-your-web-browser) in your web browser is essential to ensure that websites and web applications can function correctly, as many modern websites rely on JavaScript for interactivity and functionality.
 
 3. **Setting Your Location**: Choose one of two options to set your location:
    - **Automatic Location Detection**: Grant the browser permission to access your location for automatic retrieval.
@@ -57,6 +51,71 @@ Follow these steps to get started with the outfit selector:
 ![me](https://github.com/Inoshas/Outfit-Today/blob/main/Out_fit.gif)
 
 Now you're ready to confidently embrace the outdoors, fully equipped with an outfit that matches the weather. Whether you manually enter your location or opt for automatic access, our outfit selector is here to streamline your clothing decisions. Enjoy your outdoor activities comfortably and with ease!
+
+
+## Enabling JavaScript in Your Web Browser
+
+JavaScript is a fundamental scripting language for web development, and it's essential to ensure that websites and web applications work correctly. If you encounter issues with a website or web app not functioning as expected, it's possible that JavaScript is disabled in your web browser. This guide provides step-by-step instructions for enabling JavaScript in popular web browsers.
+
+#### Google Chrome
+
+1. Open Google Chrome.
+
+2. Click on the three vertical dots in the upper-right corner to open the menu.
+
+3. Select "Settings."
+
+4. Scroll down and click on "Privacy and security" in the left sidebar.
+
+5. Under "Privacy and security," click on "Site settings."
+
+6. Scroll down to find "JavaScript" and click on it.
+
+7. Toggle the switch next to "Allowed (recommended)" to enable JavaScript.
+
+#### Mozilla Firefox
+
+1. Open Mozilla Firefox.
+
+2. Click on the three horizontal lines (menu icon) in the upper-right corner to open the menu.
+
+3. Select "Options."
+
+4. In the left sidebar, click on "Privacy & Security."
+
+5. Under the "Permissions" section, find "JavaScript" and ensure the checkbox next to "Enable JavaScript" is checked.
+
+#### Microsoft Edge
+
+Microsoft Edge typically has JavaScript enabled by default. However, if you need to check or adjust the settings:
+
+1. Open Microsoft Edge.
+
+2. Click on the three horizontal dots in the upper-right corner to open the menu.
+
+3. Select "Settings."
+
+4. Scroll down and click on "Cookies and site permissions."
+
+5. Click on "JavaScript."
+
+6. Ensure the switch next to "Allowed" is in the "On" position.
+
+#### Safari (macOS)
+
+JavaScript is enabled by default in Safari. If you've disabled it and want to enable it again:
+
+1. Open Safari.
+
+2. Click on "Safari" in the menu bar at the top-left corner.
+
+3. Select "Preferences."
+
+4. Click on the "Security" tab.
+
+5. Ensure the checkbox next to "Enable JavaScript" is checked.
+
+
 
 
 
